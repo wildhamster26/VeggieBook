@@ -63,7 +63,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Welcome to Veggiebook';
 
 
 // Enable authentication using session + passport

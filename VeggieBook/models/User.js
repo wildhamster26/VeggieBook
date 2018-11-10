@@ -15,7 +15,8 @@ const userSchema = new Schema({
   fears: String,
   //favorite foods to be in
   favFoods: String,
-  darkSecret: String
+  darkSecret: String,
+  confirmationCode: String,
 }, {
   timestamps: {
     createdAt: 'created_at',
