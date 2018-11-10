@@ -1,13 +1,21 @@
 <h2>Edit posts details</h2>
 
 <form action="/posts/{{post._id}}/edit" method="post">
-Title: <input value= "{{post.title}}" type="text" name="title"> 
-Content: <input value= "{{post.content}}" type="text" name="content">
-Visibility: <select name="visibility">
+
+<label for="title">Title</label> <br>
+<input value= "{{post.title}}" type="text" name="title"> <br><br>
+
+<label for="content">You post</label> <br>
+<input value= "{{post.content}}" type="text" name="content"> <br><br>
+
+<label for="visibility">Choose who can see your post</label> <br>
+<select name="visibility">
   <option value="Public">Public</option>
   <option value="Private">Private</option>
 </select> <br><br>
-Category: <select name="Category">
+
+<label for="category">Help other veggies find the kind of post it is by selecting a category</label> <br>
+<select name="category">
   <option value="Recommendation">Recommendation</option>
   <option value="Story">Story</option>
   <option value="Question">Question</option>
@@ -15,3 +23,5 @@ Category: <select name="Category">
 
 <button type="submit"> Confirm changes </button>
 </form>
+
+

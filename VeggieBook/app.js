@@ -77,14 +77,15 @@ app.use(flash());
 require('./passport')(app);
     
 
-const index = require('./routes/index');
-app.use('/', index);
+app.use((req,res, next) => {
+  res.locals.isConnected = !!req.user
+  next() 
+})
 
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
 
-const postsRoutes = require('./routes/posts');
-app.use('/posts', postsRoutes);
+app.use('/', require('./routes/index'));
+app.use('/auth', require('./routes/auth'));
+app.use('/posts', require('./routes/posts'));
       
 
 module.exports = app;

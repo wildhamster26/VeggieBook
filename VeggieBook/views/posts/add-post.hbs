@@ -2,13 +2,21 @@
 <h1>Add your post</h1>
 
 <form action="/posts/add" method="post">
-Title: <input type="text" name="title"> <br> <br>
-Content: <textarea name="content" cols="30" row="10"></textarea> <br>
-Visibility: <select name="visibility">
+
+<label for="title">Title</label> <br>
+<input type="text" name="title" placeholder="Enter your post title here"> <br><br>
+
+<label for="content">You post</label> <br>
+<textarea name="content" cols="30" row="10"></textarea> <br> <br>
+
+<label for="visibility">Choose who can see your post</label> <br>
+<select name="visibility">
   <option value="Public">Public</option>
   <option value="Private">Private</option>
-</select> <br><br>
-Category: <select name="Category">
+</select> <br> <br>
+
+<label for="category">Help other veggies find the kind of post it is by selecting a category</label> <br>
+ <select name="category">
   <option value="Recommendation">Recommendation</option>
   <option value="Story">Story</option>
   <option value="Question">Question</option>

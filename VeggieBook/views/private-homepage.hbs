@@ -4,19 +4,25 @@
 <div id="newsfeed">
 <h2>Newsfeed</h2>
 
+ <form action="/posts/add" method:"get">
+    <button>Create a new post</button>
+    </form>
 
 <ul>
   {{#each posts}}
   <li>
-    {{!-- <a href="/posts/{{this._id}}"> --}}
-      {{this.title}} <br> 
-      {{this.content}} <br> <br>
-    {{!-- </a> <br><br> --}}
-      Posted by :{{this._creator.username}}
-    (      
-    <a href="/posts/{{this._id}}/edit">Edit</a>,
-    <a href="/posts/{{this._id}}/delete">Delete</a>
-    )
+    {{this.title}} <br> 
+    {{this.content}} <br> <br>
+    Posted by :{{this._creator.username}}
+    
+    {{!-- EDIT button --}}
+    <form action="/posts/{{this._id}}/edit" method:"get">
+    <button>Edit</button>
+    </form>
+    {{!-- DELETE button --}}
+     <form action="/posts/{{this._id}}/delete" method:"get">
+    <button>Delete</button>
+    </form>
   </li>
   {{/each}}
 </ul>
