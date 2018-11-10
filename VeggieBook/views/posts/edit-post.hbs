@@ -1,9 +1,8 @@
+<h2>Edit posts details</h2>
 
-<h1>Add your post</h1>
-
-<form action="/add-post" method="post">
-Title: <input type="text" name="title"> <br> <br>
-Content: <textarea name="content" cols="30" row="10"></textarea> <br>
+<form action="/posts/{{post._id}}/" method="post">
+Title: <input value= "{{post.title}}" type="text" name="title"> 
+Content: <input value= "{{post.content}}" type="text" name="content">
 Visibility: <select name="visibility">
   <option value="public">Public</option>
   <option value="private">Private</option>
@@ -13,6 +12,5 @@ Category: <select name="Category">
   <option value="story">Story</option>
   <option value="question">Question</option>
 </select> <br><br>
-
-<button type=submit> Add post</button>
+<button type="submit"> Confirm changes </button>
 </form>

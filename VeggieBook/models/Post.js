@@ -5,10 +5,13 @@ const Schema   = mongoose.Schema;
 
 
 const postSchema = new Schema({
-  title: String,
-  content: String,
+  title: {type: String, required:true},
+  content: {type: String, required:true},
+  image: String,
+  visibility: {type: String, enum: ["Private", "Public"], default: "Public"},
+  category: {type: String, enum:["Recommendation", "Story", "Question"], default: "Story"},
   _creator: {type: Schema.Types.ObjectId, ref: 'User'},
-  _pic: {type: Schema.Types.ObjectId, ref: 'Picture'}
+  // _pic: {type: Schema.Types.ObjectId, ref: 'Picture'}
 }, {
   timestamps: {
     createdAt: 'created_at',
