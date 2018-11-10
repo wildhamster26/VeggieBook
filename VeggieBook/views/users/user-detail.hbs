@@ -1,0 +1,17 @@
+<h1>{{user.username}}</h1>			
+<strong>Email</strong>: {{user.email}} <br>			
+<strong>Kind</strong>: {{user.kind}} <br>			
+<strong>Age</strong>: {{user.age}} <br>		
+<strong>Phone number</strong>: {{user.phoneNumber}} <br>		
+<strong>Hobbies</strong>: {{user.hobbies}} <br>		
+<strong>Fears</strong>: {{user.fears}} <br>		
+<strong>Favorite foods to be in</strong>: {{user.favFoods}} <br>		
+<strong>Dark secret</strong>: {{user.darkSecret}} <br>					
+<p>			
+	<a href="/users/{{user._id}}/edit">Edit</a><br>		
+	<a href="/users/{{user._id}}/delete">Delete</a><br>		
+</p>			
+
+{{#if message}}
+    <div class="error-message">{{ message }}</div>
+{{/if}}

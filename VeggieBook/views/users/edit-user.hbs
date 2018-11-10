@@ -1,0 +1,54 @@
+<h1>Edit user</h1>					
+					
+{{#if error}}					
+	<div class="alert-red">				
+		{{error}}			
+	</div>				
+{{/if}}					
+					
+			
+
+<form action="/users/{{user._id}}/edit" method="post">					
+  <label for="username">Username</label>
+  <input id="username" value="{{user.username}}" type="text" name="username" placeholder="JonSnow" required>
+
+  <br><br>
+
+  <label for="password">Password</label>
+  <input id="password" value="{{user.password}}" type="password" name="password" placeholder="Your password" required>
+  <br><br>
+
+  <label for="email">Email</label>
+  <input id="email" value="{{user.email}}" type="email" name="email" placeholder="Your email" required>
+  <br><br>
+
+  <label for="kind">What kind of vegetable are you?</label>
+  <input id="kind" value="{{user.kind}}" type="kind" name="kind" placeholder="Your kind">
+  <br><br>
+
+  <label for="age">How old are you? (In pickle years)</label>
+  <input id="age" value="{{user.age}}" type="age" name="age" placeholder="Your age">
+  <br><br>
+
+  <label for="phoneNumber">What is your phone number?</label>
+  <input id="phoneNumber" value="{{user.phoneNumber}}" type="phoneNumber" name="phoneNumber" placeholder="Your phone number">
+  <br><br>
+
+  <label for="hobbies">What are your hobbies?</label>
+  <input id="hobbies" value="{{user.hobbies}}" type="hobbies" name="hobbies" placeholder="Your hobbies">
+  <br><br>
+
+  <label for="fears">What are your fears?</label>
+  <input id="fears" value="{{user.fears}}" type="fears" name="fears" placeholder="Your fears">
+  <br><br>
+
+  <label for="darkSecret">What is your darkest, vegetabliest secret?</label>
+  <input id="darkSecret" value="{{user.darkSecret}}" type="darkSecret" name="darkSecret" placeholder="Your darkSecret">
+  <br><br>
+
+  <button>Accept changes</button>
+  {{#if message }}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
+
+  <br><br>

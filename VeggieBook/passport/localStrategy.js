@@ -6,10 +6,11 @@ const User          = require('../models/User');
 const bcrypt        = require('bcrypt');
 
 passport.use(new LocalStrategy({
+    passReqToCallback: true,
     usernameField: 'username',
     passwordField: 'password'
   }, 
-  (username, password, done) => {
+  (req, username, password, done) => {
     User.findOne({ username })
     .then(foundUser => {
       if (!foundUser) {
