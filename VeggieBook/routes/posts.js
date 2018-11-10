@@ -20,11 +20,11 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
     title:req.body.title,
     content: req.body.content,
     visibility:req.body.visibility,
-    category: reqbody.category,
+    category: req.body.category,
     _creator: req.user._id  //this ensures that the creator of the post is the user that is currently logged in
   })
   .then(user => {
-    console.log(req.user._id)
+    console.log("ADDING THE POST WORKED!!!")
     res.redirect('/posts')
   })
 });
@@ -33,32 +33,33 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
 router.get('/', (req, res, next) => {
   Post.find()
   .populate("_creator")
-  .then(posts =>{
-    res.render('posts/private-homepage', {posts: posts})
+  .then(posts => {
+    res.render('private-homepage', {posts: posts})
     console.log('posts')
   })
 })
 
 //EDITING POSTSS
-router.get("/posts/:id/edit", ensureLoggedIn(), (req, res, next) => {
+router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
+  console.log("EDIT")
   Post.findById(req.params.id).then(post => {
     res.render("posts/edit-post", {post});
   });
 });
 
-router.post("/posts/:id/edit",  ensureLoggedIn(), (req, res, next) => {
+router.post("/:id/edit",  ensureLoggedIn(), (req, res, next) => {
   Post.findByIdAndUpdate(req.params.id, {
     title: req.body.title,
     content: req.body.content,
-    visibility:req.body.visibility,
-    category: reqbody.category,
+    visibility: req.body.visibility,
+    category: req.body.category,
   }).then(post => {
-    res.redirect("/posts" + post._id);
+    res.redirect("/posts");
   });
 });
 
 //DELETING POSTS
-router.get('/posts/:id/delete', ensureLoggedIn(),  (req, res, next) => {
+router.get('/:id/delete', ensureLoggedIn(),  (req, res, next) => {
   Post.findByIdAndRemove(req.params.id)
     .then(post => {
       res.redirect('/posts')

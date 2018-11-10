@@ -1,16 +1,17 @@
 <h2>Edit posts details</h2>
 
-<form action="/posts/{{post._id}}/" method="post">
+<form action="/posts/{{post._id}}/edit" method="post">
 Title: <input value= "{{post.title}}" type="text" name="title"> 
 Content: <input value= "{{post.content}}" type="text" name="content">
 Visibility: <select name="visibility">
-  <option value="public">Public</option>
-  <option value="private">Private</option>
+  <option value="Public">Public</option>
+  <option value="Private">Private</option>
 </select> <br><br>
 Category: <select name="Category">
-  <option value="recommendation">Recommendation</option>
-  <option value="story">Story</option>
-  <option value="question">Question</option>
+  <option value="Recommendation">Recommendation</option>
+  <option value="Story">Story</option>
+  <option value="Question">Question</option>
 </select> <br><br>
+
 <button type="submit"> Confirm changes </button>
 </form>

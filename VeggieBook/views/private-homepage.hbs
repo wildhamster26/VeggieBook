@@ -1,23 +1,19 @@
 <h1>Welcome to your homepage</h1>
 
-
-
-
 {{!-- This is to display the posts that users create --}}
 <div id="newsfeed">
 <h2>Newsfeed</h2>
 
+
 <ul>
   {{#each posts}}
   <li>
-    <a href="/posts/{{this._id}}">
-      {{this.title}}
-      {{this.content}}
-    </a> <br>
+    {{!-- <a href="/posts/{{this._id}}"> --}}
+      {{this.title}} <br> 
+      {{this.content}} <br> <br>
+    {{!-- </a> <br><br> --}}
       Posted by :{{this._creator.username}}
-    (
-      {{!-- These are not active yet --}}
-      
+    (      
     <a href="/posts/{{this._id}}/edit">Edit</a>,
     <a href="/posts/{{this._id}}/delete">Delete</a>
     )
