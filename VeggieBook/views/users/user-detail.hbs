@@ -11,3 +11,7 @@
 	<a href="/users/{{user._id}}/edit">Edit</a><br>		
 	<a href="/users/{{user._id}}/delete">Delete</a><br>		
 </p>			
+
+{{#if message}}
+    <div class="error-message">{{ message }}</div>
+{{/if}}

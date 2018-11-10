@@ -2,7 +2,8 @@
 
 const express = require('express');
 const router  = express.Router();
-const User = require("../models/User")
+const User = require("../models/User");
+const ensureLogin = require("connect-ensure-login");
 
 /* GET home page */
 router.get('/', (req, res, next) => {
@@ -10,14 +11,17 @@ router.get('/', (req, res, next) => {
 });
 
 
-router.get('/users', (req, res, next) => {			
+router.get('/users', ensureLogin.ensureLoggedIn(), (req, res, next) => {			
 	// Get all the users from the db		
 	User.find()		
 	.then(users => {		
 		res.render("users/users", {	
 			users: users
 		})	
-	})		
+  })
+  .catch(error => {	
+    redirect("/auth/login")
+  })			
 });
 
 router.get('/users/:id', (req, res, next) => {			
