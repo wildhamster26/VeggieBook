@@ -25,7 +25,7 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
     _creator: req.user._id  //this ensures that the creator of the post is the user that is currently logged in
   })
   .then(user => {
-    console.log("ADDING THE POST WORKED!!!")
+    // console.log("ADDING THE POST WORKED!!!")
     res.redirect('/posts')
   })
 });
@@ -36,13 +36,13 @@ router.get('/', (req, res, next) => {
   .populate("_creator")
   .then(posts => {
     res.render('private-homepage', {posts: posts})
-    console.log('posts')
+    // console.log('posts')
   })
 })
 
 //EDITING POSTS
 router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
-  console.log("EDIT")
+  // console.log("EDIT")
   Post.findById(req.params.id).then(post => {
     res.render("posts/edit-post", {post});
   });
@@ -73,6 +73,7 @@ router.post('/:postId/add-comment', ensureLoggedIn(), (req, res, next) => {
   let postId = req.params.postId
   let _ownerId = req.user._id
   let creatorUsername = req.user.username
+  // console.log(req.user._id)
   Commnt.create({
       _creatorId: _ownerId,
       creatorUsername: creatorUsername,
@@ -82,9 +83,32 @@ router.post('/:postId/add-comment', ensureLoggedIn(), (req, res, next) => {
   })
   .then(comment => {
     Post.findByIdAndUpdate({ _id: postId }, { $push: {comments: comment} })
-      .then(console.log('success'))
+      .then(user => {
+        res.redirect('/posts')
+      })
   })
 });
+
+//DELETING COMMENTS
+router.get('/:postId/comment/:commId/delete', ensureLoggedIn(),  (req, res, next) => {
+  let postId = req.params.postId
+  let commId = req.params.commId
+  // res.redirect('/posts')
+  // Commnt.findByIdAndDelete(commId)
+  Post.findById(postId)
+    .then(post => {
+      var updatedComments = post.comments.filter((el, i) => {
+        return el._id != commId
+      })
+      Post.findByIdAndUpdate({ _id: postId }, {comments: updatedComments} )
+        .then(user => {
+          res.redirect('/posts')
+          // console.log('comment deleted')
+        })
+      
+    })
+  
+})
 
 
 
