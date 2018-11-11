@@ -1,11 +1,12 @@
 "use strict";
 
-
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
+
 //Named Comment as Commnt because Comment is a reserved word for Javascript
 const commntSchema = new Schema({
-  _creator: { required: true, type: Schema.Types.ObjectId, ref: "User" },
+  _creatorId: { required: true, type: Schema.Types.ObjectId, ref: "User" },
+  creatorUsername: String,
   _post: { required: true, type: Schema.Types.ObjectId, ref: "Post" },
   content: String, 
   likes: Number

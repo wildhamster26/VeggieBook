@@ -11,17 +11,28 @@
 <ul>
   {{#each posts}}
   <li>
-    {{this.title}} <br> 
-    {{this.content}} <br> <br>
-    Posted by :{{this._creator.username}}
-    
-    {{!-- EDIT button --}}
+    <h3>{{this.title}}</h3>
+    <p>{{this.content}}</p>
+    <h5>Posted by: {{this._creator.username}}</h5> <br>
+
+    {{!-- DISPLAY ALL POST COMMENTS --}}
+    <h5>Comments:</h5>
+    {{#each this.comments}}
+      <h6>{{this.creatorUsername}}</h6>
+      <p>{{this.content}}</p>
+    {{/each}}
+    {{!-- EDIT POST button --}}
     <form action="/posts/{{this._id}}/edit" method:"get">
-    <button>Edit</button>
+      <button>Edit</button>
     </form>
-    {{!-- DELETE button --}}
+    {{!-- DELETE POST button --}}
      <form action="/posts/{{this._id}}/delete" method:"get">
-    <button>Delete</button>
+      <button>Delete</button>
+    </form>
+    {{!-- ADD COMMENT --}}
+    <form action="/posts/{{this._id}}/add-comment" method="POST">
+      <textarea name="content" cols="30" row="10"></textarea>
+      <button>Comment</button>
     </form>
   </li>
   {{/each}}

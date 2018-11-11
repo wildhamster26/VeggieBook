@@ -4,6 +4,7 @@ const express = require('express');
 const router  = express.Router();
 const {ensureLoggedIn} = require('connect-ensure-login');
 const Post = require('../models/Post')
+const Commnt = require('../models/Commnt')
 
 /* Will include routes to posts and comments */
 
@@ -39,7 +40,7 @@ router.get('/', (req, res, next) => {
   })
 })
 
-//EDITING POSTSS
+//EDITING POSTS
 router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
   console.log("EDIT")
   Post.findById(req.params.id).then(post => {
@@ -65,6 +66,25 @@ router.get('/:id/delete', ensureLoggedIn(),  (req, res, next) => {
       res.redirect('/posts')
     })
 })
+
+//ADDING COMMENTS
+router.post('/:postId/add-comment', ensureLoggedIn(), (req, res, next) => {
+  // console.log('DEBUG', req.params.postId)
+  let postId = req.params.postId
+  let _ownerId = req.user._id
+  let creatorUsername = req.user.username
+  Commnt.create({
+      _creatorId: _ownerId,
+      creatorUsername: creatorUsername,
+      _post: postId,
+      content: req.body.content,
+      likes: 0
+  })
+  .then(comment => {
+    Post.findByIdAndUpdate({ _id: postId }, { $push: {comments: comment} })
+      .then(console.log('success'))
+  })
+});
 
 
 
