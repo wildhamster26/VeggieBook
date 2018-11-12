@@ -40,11 +40,13 @@ router.get('/users/:id', (req, res, next) => {
 
 
 router.get('/users/:id/edit', (req, res, next) => {	
-  console.log(req.params.id);
-  console.log(req.user);
   User.findById(req.params.id)		
-	.then(user => {		
-    res.render('users/edit-user', { user})	
+	.then(user => {	  
+    console.log(req.user);
+    if(!(req.user._id == req.params.id))
+      res.redirect('/users');
+    else
+      res.render('users/edit-user', { user });
 	})		
 });
 
