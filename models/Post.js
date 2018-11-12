@@ -13,8 +13,11 @@ const postSchema = new Schema({
   // _pic: {type: Schema.Types.ObjectId, ref: 'Picture'}
   // comments: [ { type : Schema.Types.ObjectId, ref: 'Commnt' } ]
   comments: [ {
-    content: String,
-    _creator:  {type: Schema.Types.ObjectId, ref: 'User'},
+    _creatorId: { required: true, type: Schema.Types.ObjectId, ref: "User" },
+    creatorUsername: String,
+    _post: { required: true, type: Schema.Types.ObjectId, ref: "Post" },
+    content: String, 
+    likes: Number,
     createdAt: { type: Date, default: Date.now() }
   } ]
 }, {
