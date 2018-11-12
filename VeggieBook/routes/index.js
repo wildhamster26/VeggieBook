@@ -4,6 +4,7 @@ const express = require('express');
 const router  = express.Router();
 const User = require("../models/User");
 const ensureLogin = require("connect-ensure-login");
+const uploadCloud = require('../config/cloudinary.js');
 
 /* GET home page */
 router.get('/', (req, res, next) => {
@@ -11,7 +12,7 @@ router.get('/', (req, res, next) => {
 });
 
 
-router.get('/users', ensureLogin.ensureLoggedIn(), (req, res, next) => {			
+router.get('/users', ensureLogin.ensureLoggedIn("/auth/login"), (req, res, next) => {			
 	// Get all the users from the db		
 	User.find()		
 	.then(users => {		
@@ -45,7 +46,7 @@ router.get('/users/:id/edit', (req, res, next) => {
 	})		
 });
 
-router.post('/users/:id/edit', (req, res, next) => {	
+router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => {	
   User.findByIdAndUpdate(req.params.id, {
   username: req.body.username,
   password: req.body.password,
@@ -56,7 +57,9 @@ router.post('/users/:id/edit', (req, res, next) => {
   hobbies: req.body.hobbies,
   fears: req.body.fears,
   favFoods: req.body.favFoods,
-  darkSecret: req.body.darkSecret
+  darkSecret: req.body.darkSecret,
+  // imgPath = req.file.url,
+  // imgName = req.file.originalname
   })
 	.then(user => {	
     res.redirect('/users')	

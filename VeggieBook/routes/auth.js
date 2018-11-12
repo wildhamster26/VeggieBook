@@ -6,6 +6,10 @@ const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 const User = require("../models/User");
+const uploadCloud = require('../config/cloudinary.js');
+const cloudinary = require("cloudinary");
+
+
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -27,7 +31,7 @@ router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
@@ -38,7 +42,14 @@ router.post("/signup", (req, res, next) => {
   const fears = req.body.fears;
   const favFoods = req.body.favFoods;
   const darkSecret = req.body.darkSecret;
+  const imgPath = req.file.url;
+  const imgName = req.file.originalname;
   const confirmationCode = randomstring.generate(30)
+  // cloudinary.v2.uploader.upload(req.file.path, 
+  //   function(error, result) {console.log(result, error)});
+  cloudinary.v2.uploader.upload(req.file.path, function(req, res) {
+    console.log("This is the result when uploading an image:", res); //on uploading, cloudinary sends a url
+    })
   if (username === "" || password === "" || email === "") {
     res.render("auth/signup", { message: "Indicate username, password and email" });
     return;
@@ -65,6 +76,8 @@ router.post("/signup", (req, res, next) => {
       fears,
       darkSecret,
       confirmationCode,
+      imgPath,
+      imgName
     });
 
     newUser.save()

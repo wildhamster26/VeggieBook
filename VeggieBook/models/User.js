@@ -17,6 +17,8 @@ const userSchema = new Schema({
   favFoods: String,
   darkSecret: String,
   confirmationCode: String,
+  imgName: String,
+  imgPath: String
 }, {
   timestamps: {
     createdAt: 'created_at',

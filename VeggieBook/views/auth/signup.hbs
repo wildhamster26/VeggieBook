@@ -1,6 +1,6 @@
 <h2>Signup</h2>
 
-<form action="/auth/signup" method="POST" id="form-container">
+<form action="/auth/signup" method="POST" id="form-container" enctype="multipart/form-data">
   <label for="username">Username</label>
   <input id="username" type="text" name="username" placeholder="JonSnow" required>
 
@@ -12,6 +12,10 @@
 
   <label for="email">Email</label>
   <input id="email" type="email" name="email" placeholder="Your email" required>
+  <br><br>
+
+  <label>Profile picture</label>
+  <input type="file" name="photo">
   <br><br>
 
   <label for="kind">What kind of vegetable are you?</label>
