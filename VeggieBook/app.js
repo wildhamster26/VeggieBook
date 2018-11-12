@@ -80,9 +80,12 @@ require('./passport')(app);
 // This middleware gives variables "isConnected" and "isOwner" to the view
 app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
-  res.locals.isOwner = req.user && req.user.role == 'Boss'
+  res.locals.currentUserId = req.user._id
+  // console.log('REQ.USER', req.user._id)
   next() 
 })
+
+
 
 
 
