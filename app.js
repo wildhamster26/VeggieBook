@@ -19,13 +19,13 @@ const {ensureLoggedIn} = require('connect-ensure-login');
     
 
 mongoose
-  .connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-  })
-  .catch(err => {
-    console.error('Error connecting to mongo', err)
-  });
+.connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
+.then(x => {
+  console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+})
+.catch(err => {
+  console.error('Error connecting to mongo', err)
+});
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -45,7 +45,7 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -55,14 +55,18 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 hbs.registerHelper('ifUndefined', (value, options) => {
   if (arguments.length < 2)
-      throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
+  throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
   if (typeof value !== undefined ) {
-      return options.inverse(this);
+    return options.inverse(this);
   } else {
-      return options.fn(this);
+    return options.fn(this);
   }
 });
-  
+
+
+hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+   return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
+});
 
 // default value for title local
 app.locals.title = 'Welcome to Veggiebook';
@@ -77,11 +81,12 @@ app.use(session({
 }))
 app.use(flash());
 require('./passport')(app);
-    
+
 
 // This middleware gives variables "isConnected" and "isOwner" to the view
 app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
+  // console.log('isOwner', isOwner)
   if (req.user) {
     res.locals.currentUserId = req.user._id
     // console.log(res.locals.currentUserId)
@@ -89,10 +94,6 @@ app.use((req,res, next) => {
   // console.log('REQ.USER', req.user._id)
   next() 
 })
-
-
-
-
 
 
 app.use('/', require('./routes/index'));

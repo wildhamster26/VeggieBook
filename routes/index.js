@@ -26,11 +26,15 @@ router.get('/users', ensureLogin.ensureLoggedIn("/auth/login"), (req, res, next)
 });
 
 router.get('/users/:id', (req, res, next) => {			
-  let id = req.params.id		
-  User.findById(id)		
+  let profileOwner = false;
+  let id = req.params.id
+  if(req.user._id == req.params.id)
+    profileOwner = true;
+  User.findById(id)	
     .then(user => {	
+      console.log("this is the owner:", profileOwner)
     res.render('users/user-detail', {	
-      user: user
+      user, profileOwner
       })	
     })	
   .catch(error => {	
@@ -39,12 +43,13 @@ router.get('/users/:id', (req, res, next) => {
 });		
 
 
-router.get('/users/:id/edit', (req, res, next) => {	
-  console.log(req.params.id);
-  console.log(req.user);
+router.get('/users/:id/edit', (req, res, next) => {
   User.findById(req.params.id)		
-	.then(user => {		
-    res.render('users/edit-user', { user})	
+	.then(user => {
+    if(!(req.user._id == req.params.id))
+      res.redirect('/users');
+    else
+      res.render('users/edit-user', { user });
 	})		
 });
 
@@ -62,15 +67,18 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
   darkSecret: req.body.darkSecret
   })
 	.then(user => {	
-    res.redirect('/users')	
+    res.redirect('/users');	
 	})		
 });
 
-router.get('/users/:id/delete', (req, res, next) => {		
-  User.findByIdAndRemove(req.params.id)	
-  .then(user => {	
-    res.redirect('/users')
-  })	
+router.get('/users/:id/delete', (req, res, next) => {
+  if(!(req.user._id == req.params.id))
+    res.redirect('/users');
+  else
+    User.findByIdAndRemove(req.params.id)
+    .then(user => {	
+      res.redirect('/users')
+    })	
 });
 
 

@@ -1,8 +1,12 @@
 <h1>Welcome to your homepage</h1>
 
+
+
 {{!-- This is to display the posts that users create --}}
 <div id="newsfeed">
 <h2>Newsfeed</h2>
+     
+  
 
  <form action="/posts/add" method:"get">
     <button>Create a new post</button>
@@ -20,16 +24,13 @@
     {{#each this.comments}}
       <h6>{{this.creatorUsername}}</h6>
       <p>{{this.content}}</p>
-      {{!-- {{#if currentUserId == this._creatorId}} --}}
-      {{this.creatorUsername}}
-      {{this._id}}
-      {{currentUserId}}
-      {{this._creatorId}}
+      {{#ifEquals ../../user._id this._creatorId }}
         <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
-          <button>Delete comment</button>
+          <button>Delete comment</button> 
         </form>
-      {{!-- {{/if}} --}}
+      {{/ifEquals}}
     {{/each}}
+    
     {{!-- EDIT POST button --}}
     <form action="/posts/{{this._id}}/edit" method:"get">
       <button>Edit</button>
