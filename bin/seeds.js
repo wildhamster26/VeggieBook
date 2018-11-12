@@ -31,7 +31,8 @@ let users = [
     fears: "Mouths with teeth",
     //favorite foods to be in
     favFoods: "Salad",
-    darkSecret: "In my past I used to be a cucumber"
+    darkSecret: "In my past I used to be a cucumber",
+    status: "active"
   },
   {
     username: "bob",
@@ -44,7 +45,8 @@ let users = [
     fears: "rotting",
     //favorite foods to be in
     favFoods: "Soup!!!!",
-    darkSecret: "Once I ate a human"
+    darkSecret: "Once I ate a human",
+    status: "active"
   }
 ]
 
