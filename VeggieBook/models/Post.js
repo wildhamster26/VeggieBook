@@ -12,7 +12,11 @@ const postSchema = new Schema({
   _creator: {type: Schema.Types.ObjectId, ref: 'User'},
   // _pic: {type: Schema.Types.ObjectId, ref: 'Picture'}
   // comments: [ { type : Schema.Types.ObjectId, ref: 'Commnt' } ]
-  comments: [ Object ]
+  comments: [ {
+    content: String,
+    _creator:  {type: Schema.Types.ObjectId, ref: 'User'},
+    createdAt: { type: Date, default: Date.now() }
+  } ]
 }, {
   timestamps: {
     createdAt: 'created_at',

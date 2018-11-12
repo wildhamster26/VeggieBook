@@ -20,9 +20,15 @@
     {{#each this.comments}}
       <h6>{{this.creatorUsername}}</h6>
       <p>{{this.content}}</p>
-      <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
-        <button>Delete comment</button>
-      </form>
+      {{!-- {{#if currentUserId == this._creatorId}} --}}
+      {{this.creatorUsername}}
+      {{this._id}}
+      {{currentUserId}}
+      {{this._creatorId}}
+        <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
+          <button>Delete comment</button>
+        </form>
+      {{!-- {{/if}} --}}
     {{/each}}
     {{!-- EDIT POST button --}}
     <form action="/posts/{{this._id}}/edit" method:"get">

@@ -6,9 +6,15 @@
 	</div>				
 {{/if}}					
 					
+  <img src="{{user.imgPath}}" alt="user's picture">
+  <br>
+  <label>Profile picture</label>
+  <input type="file" name="photo">
+  <br><br>
 			
 
 <form action="/users/{{user._id}}/edit" method="post" enctype="multipart/form-data">					
+  
   <label for="username">Username</label>
   <input id="username" value="{{user.username}}" type="text" name="username" placeholder="JonSnow" required>
 
@@ -22,9 +28,6 @@
   <input id="email" value="{{user.email}}" type="email" name="email" placeholder="Your email" required>
   <br><br>
 
-  <label>Profile picture</label>
-  <input type="file" name="photo">
-  <br><br>
 
   <label for="kind">What kind of vegetable are you?</label>
   <input id="kind" value="{{user.kind}}" type="kind" name="kind" placeholder="Your kind">
@@ -49,6 +52,7 @@
   <label for="darkSecret">What is your darkest, vegetabliest secret?</label>
   <input id="darkSecret" value="{{user.darkSecret}}" type="darkSecret" name="darkSecret" placeholder="Your darkSecret">
   <br><br>
+
 
   <button>Accept changes</button>
   {{#if message }}
