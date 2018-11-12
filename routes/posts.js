@@ -112,7 +112,4 @@ router.get('/:postId/comment/:commId/delete', ensureLoggedIn(),  (req, res, next
   
 })
 
-
-
-
 module.exports = router;

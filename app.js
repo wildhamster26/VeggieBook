@@ -14,7 +14,6 @@ const session      = require("express-session");
 const MongoStore   = require('connect-mongo')(session);
 const flash        = require("connect-flash");
 
-
 mongoose
 .connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
 .then(x => {
@@ -62,7 +61,7 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 
 
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
-  return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+   return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
 });
 
 // default value for title local
@@ -83,6 +82,7 @@ require('./passport')(app);
 // This middleware gives variables "isConnected" and "isOwner" to the view
 app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
+  // console.log('isOwner', isOwner)
   if (req.user) {
     res.locals.currentUserId = req.user._id
     // console.log(res.locals.currentUserId)

@@ -18,6 +18,7 @@ const postSchema = new Schema({
     _post: { required: true, type: Schema.Types.ObjectId, ref: "Post" },
     content: String, 
     likes: Number,
+    edited: { type: Boolean, default: true},
     createdAt: { type: Date, default: Date.now() }
   } ]
 }, {
