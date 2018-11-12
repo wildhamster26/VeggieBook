@@ -8,10 +8,13 @@
 <strong>Fears</strong>: {{user.fears}} <br>		
 <strong>Favorite foods to be in</strong>: {{user.favFoods}} <br>		
 <strong>Dark secret</strong>: {{user.darkSecret}} <br>					
+
+{{#if profileOwner}}
 <p>			
 	<a href="/users/{{user._id}}/edit">Edit</a><br>		
 	<a href="/users/{{user._id}}/delete">Delete</a><br>		
 </p>			
+{{/if}}
 
 {{#if message}}
     <div class="error-message">{{ message }}</div>
