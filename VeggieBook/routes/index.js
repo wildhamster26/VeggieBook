@@ -39,7 +39,9 @@ router.get('/users/:id', (req, res, next) => {
 });		
 
 
-router.get('/users/:id/edit', (req, res, next) => {			
+router.get('/users/:id/edit', (req, res, next) => {	
+  console.log(req.params.id);
+  console.log(req.user);
   User.findById(req.params.id)		
 	.then(user => {		
     res.render('users/edit-user', { user})	
@@ -57,9 +59,7 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
   hobbies: req.body.hobbies,
   fears: req.body.fears,
   favFoods: req.body.favFoods,
-  darkSecret: req.body.darkSecret,
-  // imgPath = req.file.url,
-  // imgName = req.file.originalname
+  darkSecret: req.body.darkSecret
   })
 	.then(user => {	
     res.redirect('/users')	
