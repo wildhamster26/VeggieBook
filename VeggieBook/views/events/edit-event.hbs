@@ -1,0 +1,28 @@
+<h2>Add event </h2>
+
+<form method="POST" action="/events/{{event._id}}/edit">
+
+<label for="title"></label> 
+<input value="{{event.title}}" type="text" name="title"> <br> <br>
+
+<label for="description"></label> 
+<input value="{{event.description}} " type="text" name="description">
+
+<label for="date"></label> 
+<input  value="{{event.date}}" type="date" name="date"><br><br>
+
+<label for="address">/label> 
+<input  value="{{event.street}}" type="text" name="street"> 
+<input  value="{{event.city}}" type="text" name="city"> <br><br>
+
+<label for="location"></label> 
+  <input value="{{event.latitude}}" type="text" name="latitude">
+  <input value= "{{event.longitude}}" type="text" name="longitude" >
+  <br><br>
+
+{{!-- <label for="photo">Show your attendees what the event looks like</label> 
+  <input type="file" name="photo">
+  <br><br> --}}
+  
+  <input type="submit" name="">
+</form>

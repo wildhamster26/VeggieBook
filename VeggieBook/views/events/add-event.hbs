@@ -1,0 +1,28 @@
+<h2>Add event </h2>
+
+<form method="POST" action="/events/add">
+
+<label for="title">What's the title of your event</label> 
+<input type="text" name="title" placeholder="The Farm Trip"> <br> <br>
+
+<label for="description">What is your event about?</label> 
+<input type="text" name="description" placeholder="This ia an event for fruits and vegetables interesting in farming">
+
+<label for="date">When will your event take place?</label> 
+<input type="date" name="date"><br><br>
+
+<label for="address">Where will your event take place?</label> 
+<input type="text" name="street" placeholder="BerlinerStr. 2"> 
+<input type="text" name="city" placeholder="Berlin"> <br><br>
+
+<label for="location">Where in the map can your event be found</label> 
+  <input type="text" name="latitude" placeholder="latitude" >
+  <input type="text" name="longitude" placeholder="longitude">
+  <br><br>
+
+{{!-- <label for="photo">Show your attendees what the event looks like</label> 
+  <input type="file" name="photo">
+  <br><br> --}}
+  
+  <input type="submit" name="">
+</form>
