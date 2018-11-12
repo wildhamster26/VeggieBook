@@ -41,8 +41,7 @@ router.get('/users/:id', (req, res, next) => {
 
 router.get('/users/:id/edit', (req, res, next) => {	
   User.findById(req.params.id)		
-	.then(user => {	  
-    console.log(req.user);
+	.then(user => {
     if(!(req.user._id == req.params.id))
       res.redirect('/users');
     else
@@ -68,11 +67,14 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
 	})		
 });
 
-router.get('/users/:id/delete', (req, res, next) => {		
-  User.findByIdAndRemove(req.params.id)	
-  .then(user => {	
-    res.redirect('/users')
-  })	
+router.get('/users/:id/delete', (req, res, next) => {
+  if(!(req.user._id == req.params.id))
+    res.redirect('/users');
+  else
+    User.findByIdAndRemove(req.params.id)
+    .then(user => {	
+      res.redirect('/users')
+    })	
 });
 
 
