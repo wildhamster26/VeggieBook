@@ -66,7 +66,7 @@ router.get('/:id/delete', ensureLoggedIn(),  (req, res, next) => {
       res.redirect('/posts')
     })
 })
-
+ 
 //ADDING COMMENTS
 router.post('/:postId/add-comment', ensureLoggedIn(), (req, res, next) => {
   // console.log('DEBUG', req.params.postId)
@@ -74,19 +74,17 @@ router.post('/:postId/add-comment', ensureLoggedIn(), (req, res, next) => {
   let _ownerId = req.user._id
   let creatorUsername = req.user.username
   // console.log(req.user._id)
-  Commnt.create({
+  let comment = {
       _creatorId: _ownerId,
       creatorUsername: creatorUsername,
       _post: postId,
       content: req.body.content,
       likes: 0
-  })
-  .then(comment => {
+  }
     Post.findByIdAndUpdate({ _id: postId }, { $push: {comments: comment} })
       .then(user => {
         res.redirect('/posts')
       })
-  })
 });
 
 //DELETING COMMENTS

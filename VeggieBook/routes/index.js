@@ -39,7 +39,9 @@ router.get('/users/:id', (req, res, next) => {
 });		
 
 
-router.get('/users/:id/edit', (req, res, next) => {			
+router.get('/users/:id/edit', (req, res, next) => {	
+  console.log(req.params.id);
+  console.log(req.user);
   User.findById(req.params.id)		
 	.then(user => {		
     res.render('users/edit-user', { user})	
