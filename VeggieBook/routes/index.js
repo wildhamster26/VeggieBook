@@ -57,9 +57,7 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
   hobbies: req.body.hobbies,
   fears: req.body.fears,
   favFoods: req.body.favFoods,
-  darkSecret: req.body.darkSecret,
-  // imgPath = req.file.url,
-  // imgName = req.file.originalname
+  darkSecret: req.body.darkSecret
   })
 	.then(user => {	
     res.redirect('/users')	

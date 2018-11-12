@@ -44,12 +44,8 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   const darkSecret = req.body.darkSecret;
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
-  const confirmationCode = randomstring.generate(30)
-  // cloudinary.v2.uploader.upload(req.file.path, 
-  //   function(error, result) {console.log(result, error)});
-  cloudinary.v2.uploader.upload(req.file.path, function(req, res) {
-    console.log("This is the result when uploading an image:", res); //on uploading, cloudinary sends a url
-    })
+  const confirmationCode = randomstring.generate(30);
+  
   if (username === "" || password === "" || email === "") {
     res.render("auth/signup", { message: "Indicate username, password and email" });
     return;
