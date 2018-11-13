@@ -18,9 +18,8 @@ const userSchema = new Schema({
   favFoods: String,
   darkSecret: String,
   confirmationCode: String,
-  imgName: String,
-  imgPath: String, 
-  friendsId: [ String ]
+  imgName: {type: String, required: true},
+  imgPath: {type: String, required: true}
 }, {
   timestamps: {
     createdAt: 'created_at',

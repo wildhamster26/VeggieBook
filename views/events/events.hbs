@@ -1,0 +1,19 @@
+
+
+<h1>Events page</h1>
+
+<ul>
+{{#each events }}
+<li>
+  <a href="/events/{{this._id}}/detail">
+  {{this.title}}
+  </a>
+  {{!-- {{this.description}} --}}
+  {{this.date}}
+  {{this.city}}
+</li>
+{{/each}}
+</ul>
+
+
+

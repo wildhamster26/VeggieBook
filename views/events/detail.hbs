@@ -1,0 +1,42 @@
+<h1>Detail</h1>
+
+    
+{{!-- {{event.image}} <br> --}}
+{{event.title}} <br>
+{{event.date}} <br>
+{{event.description}} <br>
+{{event.city}} <br>
+
+Location in map:
+
+<div id="map" style="height: 400px"></div>
+
+<script>
+var coordinates = [{{event.location.coordinates}}]
+
+// Add your own token
+mapboxgl.accessToken = process.env.MAPBOX_KEY  //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
+
+let map = new mapboxgl.Map({
+  container: 'map', // Select the div with the id 'map'
+  style: 'mapbox://styles/mapbox/streets-v10',
+  center: coordinates, // starting position [longitude,latitude]
+  zoom: 4, // starting zoom
+})
+
+map.addControl(new mapboxgl.NavigationControl())
+
+let eventMarker = new mapboxgl.Marker({
+  color: '#222222' // Black
+})
+  .setLngLat(coordinates)
+  .addTo(map)
+
+</script>
+
+ <form action="/events/{{this._id}}/edit" method:"get">
+      <button>Edit</button>
+    </form>
+ <form action="/events/{{this._id}}/delete" method:"get">
+      <button>Delete</button>
+    </form>

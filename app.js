@@ -10,9 +10,13 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const session      = require("express-session");
-const MongoStore   = require('connect-mongo')(session);
-const flash        = require("connect-flash");
+const session    = require("express-session");
+const MongoStore = require('connect-mongo')(session);
+const flash      = require("connect-flash");
+const {ensureLoggedIn} = require('connect-ensure-login');
+
+
+    
 
 mongoose
 .connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
@@ -97,6 +101,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/posts', require('./routes/posts'));
 app.use('/find-friends', require('./routes/find-friends'));
 app.use('/my-friends', require('./routes/my-friends'));
+app.use('/events', ensureLoggedIn() , require('./routes/events'));
 
       
 

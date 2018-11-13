@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
@@ -12,6 +15,7 @@
   <nav>
     {{#if isConnected }}
     <a href="/posts">Newsfeed</a>
+    <a href="/events">Events</a>
     <a href="/users">See all Users</a>
     <a href="/auth/logout">Logout</a>
     {{else}}
