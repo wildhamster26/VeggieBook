@@ -1,0 +1,12 @@
+<h1>Find your friends</h1>
+
+{{#each users}}
+  <div class="people-cards">
+    <img src={{this.imgPath}} alt="" height="50px">
+    <h3>{{this.username}}</h3>
+    <form action="/find-friends/invite/{{this.id}}" method="POST">
+      <button>Send invite</button>
+    </form>
+    <br>
+  </div>
+{{/each}}

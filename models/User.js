@@ -19,7 +19,8 @@ const userSchema = new Schema({
   darkSecret: String,
   confirmationCode: String,
   imgName: String,
-  imgPath: String
+  imgPath: String, 
+  friendsId: [ String ]
 }, {
   timestamps: {
     createdAt: 'created_at',
