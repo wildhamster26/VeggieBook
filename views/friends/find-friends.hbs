@@ -8,14 +8,14 @@
       <img src={{this.imgPath}} alt="" height="50px">
       <h3>{{this.username}}</h3>
       {{#ifIsInvitee ../user this}}
-        <h4>Already invited</h4>
+        <h4>A friend request has been sent to {{this.username}}</h4>
       {{else}}
       {{#ifIsFriend ../user this}}
-        <form action="/my-friends/{{this.id}}" method="POST">
+        <form action="/friends/{{this.id}}" method="POST">
           <button>See friend</button>
         </form> 
       {{else}}
-        <form action="/find-friends/invite/{{this.id}}" method="POST">
+        <form action="/friends/invite/{{this.id}}" method="POST">
           <button>Send invite</button>
         </form> 
       {{/ifIsFriend}}
