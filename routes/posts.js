@@ -37,8 +37,7 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
 //CODE TO DISPLAY THE LIST OF POSTS, INCLUDING THE CREATOR
 router.get('/', (req, res, next) => {
   const user = req.user._id
-  // console.log(user);
-  
+
   Post.find()
   .populate("_creator")
   .then(posts => {
