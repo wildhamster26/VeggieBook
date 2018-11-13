@@ -10,7 +10,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
-var storage = cloudinaryStorage({
+let storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: 'FreshBook', // The name of the folder in cloudinary
   allowedFormats: ['jpg', 'png'],

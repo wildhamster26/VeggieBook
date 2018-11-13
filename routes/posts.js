@@ -24,6 +24,9 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
     category: req.body.category,
     _creator: req.user._id  //this ensures that the creator of the post is the user that is currently logged in
   })
+  // .then(User.findByIdAndUpdate(req.user._id,{
+  //    $push: {_userPosts : req.body._id} 
+  // }))
   .then(user => {
     // console.log("ADDING THE POST WORKED!!!")
     res.redirect('/posts')
@@ -33,8 +36,7 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
 //CODE TO DISPLAY THE LIST OF POSTS, INCLUDING THE CREATOR
 router.get('/', (req, res, next) => {
   const user = req.user._id
-  // console.log(user);
-  
+
   Post.find()
   .populate("_creator")
   .then(posts => {

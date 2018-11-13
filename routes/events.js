@@ -21,15 +21,14 @@ router.get('/add', (req, res, next) => {
       type: 'Point',
       coordinates: [req.body.longitude, req.body.latitude] 
     };
-    console.log('Location Works!!!');
     Event.create({
-      title:req.body.title,
+      title: req.body.title,
       description: req.body.description,
       date: req.body.date,
       city: req.body.city,
       location: location,
-      // imgName : req.file.originalname,
-      // imgPath : req.file.url
+      imgName : req.file.originalname,
+      imgPath : req.file.url
     })
     .then(events => {
       res.redirect('/events')
