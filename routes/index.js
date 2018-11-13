@@ -4,6 +4,7 @@ const express = require('express');
 const router  = express.Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
+const Event = require("../models/Event");
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require('../config/cloudinary.js');
 const cloudinary = require('cloudinary');
@@ -30,14 +31,17 @@ router.get('/users', ensureLogin.ensureLoggedIn("/auth/login"), (req, res, next)
 router.get('/users/:id', (req, res, next) => {			
   let profileOwner = false;
   let userPosts;
+  let userEvents;
   let id = req.params.id
-  if(req.user._id == req.params.id)
+  if(req.user._id == req.params.id){
     profileOwner = true;
-    Post.find({_creator : id}).then(posts => {userPosts = posts});
+  }
+  Post.find({_creator : id}).then(posts => {userPosts = posts});
+  Event.find({_creator : id}).then(events => {userEvents = events});
   User.findById(id)
     .then(user => {	
     res.render('users/user-detail', {	
-      user, profileOwner, userPosts
+      user, profileOwner, userPosts, userEvents
       })	
     })	
   .catch(error => {	
