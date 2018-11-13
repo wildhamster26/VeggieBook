@@ -6,14 +6,14 @@
 	</div>				
 {{/if}}					
 					
+			
+
+<form action="/users/{{user._id}}/edit" method="post" enctype="multipart/form-data">					
   <img src="{{user.imgPath}}" alt="user's picture">
   <br>
   <label>Profile picture</label>
   <input type="file" name="photo">
   <br><br>
-			
-
-<form action="/users/{{user._id}}/edit" method="post" enctype="multipart/form-data">					
   
   <label for="username">Username</label>
   <input id="username" value="{{user.username}}" type="text" name="username" placeholder="JonSnow" required>
