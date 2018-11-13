@@ -8,7 +8,7 @@
       <img src={{this.imgPath}} alt="" height="50px">
       <h3>{{this.username}}</h3>
       {{#ifIsInvitee ../user this}}
-        <h4>Already invited</h4>
+        <h4>A friend request has been sent to {{this.username}}</h4>
       {{else}}
       {{#ifIsFriend ../user this}}
         <form action="/friends/{{this.id}}" method="POST">
