@@ -46,12 +46,10 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
 
 hbs.registerHelper('ifUndefined', (value, options) => {
   if (arguments.length < 2)
@@ -63,10 +61,40 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   }
 });
 
-
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+  // console.log(options)
    return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
 });
+
+hbs.registerHelper('ifIsInvitee', function(currentUser, otherUser, options) {
+  let isInvitee = false
+  currentUser.inviteesId.forEach(invitee => {
+    if (JSON.stringify(invitee) === JSON.stringify(otherUser._id)) {
+      isInvitee = true
+    }
+  })
+  if(isInvitee) {
+    return (true) ? options.fn(this) : options.inverse(this);
+  } else {
+    return (false) ? options.fn(this) : options.inverse(this);
+  }
+  
+})
+
+hbs.registerHelper('ifIsFriend', function(currentUser, otherUser, options) {
+  let isFriend = false
+  currentUser.friendsId.forEach(friend => {
+    if (JSON.stringify(friend) === JSON.stringify(otherUser._id)) {
+      isFriend = true
+    }
+  })
+  if(isFriend) {
+    return (true) ? options.fn(this) : options.inverse(this);
+  } else {
+    return (false) ? options.fn(this) : options.inverse(this);
+  }
+  
+})
 
 // default value for title local
 app.locals.title = 'Welcome to Veggiebook';

@@ -12,23 +12,30 @@ const User = require('../models/User')
 //POSTS CODE
 //MAKING SURE THAT ONLY LOGGED IN USERS CAN ACCESS THE PAGE TO ADD POSTS
 router.get('/', (req, res, next) => {
-  const user = req.user._id
-
+  const currentUser = req.user._id
+  const user = req.user
   User.find()
   .then(users => {
-    res.render('friends/find-friends', {users: users})
+    res.render('friends/find-friends', {users, currentUser, user})
   })
 })
 
 
 router.post('/invite/:id', (req, res, next) => {
   console.log(req.user._id)
-  User.findOneAndUpdate(req.params.id, {
-    invitations: req.user._id
+  const inviterId = req.user._id
+  const inviteeId = req.params.id
+  User.findOneAndUpdate({_id: inviteeId}, { $push: { invitersId: inviterId }})
+  .then(user => {
+    console.log('cool')
   })
-  .then(users => {
-    res.render('friends/find-friends', {users: users})
+  User.findOneAndUpdate({_id: inviterId}, { $push: { inviteesId: inviteeId }})
+  .then(user => {
+    res.redirect('/find-friends')
   })
+  // .catch(err => {
+  //   console.log(err)
+  // })
 })
 
 
