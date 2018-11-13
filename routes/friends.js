@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router  = express.Router();
-const {ensureLoggedIn} = require('connect-ensure-login');
 const Post = require('../models/Post')
 const User = require('../models/User')
 
@@ -10,7 +9,20 @@ const User = require('../models/User')
 
 //POSTS CODE
 //MAKING SURE THAT ONLY LOGGED IN USERS CAN ACCESS THE PAGE TO ADD POSTS
+
 router.get('/', (req, res, next) => {
+  const user = req.user._id
+
+  User.find()
+  .populate("_creator")
+  .then(posts => {
+    res.render('friends/my-friends', {posts: posts, user})
+    // console.log('posts')
+  })
+})
+
+
+router.get('/find', (req, res, next) => {
   const currentUser = req.user._id
   const user = req.user
   User.find()
@@ -30,7 +42,7 @@ router.post('/invite/:id', (req, res, next) => {
   })
   User.findOneAndUpdate({_id: inviterId}, { $push: { inviteesId: inviteeId }})
   .then(user => {
-    res.redirect('/find-friends')
+    res.redirect('/friends/find')
   })
   // .catch(err => {
   //   console.log(err)

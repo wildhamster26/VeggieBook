@@ -126,9 +126,8 @@ app.use((req,res, next) => {
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-app.use('/posts', require('./routes/posts'));
-app.use('/find-friends', require('./routes/find-friends'));
-app.use('/my-friends', require('./routes/my-friends'));
+app.use('/posts', ensureLoggedIn(), require('./routes/posts'));
+app.use('/friends', ensureLoggedIn(), require('./routes/friends'));
 app.use('/events', ensureLoggedIn() , require('./routes/events'));
 
       

@@ -11,11 +11,11 @@
         <h4>Already invited</h4>
       {{else}}
       {{#ifIsFriend ../user this}}
-        <form action="/my-friends/{{this.id}}" method="POST">
+        <form action="/friends/{{this.id}}" method="POST">
           <button>See friend</button>
         </form> 
       {{else}}
-        <form action="/find-friends/invite/{{this.id}}" method="POST">
+        <form action="/friends/invite/{{this.id}}" method="POST">
           <button>Send invite</button>
         </form> 
       {{/ifIsFriend}}

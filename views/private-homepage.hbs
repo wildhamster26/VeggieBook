@@ -24,7 +24,7 @@
     {{#each this.comments}}
       <h6>{{this.creatorUsername}}</h6>
       <p>{{this.content}}</p>
-      {{#ifEquals ../../user._id this._creatorId }}
+      {{#ifEquals ../../currentUserId this._creatorId }}
         <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
           <button>Delete comment</button> 
         </form>
