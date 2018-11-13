@@ -1,21 +1,29 @@
 <h1>Detail</h1>
 
-    
+
+{{!-- BUTTON TO JOIN THE EVENT --}}
+ <form action="/events/{{event._id}}/join" method="POST">
+      <button>Join Event</button>
+    </form>
+<br><br>
+
+{{!-- SEE DETAILS OF THE EVENT --}}
 <img src="{{event.imgPath}}" alt="Event's image" height="150px">
 {{event.title}} <br>
 {{event.date}} <br>
 {{event.description}} <br>
 {{event.city}} <br>
 
+{{!-- SEE MAP ON THE EVENT PAGE --}}
 Location in map:
 
-<div id="map" style="height: 400px"></div>
+<div id="map" style="height: 200px"></div>
 
 <script>
 var coordinates = [{{event.location.coordinates}}]
 
 // Add your own token
-mapboxgl.accessToken = "pk.eyJ1Ijoic2FtNDZoIiwiYSI6ImNqb2VmOTNwcjFuc28zdm53Ymhra2V1N24ifQ.9mVDipmpe35ghbZMphuNsQ" //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
+mapboxgl.accessToken =  //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
 
 let map = new mapboxgl.Map({
   container: 'map', // Select the div with the id 'map'
@@ -34,15 +42,18 @@ let eventMarker = new mapboxgl.Marker({
 
 </script>
 
+{{!-- EDIT EVENTS --}}
  <form action="/events/{{event._id}}/edit" method ="get">
       <button>Edit</button>
     </form>
+
+{{!-- DELETE EVENTS --}}
  <form action="/events/{{event._id}}/delete" method ="get">
       <button>Delete</button>
     </form>
 
 
-     {{!-- DISPLAY ALL POST COMMENTS --}}
+{{!-- DISPLAY ALL EVENT COMMENTS --}}
     <h5>Comments:</h5>
     {{#each event.comments}}
       <p>{{this.content}}</p>
@@ -61,3 +72,13 @@ let eventMarker = new mapboxgl.Marker({
       <textarea name="content" cols="30" row="10"></textarea>
       <button>Add Comment</button>
     </form>
+
+    {{!-- DISPLAY PARTICIPANTS --}}
+<h2>List of participants</h2>
+<ul>
+{{#each participants}}
+<li>
+  {{this._user.username}}
+</li>
+{{/each}}
+</ul>

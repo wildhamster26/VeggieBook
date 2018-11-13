@@ -2,13 +2,9 @@
 
 const express = require("express");
 const router = express.Router();
-const { ensureLoggedIn } = require("connect-ensure-login");
 const Event = require("../models/Event");
+const Participant = require("../models/Participant")
 const uploadCloud = require("../config/cloudinary.js");
-
-// router.get('/', (req, res, next) => {
-// res.render("events/events")
-// })
 
 router.get("/add", (req, res, next) => {
   res.render("events/add-event");
@@ -34,20 +30,56 @@ router.get("/add", (req, res, next) => {
     })
   });
 
+// JOINing THE EVENT
+router.post('/:id/join', (req, res, next) => {
 
+  let _eventId = req.params.id
+  let _userId = req.user._id
+
+  Participant.create ({
+  _event: _eventId,
+  _user: _userId
+  })
+  .then (participant => {
+    res.redirect ("/events/"+_eventId+"/detail")
+  })
+  })
+
+//DISPlAYING THE LIST OF EVENTS
 router.get("/", (req, res, next) => {
   Event.find()
     .populate("_creator")
     .then(events => {
-      res.render('events/events', {events: events})
+      res.render('events/events', {
+        events:events})
     })
   })
-
+  
+//DISPLAYING DETAILS OF THE EVENT 
 router.get("/:id/detail", (req, res, next) => {
-  let id = req.params.id;
-  Event.findById(id).then(event => {
-    res.render("events/detail", { event });
-  });
+  let id = req.params.id; 
+  // Participant.find({_event:id})
+  // .populate("_user")
+  // .then (participants => {
+  //   Event.findById(id).then(event => {
+  //     res.render("events/detail", { event, participants});
+  //   });
+  //   // res.render("events/detail", {participant})
+  // })
+
+  Promise.all([
+    Event.findById(id),
+    Participant.find({_event:id}).populate("_user")
+  ])
+  .then(([event, participants]) => {
+    res.render("events/detail", { event, participants});
+  })
+
+
+  // Participant.find({_event:id}).populate("_user")
+  // Event.findById(id).then(event => {
+  //   res.render("events/detail", { event});
+  // });
 });
 
 //EDITING EVENTS
@@ -107,9 +139,7 @@ router.post("/:eventId/add-comment", (req, res, next) => {
   });
 });
 
-//DELETING COMMENTS
-// router.get('/:eventId/comment/:commId/delete', (req, res, next) => {
-
+//DELETING COMMENTS ON EVENTS
 router.post("/:eventId/comment/:commId/delete", (req, res, next) => {
   let _eventId = req.params.eventId;
   let _commId = req.params.commId;
@@ -134,5 +164,10 @@ router.post("/:eventId/comment/:commId/delete", (req, res, next) => {
     console.log("THE EVENT");
   });
 });
+
+
+
+
+
 
 module.exports = router;

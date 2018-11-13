@@ -6,9 +6,6 @@ const Schema   = mongoose.Schema;
 const eventSchema = new Schema({
   title: {type: String, required:true},
   description: {type: String, required:true},
-  // image: String,
-  // visibility: {type: String, enum: ["Private", "Public"], default: "Public"},
-  // category: {type: String, enum:["Recommendation", "Story", "Question"], default: "Story"},
   _creator: {type: Schema.Types.ObjectId, ref: 'User'},
   date: Date,
   comments: [ {
@@ -26,8 +23,9 @@ const eventSchema = new Schema({
     street: String,
     city: String   
   },
-  location: { type: { type: String }, coordinates: [Number] }
-}, {
+  location: { type: { type: String }, coordinates: [Number] },
+  _attendees: [{type: Schema.Types.ObjectId, ref: 'User'}],
+},{
   timestamps: {
     createdAt: 'created_at',
     updatedAt: 'updated_at'
