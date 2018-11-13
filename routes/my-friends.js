@@ -4,7 +4,6 @@ const express = require('express');
 const router  = express.Router();
 const {ensureLoggedIn} = require('connect-ensure-login');
 const Post = require('../models/Post')
-const Commnt = require('../models/Commnt')
 const user = require('../models/User')
 
 /* Will include routes to posts and comments */

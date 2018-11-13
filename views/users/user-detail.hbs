@@ -1,4 +1,4 @@
-<img src="{{user.imgPath}}" alt="{{user.username}}'s image">
+<img src="{{user.imgPath}}" alt="{{user.username}}'s image" height="150px">
 <h1>{{user.username}}</h1>	
 <strong>Email</strong>: {{user.email}} <br>			
 <strong>Kind</strong>: {{user.kind}} <br>			
@@ -8,19 +8,39 @@
 <strong>Fears</strong>: {{user.fears}} <br>		
 <strong>Favorite foods to be in</strong>: {{user.favFoods}} <br>		
 <strong>Dark secret</strong>: {{user.darkSecret}} <br><br>
-<strong>Posts</strong>:<br> 
 
-{{#each userPosts}}
-	{{this.title}} <br>
-	{{this.content}} <br><br>
-	{{#if this.comments}}
-	Comments:<br>
-	{{#each this.comments}}
-		By {{this.creatorUsername}}: <br>
-		{{this.content}} <br>
+{{#if userEvents}}
+	<strong>Events</strong>:<br> 
+
+	{{#each userEvents}}
+	<a href="/events/{{this._id}}/detail">{{this.title}}</a><br>
+		{{this.description}} <br><br>
+		{{#if this.comments}}
+		Comments:<br>
+		{{#each this.comments}}
+			By {{this._creator}}: <br>
+			{{this.content}} <br>
+		{{/each}}
+		{{/if}}
 	{{/each}}
-	{{/if}}
-{{/each}}
+{{/if}}
+
+{{#if userPosts}}
+	<strong>Posts</strong>:<br> 
+
+	{{#each userPosts}}
+		{{this.title}} <br>
+		{{this.content}} <br><br>
+		{{#if this.comments}}
+		Comments:<br>
+		{{#each this.comments}}
+			By {{this.creatorUsername}}: <br>
+			{{this.content}} <br>
+		{{/each}}
+		{{/if}}
+	{{/each}}
+{{/if}}
+
 
 {{#if profileOwner}}
 <p>			

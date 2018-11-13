@@ -1,6 +1,6 @@
 <h2>Add event </h2>
 
-<form method="POST" action="/events/add">
+<form method="POST" action="/events/add" enctype="multipart/form-data">
 
 <label for="title">What's the title of your event</label> 
 <input type="text" name="title" placeholder="The Farm Trip"> <br> <br>
@@ -20,9 +20,9 @@
   <input type="text" name="longitude" placeholder="longitude">
   <br><br>
 
-{{!-- <label for="photo">Show your attendees what the event looks like</label> 
+<label for="photo">Show your attendees what the event looks like</label> 
   <input type="file" name="photo">
-  <br><br> --}}
+  <br><br>
   
   <input type="submit" name="">
 </form>

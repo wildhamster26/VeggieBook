@@ -1,21 +1,21 @@
-<h2>Add event </h2>
+<h2>Edit event </h2>
 
 <form method="POST" action="/events/{{event._id}}/edit">
 
-<label for="title"></label> 
+<label for="title">Title</label> 
 <input value="{{event.title}}" type="text" name="title"> <br> <br>
 
-<label for="description"></label> 
+<label for="description">Description</label> 
 <input value="{{event.description}} " type="text" name="description">
 
-<label for="date"></label> 
+<label for="date">Date</label> 
 <input  value="{{event.date}}" type="date" name="date"><br><br>
 
-<label for="address">/label> 
+<label for="address">Address</label> 
 <input  value="{{event.street}}" type="text" name="street"> 
 <input  value="{{event.city}}" type="text" name="city"> <br><br>
 
-<label for="location"></label> 
+<label for="location">Map Coordinates</label> 
   <input value="{{event.latitude}}" type="text" name="latitude">
   <input value= "{{event.longitude}}" type="text" name="longitude" >
   <br><br>

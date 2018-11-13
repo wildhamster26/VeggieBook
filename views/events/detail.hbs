@@ -1,7 +1,7 @@
 <h1>Detail</h1>
 
     
-{{!-- {{event.image}} <br> --}}
+<img src="{{event.imgPath}}" alt="Event's image" height="150px">
 {{event.title}} <br>
 {{event.date}} <br>
 {{event.description}} <br>
@@ -15,13 +15,13 @@ Location in map:
 var coordinates = [{{event.location.coordinates}}]
 
 // Add your own token
-mapboxgl.accessToken = process.env.MAPBOX_KEY  //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
+mapboxgl.accessToken = "pk.eyJ1Ijoic2FtNDZoIiwiYSI6ImNqb2VmOTNwcjFuc28zdm53Ymhra2V1N24ifQ.9mVDipmpe35ghbZMphuNsQ" //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
 
 let map = new mapboxgl.Map({
   container: 'map', // Select the div with the id 'map'
   style: 'mapbox://styles/mapbox/streets-v10',
   center: coordinates, // starting position [longitude,latitude]
-  zoom: 4, // starting zoom
+  zoom: 13 // starting zoom
 })
 
 map.addControl(new mapboxgl.NavigationControl())
@@ -34,9 +34,36 @@ let eventMarker = new mapboxgl.Marker({
 
 </script>
 
- <form action="/events/{{this._id}}/edit" method:"get">
+ <form action="/events/{{event._id}}/edit" method:"get">
       <button>Edit</button>
     </form>
- <form action="/events/{{this._id}}/delete" method:"get">
+ <form action="/events/{{event._id}}/delete" method:"get">
       <button>Delete</button>
+    </form>
+
+
+     {{!-- DISPLAY ALL POST COMMENTS --}}
+    <h5>Comments:</h5>
+    {{#each this.comments}}
+      <h6>{{this.creatorUsername}}</h6>
+      <p>{{this.content}}</p>
+      {{#ifEquals ../../user._id this._creatorId }}
+        <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
+          <button>Delete comment</button> 
+        </form>
+      {{/ifEquals}}
+    {{/each}}
+    
+    {{!-- EDIT POST button --}}
+    <form action="/events/{{event._id}}/edit" method:"get">
+      <button>Edit comment</button>
+    </form>
+    {{!-- DELETE POST button --}}
+     <form action="/events/{{event._id}}/delete" method:"get">
+      <button>Delete comment</button>
+    </form>
+    {{!-- ADD COMMENT --}}
+    <form action="/events/{{event._id}}/add-comment" method="POST">
+      <textarea name="content" cols="30" row="10"></textarea>
+      <button>Add Comment</button>
     </form>
