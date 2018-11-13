@@ -12,8 +12,12 @@ const eventSchema = new Schema({
   _creator: {type: Schema.Types.ObjectId, ref: 'User'},
   date: Date,
   comments: [ {
-    content: String,
-    _creator:  {type: Schema.Types.ObjectId, ref: 'User'},
+    _creatorId: { required: true, type: Schema.Types.ObjectId, ref: "User" },
+    creatorUsername: String,
+    _event: { required: true, type: Schema.Types.ObjectId, ref: "Event" },
+    content: String, 
+    likes: Number,
+    edited: { type: Boolean, default: true},
     createdAt: { type: Date, default: Date.now() }
   } ],
   imgName: String,
