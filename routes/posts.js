@@ -5,7 +5,7 @@ const router  = express.Router();
 const {ensureLoggedIn} = require('connect-ensure-login');
 const Post = require('../models/Post')
 const Commnt = require('../models/Commnt')
-const user = require('../models/User')
+const User = require('../models/User')
 
 /* Will include routes to posts and comments */
 
@@ -25,6 +25,9 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
     category: req.body.category,
     _creator: req.user._id  //this ensures that the creator of the post is the user that is currently logged in
   })
+  // .then(User.findByIdAndUpdate(req.user._id,{
+  //    $push: {_userPosts : req.body._id} 
+  // }))
   .then(user => {
     // console.log("ADDING THE POST WORKED!!!")
     res.redirect('/posts')
