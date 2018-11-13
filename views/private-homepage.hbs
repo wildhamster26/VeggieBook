@@ -15,8 +15,10 @@
 <ul>
   {{#each posts}}
   <li>
+    <img src="{{this.imgPath}}" alt="Post's image" height="150px">
     <h3>{{this.title}}</h3>
     <p>{{this.content}}</p>
+
     <h5>Posted by: {{this._creator.username}}</h5> <br>
 
     {{!-- DISPLAY ALL POST COMMENTS --}}
@@ -31,6 +33,8 @@
       {{/ifEquals}}
     {{/each}}
     
+
+    {{#ifEquals ../currentUserId this._creator._id}}
     {{!-- EDIT POST button --}}
     <form action="/posts/{{this._id}}/edit" method:"get">
       <button>Edit</button>
@@ -39,6 +43,8 @@
      <form action="/posts/{{this._id}}/delete" method:"get">
       <button>Delete</button>
     </form>
+    {{/ifEquals}}
+
     {{!-- ADD COMMENT --}}
     <form action="/posts/{{this._id}}/add-comment" method="POST">
       <textarea name="content" cols="30" row="10"></textarea>

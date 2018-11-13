@@ -23,7 +23,7 @@ Location in map:
 var coordinates = [{{event.location.coordinates}}]
 
 // Add your own token
-mapboxgl.accessToken =  //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
+mapboxgl.accessToken = "pk.eyJ1Ijoic2FtNDZoIiwiYSI6ImNqb2Z3M2h5dDA4Nmkza3FzMGJyZXl4eDEifQ.7Eo7lG8LcAnE6EkKoIiOjA" //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
 
 let map = new mapboxgl.Map({
   container: 'map', // Select the div with the id 'map'
@@ -42,6 +42,7 @@ let eventMarker = new mapboxgl.Marker({
 
 </script>
 
+ {{#ifEquals currentUserId event._creator}}
 {{!-- EDIT EVENTS --}}
  <form action="/events/{{event._id}}/edit" method ="get">
       <button>Edit</button>
@@ -51,7 +52,7 @@ let eventMarker = new mapboxgl.Marker({
  <form action="/events/{{event._id}}/delete" method ="get">
       <button>Delete</button>
     </form>
-
+ {{/ifEquals}}
 
 {{!-- DISPLAY ALL EVENT COMMENTS --}}
     <h5>Comments:</h5>

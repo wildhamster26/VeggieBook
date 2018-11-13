@@ -4,6 +4,7 @@ const express = require('express');
 const router  = express.Router();
 const Post = require('../models/Post')
 const User = require('../models/User')
+const uploadCloud = require("../config/cloudinary.js");
 
 /* Will include routes to posts and comments */
 
@@ -15,12 +16,14 @@ router.get('/add', (req, res, next) => {
 
 
 //CODE TO CREATE THE POST BASED ON THE THE INFORMATION ADDED IN THE "ADD-POST.HBS FORM"
-router.post('/add', (req, res, next) => {
+router.post('/add', uploadCloud.single('photo'),(req, res, next) => {
   Post.create({
     title:req.body.title,
     content: req.body.content,
     visibility:req.body.visibility,
     category: req.body.category,
+    imgName : req.file.originalname,
+    imgPath : req.file.url,
     _creator: req.user._id  //this ensures that the creator of the post is the user that is currently logged in
   })
   // .then(User.findByIdAndUpdate(req.user._id,{
