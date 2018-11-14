@@ -6313,6 +6313,8 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 body {
+  padding: 0px;
+  margin: 0 auto;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
