@@ -1,5 +1,10 @@
+// OVERRIDE THE DEFAULT VALUES OF BOOTSTRAP BY DEFINING THEM ABOVE THE IMPORT
+$primary: rgb(114, 172, 56);
+
+// IMPORT BOOTSTRAP FROM NODE MUDULES
+@import "node_modules/bootstrap/scss/bootstrap";
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 

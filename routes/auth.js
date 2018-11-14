@@ -10,6 +10,7 @@ const uploadCloud = require('../config/cloudinary.js');
 const cloudinary = require("cloudinary");
 const crypto = require("crypto");
 const async = require("async");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 
 
@@ -38,13 +39,12 @@ router.post("/forgot", (req, res, next) => {
       User.findOne({email: req.body.email}, function(err, user){
         if(!user){
           req.flash("error", "There is no account with that email address.");
-          return res.redirect("/auth/forgot");
+          return res.redirect("/auth/forgot", { "message": req.flash("error") });
         }
         
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour to change password
-        console.log(user.resetPasswordToken);
-        console.log(user.resetPasswordExpires);
+  
         user.save();
         done(err, token, user);
       });
@@ -66,10 +66,11 @@ router.post("/forgot", (req, res, next) => {
       })
       
       res.render("auth/goToMail");
-      // catch(err) {
-      //   req.flash("error", "There is no account with that email address.");
-      //   return res.redirect("/auth/forgot");
-      // }
+    },{
+      catch(err) {
+        req.flash("error", "There is no account with that email address.");
+        return res.redirect("/auth/forgot", { "message": req.flash("error") });
+      }
     }
   ])
 });
@@ -79,37 +80,67 @@ router.get("/reset/:token", (req, res, next) => {
   User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
     if(!user) {
       req.flash("error", "Password reset token is invalid or has expired.");
-      return res.redirect("/auth/forgot")
+      return res.redirect("/auth/forgot", { "message": req.flash("error") })
     }
     res.render("auth/reset", {token});
   })
 });
 
-router.get("/auth/reset/:token", (req, res, next) => {
+router.post("/reset/:token", (req, res, next) => {
   let token = req.params.token;
   let newPassword = req.body.newPassword;
   let confirmPassword = req.body.confirmPassword;
-  async.waterfall([
-    User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
-      if(!user) {
-        req.flash("error", "Password reset token is invalid or has expired.");
-        return res.redirect("/auth/forgot")
-      }
-      if(newPassword === confirmPassword){
-        user.setPassword(newPassword, function(err){
-          console.log("Before Undefigning the token:",user.resetPasswordToken);
-          user.resetPasswordToken = undefined;
-          user.resetPasswordExpires = undefined;
+  let salt = bcrypt.genSaltSync(bcryptSalt);
+  let newHashPass = bcrypt.hashSync(newPassword, salt);
+  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}})
+  .then(user => {
+    if(newPassword === confirmPassword){
+      user.password = newHashPass;
+      return res.redirect("/auth/login");
+    }
+    else {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("/auth/forgot", { "message": req.flash("error") })
+    }
+  });
+  // User.findOneAndUpdate({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
+  //   console.log("found a user:", user)
+  //   res.redirect("back");
+  // });
+  // async.waterfall([
+  //   User.findOneAndUpdate({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
+  //     console.log("token:", token)
+  //     if(!user) {
+  //       req.flash("error", "Password reset token is invalid or has expired.");
+  //       return res.redirect("/auth/forgot", { "message": req.flash("error") })
+  //     }
+  //     console.log("Before the comparison");
+  //     if(newPassword === confirmPassword){
+  //       console.log("Inside the comparison");
+  //       user.setPassword(newPassword, function(err){
+  //         console.log("Before Undefigning the token:",user.resetPasswordToken);
+  //         user.resetPasswordToken = undefined;
+  //         user.resetPasswordExpires = undefined;
           
-          user.save()
-          console.log("And token after:",user.resetPasswordToken);
-
-          return res.redirect("/auth/login");
-        })
-      }
-    })
-
-  ])
+  //         user.save()
+  //         console.log("And token after:", user.resetPasswordToken);
+          
+  //         return res.redirect("/auth/login");
+  //       })
+  //     }
+  //     else {
+  //       console.log("GOT TO THE ELSE STATEMENT");
+  //       req.flash("error", "Password and confirm password fields should match.");
+  //       return res.redirect("/auth/reset/"+token, { "message": req.flash("error") });
+  //     }
+  //   }),
+  //   ,{
+  //     catch(err) {
+  //       req.flash("error", "There is no account with that email address.");
+  //       return res.redirect("/auth/forgot", { "message": req.flash("error") });
+  //     }
+  //   }
+  // ])
 });
 
 router.post("/login", passport.authenticate("local", {
@@ -124,18 +155,13 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const email = req.body.email;
-  const kind = req.body.kind;
-  const age = req.body.age;
-  const phoneNumber = req.body.phoneNumber;
-  const hobbies = req.body.hobbies;
-  const fears = req.body.fears;
-  const favFoods = req.body.favFoods;
-  const darkSecret = req.body.darkSecret;
+  const {username,password, email, kind, age, phoneNumber, hobbies, fears, 
+  favFoods,darkSecret} = req.body;
+  const resetPasswordToken = undefined;
+  const resetPasswordExpires = undefined;
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
+  const public_id = req.file.public_id;
   const confirmationCode = randomstring.generate(30);
   
   if (username === "" || password === "" || email === "") {
@@ -171,7 +197,10 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
       darkSecret,
       confirmationCode,
       imgPath,
-      imgName
+      imgName,
+      resetPasswordExpires,
+      resetPasswordToken, 
+      public_id
     });
 
     newUser.save()
@@ -211,7 +240,7 @@ router.get("/logout", (req, res) => {
 router.get('/confirm/:confirmationCode', (req,res,next)=> {
   let confirmationCode = req.params.confirmationCode
   // Find the first user where confirmationCode = req.params.confirmationCode
-  User.findOneAndUpdate({confirmationCode}, {status: 'Active'})
+  User.findOneAndUpdate({confirmationCode}, {status: 'active'})
   .then(user => {
     if (user) {
       // req.login makes the user login automatically

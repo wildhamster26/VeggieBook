@@ -32,7 +32,12 @@ let users = [
     //favorite foods to be in
     favFoods: "Salad",
     darkSecret: "In my past I used to be a cucumber",
-    status: "active"
+    status: "active",
+    resetPasswordToken: undefined,
+    resetPasswordExpires: undefined,
+    imgPath: "http://res.cloudinary.com/wildhamster26/image/upload/v1542175770/FreshBook/camelCaravan.jpg.jpg",
+    imgName: "camelCaravan.jpg",
+    public_id: "FreshBook/camelCaravan.jpg"
   },
   {
     username: "bob",
@@ -46,7 +51,12 @@ let users = [
     //favorite foods to be in
     favFoods: "Soup!!!!",
     darkSecret: "Once I ate a human",
-    status: "active"
+    status: "active",
+    resetPasswordToken: undefined,
+    resetPasswordExpires: undefined,
+    imgPath: "http://res.cloudinary.com/wildhamster26/image/upload/v1542105197/FreshBook/longneck.jpg.jpg",
+    imgName: "longneck.jpg",
+    public_id: "FreshBook/longneck.jpg"
   }
 ]
 

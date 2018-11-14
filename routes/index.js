@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/users', ensureLogin.ensureLoggedIn("/auth/login"), (req, res, next) => {			
 	// Get all the users from the db		
-	User.find({status:"Active"})		
+	User.find({status:"active"})		
 	.then(users => {		
 		res.render("users/users", {	
 			users: users
@@ -62,7 +62,7 @@ router.get('/users/:id/edit', (req, res, next) => {
 });
 
 router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => {
-  cloudinary.uploader.destroy(req.user.imgPath, function(result) { console.log(result) });
+  cloudinary.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
   User.findByIdAndUpdate(req.params.id, {
   username: req.body.username,
   password: req.body.password,

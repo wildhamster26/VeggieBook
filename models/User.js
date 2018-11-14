@@ -21,8 +21,9 @@ const userSchema = new Schema({
   invitersId: [ String ],
   inviteesId: [ String ],
   friendsId: [ String ],
-  imgName: {type: String, required: true},
-  imgPath: {type: String, required: true},
+  imgName: {type: String, required: true, default:""},
+  imgPath: {type: String, required: true, default:""},
+  public_id: {type: String, required: true, default:""},
   resetPasswordToken: String,
   resetPasswordExpires: Date
 }, {
