@@ -2,6 +2,7 @@
 
 const express = require("express");
 const passport = require('passport');
+// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 const router = express.Router();
@@ -26,6 +27,21 @@ router.post("/login", passport.authenticate("local", {
   failureFlash: true,
   passReqToCallback: true
 }));
+
+//GOOGLE SIGNUP --> Uncomment the code below to ENABLE GOOGLESIGN IN
+
+// router.get('/google',
+//   passport.authenticate('google', {scope: "email"}));
+
+
+// router.get('/google/callback', 
+//   passport.authenticate('google', { failureRedirect: 'auth/login' }),
+//   function(req, res) {
+//     res.redirect('/');
+//   });
+
+//END OF GOOGLE SIGNUP
+
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
@@ -112,7 +128,7 @@ router.get("/logout", (req, res) => {
 router.get('/confirm/:confirmationCode', (req,res,next)=> {
   let confirmationCode = req.params.confirmationCode
   // Find the first user where confirmationCode = req.params.confirmationCode
-  User.findOneAndUpdate({confirmationCode}, {status: 'Active'})
+  User.findOneAndUpdate({confirmationCode}, {status: 'active'})
   .then(user => {
     if (user) {
       // req.login makes the user login automatically

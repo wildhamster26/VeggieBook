@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/users', ensureLogin.ensureLoggedIn("/auth/login"), (req, res, next) => {			
 	// Get all the users from the db		
-	User.find({status:"Active"})		
+	User.find({status:"active"})		
 	.then(users => {		
 		res.render("users/users", {	
 			users: users

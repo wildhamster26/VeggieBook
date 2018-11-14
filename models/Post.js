@@ -10,8 +10,6 @@ const postSchema = new Schema({
   visibility: {type: String, enum: ["Private", "Public"], default: "Public"},
   category: {type: String, enum:["Recommendation", "Story", "Question"], default: "Story"},
   _creator: {type: Schema.Types.ObjectId, ref: 'User'},
-  // _pic: {type: Schema.Types.ObjectId, ref: 'Picture'}
-  // comments: [ { type : Schema.Types.ObjectId, ref: 'Commnt' } ]
   comments: [ {
     _creatorId: { required: true, type: Schema.Types.ObjectId, ref: "User" },
     creatorUsername: String,

@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: {type: String, unique: true, required: true},
-  password: {type: String, required: true, min: 3},
+  username: {type: String, unique: true, required:true},
+  password: String,
   email: {type: String, unique: true, required: true, match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/},
   //Kind of vegetable
   status: {type: String, enum: ["active", "inactive"], default: "inactive"},
@@ -21,8 +21,9 @@ const userSchema = new Schema({
   invitersId: [ String ],
   inviteesId: [ String ],
   friendsId: [ String ],
-  imgName: {type: String, required: true},
-  imgPath: {type: String, required: true}
+  imgName: {type: String, required:true},
+  imgPath: {type: String, required:true},
+  googleID: String,
 }, {
   timestamps: {
     createdAt: 'created_at',
