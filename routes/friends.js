@@ -17,8 +17,8 @@ router.get('/', (req, res, next) => {
   const user = req.user._id
    User.find()
   .populate("_creator")
-  .then(posts => {
-    res.render('friends/my-friends', { posts: posts, user })
+  .then(friends => {
+    res.render('friends/my-friends', { friends, user })
   })
 })
 

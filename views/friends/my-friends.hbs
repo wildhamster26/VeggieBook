@@ -1,0 +1,28 @@
+<h1>My friends</h1>
+
+{{!-- Displays user's friends Displays 'send invite' button unless that user has already been invited --}}
+{{#each users}}
+  <div class="people-cards">
+    {{#unless this.isCurrentUser}}
+      <img src={{this.imgPath}} alt="" height="50px">
+      <h3>{{this.username}}</h3>
+      <h4>Age: </h4><p>{{this.age}}</p>
+      
+      {{!-- Frienship status below --}}
+      {{#if this.isFriend}}
+        <form action="/friends/{{this._id}}" method="POST">
+          <button>See friend</button>
+        </form> 
+      {{else}}
+      {{#if isPending}}
+        <h4>A friend request has been sent to {{this.username}}</h4>
+      {{else}}
+        <form action="/friends/invite/{{this._id}}" method="POST">
+          <button>Send invite</button>
+        </form> 
+      {{/if}}
+      {{/if}}
+      {{/unless}}
+      <br>
+  </div>
+{{/each}}
