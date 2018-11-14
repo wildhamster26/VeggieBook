@@ -1,8 +1,28 @@
 body {
-  padding: 50px;
+  padding: 0px;
+  margin: 0 auto;
+
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+
+button { 
+  padding: 5px 20px; 
+  background-color: rgb(0, 155, 0);
+  color: white;
+  border: none;
+}
+
+.users-container {
+  
+}
+.user-card {
+  width: 90%;
+  margin: 10px 0;
+  border: none; 
+  box-shadow: 0 0 10px rgb(100, 100, 100);
 }

@@ -43,15 +43,18 @@ router.get('/find', (req, res, next) => {
       if (users[iUsers]._id.equals(user._id)) {
         users[iUsers].isCurrentUser = true
       }
+
       for (let iFriend = 0; iFriend < friends.length; iFriend++) {
         if (friends[iFriend]._user1.equals(users[iUsers]._id) || friends[iFriend]._user2.equals(users[iUsers]._id)) {
           if(friends[iFriend].status == "Friends") {
-            users[iFriend].isFriend = true;
+            users[iUsers].isFriend = true;
           } else if(friends[iFriend].status == "Pending") {
-            users[iFriend].isPending = true;
+            users[iUsers].isPending = true; 
           }
         }
       }
+    }
+    for (let i = 0; i < users.length; i++){
     }
     res.render('friends/find-friends', { users, user })
   })
@@ -94,7 +97,7 @@ router.get('/find', (req, res, next) => {
         from: '"The Veggiebook team"',
         to: email, // the email entered in the form 
         subject: 'Hey, friend me!', 
-        html: `Hi ${req.user.username}! please click <a href="http://localhost:5000/friends/confirm/${friendConfirmCode}">here</a> to accept ${inviteeUsername}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
+        html: `Hi ${inviteeUsername}! please click <a href="http://localhost:5000/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
       })
       res.redirect('/friends/find')
     })

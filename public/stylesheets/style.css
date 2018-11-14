@@ -1,8 +1,21 @@
 body {
-  padding: 50px;
+  padding: 0px;
+  margin: 0 auto;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
+
+button {
+  padding: 5px 20px;
+  background-color: #009b00;
+  color: white;
+  border: none; }
+
+.user-card {
+  width: 90%;
+  margin: 10px 0;
+  border: none;
+  box-shadow: 0 0 10px #646464; }
 
 /*# sourceMappingURL=style.css.map */
