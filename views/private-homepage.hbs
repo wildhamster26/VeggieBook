@@ -15,8 +15,10 @@
 <ul>
   {{#each posts}}
   <li>
+    <img src="{{this.imgPath}}" alt="Post's image" height="150px">
     <h3>{{this.title}}</h3>
     <p>{{this.content}}</p>
+
     <h5>Posted by: {{this._creator.username}}</h5> <br>
 
     {{!-- DISPLAY ALL POST COMMENTS --}}
@@ -24,13 +26,14 @@
     {{#each this.comments}}
       <h6>{{this.creatorUsername}}</h6>
       <p>{{this.content}}</p>
-      {{#ifEquals ../../user._id this._creatorId }}
+      {{#ifEquals ../../currentUserId this._creatorId }}
         <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
           <button>Delete comment</button>
         </form>
       {{/ifEquals}}
     {{/each}}
     
+<<<<<<< HEAD
     {{#ifEquals ../user._id this._creator._id }}
       {{!-- EDIT POST button --}}
       <form action="/posts/{{this._id}}/edit" method:"get">
@@ -41,6 +44,19 @@
         <button>Delete</button>
       </form>
       {{/ifEquals}}
+=======
+
+    {{#ifEquals ../currentUserId this._creator._id}}
+    {{!-- EDIT POST button --}}
+    <form action="/posts/{{this._id}}/edit" method:"get">
+      <button>Edit</button>
+    </form>
+    {{!-- DELETE POST button --}}
+     <form action="/posts/{{this._id}}/delete" method:"get">
+      <button>Delete</button>
+    </form>
+    {{/ifEquals}}
+>>>>>>> c58f57561ba23fc048732ddfb917225d781d2eac
 
     {{!-- ADD COMMENT --}}
     <form action="/posts/{{this._id}}/add-comment" method="POST">

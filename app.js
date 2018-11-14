@@ -46,12 +46,10 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
 
 hbs.registerHelper('ifUndefined', (value, options) => {
   if (arguments.length < 2)
@@ -63,12 +61,47 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   }
 });
 
-
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+<<<<<<< HEAD
     console.log("arg1:", arg1);
     console.log("arg2:", arg2);
+=======
+  // console.log(options)
+  console.log(arg1)
+  console.log(arg2)
+>>>>>>> c58f57561ba23fc048732ddfb917225d781d2eac
    return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
 });
+
+hbs.registerHelper('ifIsInvitee', function(currentUser, otherUser, options) {
+  let isInvitee = false
+  currentUser.inviteesId.forEach(invitee => {
+    if (JSON.stringify(invitee) === JSON.stringify(otherUser._id)) {
+      isInvitee = true
+    }
+  })
+  if(isInvitee) {
+    return (true) ? options.fn(this) : options.inverse(this);
+  } else {
+    return (false) ? options.fn(this) : options.inverse(this);
+  }
+  
+})
+
+hbs.registerHelper('ifIsFriend', function(currentUser, otherUser, options) {
+  let isFriend = false
+  currentUser.friendsId.forEach(friend => {
+    if (JSON.stringify(friend) === JSON.stringify(otherUser._id)) {
+      isFriend = true
+    }
+  })
+  if(isFriend) {
+    return (true) ? options.fn(this) : options.inverse(this);
+  } else {
+    return (false) ? options.fn(this) : options.inverse(this);
+  }
+  
+})
 
 // default value for title local
 app.locals.title = 'Welcome to Veggiebook';
@@ -88,21 +121,17 @@ require('./passport')(app);
 // This middleware gives variables "isConnected" and "isOwner" to the view
 app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
-  // console.log('isOwner', isOwner)
   if (req.user) {
     res.locals.currentUserId = req.user._id
-    // console.log(res.locals.currentUserId)
   }
-  // console.log('REQ.USER', req.user._id)
   next() 
 })
 
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-app.use('/posts', require('./routes/posts'));
-app.use('/find-friends', require('./routes/find-friends'));
-app.use('/my-friends', require('./routes/my-friends'));
+app.use('/posts', ensureLoggedIn(), require('./routes/posts'));
+app.use('/friends', ensureLoggedIn(), require('./routes/friends'));
 app.use('/events', ensureLoggedIn() , require('./routes/events'));
 
       

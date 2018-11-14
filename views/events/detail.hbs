@@ -1,15 +1,23 @@
 <h1>Detail</h1>
 
-    
+
+{{!-- BUTTON TO JOIN THE EVENT --}}
+ <form action="/events/{{event._id}}/join" method="POST">
+      <button>Join Event</button>
+    </form>
+<br><br>
+
+{{!-- SEE DETAILS OF THE EVENT --}}
 <img src="{{event.imgPath}}" alt="Event's image" height="150px">
 {{event.title}} <br>
 {{event.date}} <br>
 {{event.description}} <br>
 {{event.city}} <br>
 
+{{!-- SEE MAP ON THE EVENT PAGE --}}
 Location in map:
 
-<div id="map" style="height: 400px"></div>
+<div id="map" style="height: 200px"></div>
 
 <script>
 var coordinates = [{{event.location.coordinates}}]
@@ -34,36 +42,44 @@ let eventMarker = new mapboxgl.Marker({
 
 </script>
 
- <form action="/events/{{event._id}}/edit" method:"get">
+ {{#ifEquals currentUserId event._creator}}
+{{!-- EDIT EVENTS --}}
+ <form action="/events/{{event._id}}/edit" method ="get">
       <button>Edit</button>
     </form>
- <form action="/events/{{event._id}}/delete" method:"get">
+
+{{!-- DELETE EVENTS --}}
+ <form action="/events/{{event._id}}/delete" method ="get">
       <button>Delete</button>
     </form>
+ {{/ifEquals}}
 
-
-     {{!-- DISPLAY ALL POST COMMENTS --}}
+{{!-- DISPLAY ALL EVENT COMMENTS --}}
     <h5>Comments:</h5>
-    {{#each this.comments}}
-      <h6>{{this.creatorUsername}}</h6>
+    {{#each event.comments}}
       <p>{{this.content}}</p>
-      {{#ifEquals ../../user._id this._creatorId }}
-        <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
+      <h6>{{this.creatorUsername}}</h6>
+
+     {{!--ONLY ALLOW LOGGEDIN USER TO DELETE HIS OWN COMMENTS   --}}
+      {{#ifEquals ../currentUserId this._creatorId }}
+      <form action="/events/{{../event._id}}/comment/{{this._id}}/delete" method="POST">
           <button>Delete comment</button> 
         </form>
       {{/ifEquals}}
-    {{/each}}
-    
-    {{!-- EDIT POST button --}}
-    <form action="/events/{{event._id}}/edit" method:"get">
-      <button>Edit comment</button>
-    </form>
-    {{!-- DELETE POST button --}}
-     <form action="/events/{{event._id}}/delete" method:"get">
-      <button>Delete comment</button>
-    </form>
-    {{!-- ADD COMMENT --}}
+      {{/each}}
+
+        {{!-- ADD COMMENT --}}
     <form action="/events/{{event._id}}/add-comment" method="POST">
       <textarea name="content" cols="30" row="10"></textarea>
       <button>Add Comment</button>
     </form>
+
+    {{!-- DISPLAY PARTICIPANTS --}}
+<h2>List of participants</h2>
+<ul>
+{{#each participants}}
+<li>
+  {{this._user.username}}
+</li>
+{{/each}}
+</ul>

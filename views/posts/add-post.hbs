@@ -1,7 +1,7 @@
 
 <h1>Add your post</h1>
 
-<form action="/posts/add" method="post">
+<form action="/posts/add" method="post" enctype="multipart/form-data">
 
 <label for="title">Title</label> <br>
 <input type="text" name="title" placeholder="Enter your post title here"> <br><br>
@@ -21,6 +21,10 @@
   <option value="Story">Story</option>
   <option value="Question">Question</option>
 </select> <br><br>
+
+<label for="photo">Add a photo to your post</label> 
+  <input type="file" name="photo">
+  <br><br>
 
 <button type=submit>Add post</button>
 </form>

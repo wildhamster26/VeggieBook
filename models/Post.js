@@ -20,7 +20,9 @@ const postSchema = new Schema({
     likes: Number,
     edited: { type: Boolean, default: true},
     createdAt: { type: Date, default: Date.now() }
-  } ]
+  } ],
+  imgName: String,
+  imgPath: String
 }, {
   timestamps: {
     createdAt: 'created_at',
