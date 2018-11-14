@@ -23,7 +23,7 @@ Location in map:
 var coordinates = [{{event.location.coordinates}}]
 
 // Add your own token
-mapboxgl.accessToken = "CLOUDINARY_KEY" //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
+mapboxgl.accessToken = "pk.eyJ1Ijoic2FtNDZoIiwiYSI6ImNqb2d6MDYzdDBpbzYzdW11cGc2YmN2NzMifQ.mXKdvsiFQfJAUAPx3-84Rw" //this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
 
 let map = new mapboxgl.Map({
   container: 'map', // Select the div with the id 'map'
@@ -33,6 +33,7 @@ let map = new mapboxgl.Map({
 })
 
 map.addControl(new mapboxgl.NavigationControl())
+
 
 let eventMarker = new mapboxgl.Marker({
   color: '#222222' // Black
