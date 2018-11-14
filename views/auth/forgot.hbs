@@ -1,0 +1,11 @@
+
+<form action="/auth/forgot" method=POST>
+  <legend>Forgot Password</legend>
+  <label for="email">Email</label>
+  <input type="email" name="email" placeholder="Your email">
+  <button>Submit</button>
+</form>
+
+{{#if message}}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}

@@ -30,7 +30,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div> --}}
+<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div> --}}
 <h2>Login</h2>
 
 <form action="/auth/login" method="POST" id="form-container">
@@ -53,5 +53,10 @@
   <p class="account-message">
     Don't have an account yet?
     <a href="/auth/signup">Signup</a>
+  </p>
+
+  <p>
+    Forgot your password?
+    <a href="/auth/forgot">Reset Password</a>
   </p>
 </form>

@@ -22,7 +22,9 @@ const userSchema = new Schema({
   inviteesId: [ String ],
   friendsId: [ String ],
   imgName: {type: String, required: true},
-  imgPath: {type: String, required: true}
+  imgPath: {type: String, required: true},
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 }, {
   timestamps: {
     createdAt: 'created_at',

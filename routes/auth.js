@@ -8,6 +8,8 @@ const router = express.Router();
 const User = require("../models/User");
 const uploadCloud = require('../config/cloudinary.js');
 const cloudinary = require("cloudinary");
+const crypto = require("crypto");
+const async = require("async");
 
 
 
@@ -18,6 +20,96 @@ const bcryptSalt = 10;
 
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
+});
+
+router.get("/forgot", (req, res, next) => {
+  res.render("auth/forgot", { "message": req.flash("error") });
+});
+
+router.post("/forgot", (req, res, next) => {
+  async.waterfall([
+    function(done) {
+      crypto.randomBytes(20, function(err, buf){
+        let token = buf.toString("hex");
+        done(err, token);
+      });
+    },
+    function(token, done) {
+      User.findOne({email: req.body.email}, function(err, user){
+        if(!user){
+          req.flash("error", "There is no account with that email address.");
+          return res.redirect("/auth/forgot");
+        }
+        
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour to change password
+        console.log(user.resetPasswordToken);
+        console.log(user.resetPasswordExpires);
+        user.save();
+        done(err, token, user);
+      });
+    },
+    function(token, user, done){
+      let transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user:  process.env.GMAIL_USER,
+          pass:  process.env.GMAIL_PASS
+        }
+      });
+      
+      transporter.sendMail({
+        from: '"The Veggiebook team"',
+        to: req.body.email, // the email entered in the form 
+        subject: 'Reset your password', 
+        html: `Hi ${user.username}, to reset your password please click <a href="http://localhost:3000/auth/reset/${token}">here</a>.`
+      })
+      
+      res.render("auth/goToMail");
+      // catch(err) {
+      //   req.flash("error", "There is no account with that email address.");
+      //   return res.redirect("/auth/forgot");
+      // }
+    }
+  ])
+});
+
+router.get("/reset/:token", (req, res, next) => {
+  let token = req.params.token;
+  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
+    if(!user) {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("/auth/forgot")
+    }
+    res.render("auth/reset", {token});
+  })
+});
+
+router.get("/auth/reset/:token", (req, res, next) => {
+  let token = req.params.token;
+  let newPassword = req.body.newPassword;
+  let confirmPassword = req.body.confirmPassword;
+  async.waterfall([
+    User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
+      if(!user) {
+        req.flash("error", "Password reset token is invalid or has expired.");
+        return res.redirect("/auth/forgot")
+      }
+      if(newPassword === confirmPassword){
+        user.setPassword(newPassword, function(err){
+          console.log("Before Undefigning the token:",user.resetPasswordToken);
+          user.resetPasswordToken = undefined;
+          user.resetPasswordExpires = undefined;
+          
+          user.save()
+          console.log("And token after:",user.resetPasswordToken);
+
+          return res.redirect("/auth/login");
+        })
+      }
+    })
+
+  ])
 });
 
 router.post("/login", passport.authenticate("local", {
@@ -51,9 +143,15 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
     return;
   }
 
+  User.findOne({ email }, "email", (err, user) => {
+    if (user !== null) {
+      res.render("auth/signup", { message: "That email address is already in use." });
+      return;
+    }});
+
   User.findOne({ username }, "username", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
+      res.render("auth/signup", { message: "The username already exists." });
       return;
     }
 
@@ -98,6 +196,7 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
       res.redirect("/");
     })
     .catch(err => {
+      console.log(err);
       res.render("auth/signup", { message: "Something went wrong" });
     })
   });

@@ -33,7 +33,6 @@
       {{/ifEquals}}
     {{/each}}
     
-<<<<<<< HEAD
     {{#ifEquals ../user._id this._creator._id }}
       {{!-- EDIT POST button --}}
       <form action="/posts/{{this._id}}/edit" method:"get">
@@ -44,19 +43,6 @@
         <button>Delete</button>
       </form>
       {{/ifEquals}}
-=======
-
-    {{#ifEquals ../currentUserId this._creator._id}}
-    {{!-- EDIT POST button --}}
-    <form action="/posts/{{this._id}}/edit" method:"get">
-      <button>Edit</button>
-    </form>
-    {{!-- DELETE POST button --}}
-     <form action="/posts/{{this._id}}/delete" method:"get">
-      <button>Delete</button>
-    </form>
-    {{/ifEquals}}
->>>>>>> c58f57561ba23fc048732ddfb917225d781d2eac
 
     {{!-- ADD COMMENT --}}
     <form action="/posts/{{this._id}}/add-comment" method="POST">
