@@ -4,44 +4,80 @@ const router  = express.Router();
 const {ensureLoggedIn} = require('connect-ensure-login');
 const Post = require('../models/Post')
 const User = require('../models/User')
+const Friend = require('../models/Friend')
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
- /* Will include routes to posts and comments */
+
  //LIST OF FRIENDS
 router.get('/', (req, res, next) => {
-  const user = req.user._id
-   User.find()
-  .populate("_creator")
-  .then(posts => {
-    res.render('friends/my-friends', {posts: posts, user})
-    // console.log('posts')
-  })
+  const userId = req.user._id
+    Friend.find({ status: "Friends", $or: [{ _user1: userId },{ _user2: userId }]})
+    .populate("_user1")
+    .populate("_user2")
+    .then((friends) => {
+      let friendsArr = []
+      for (let iFriends = 0; iFriends < friends.length; iFriends++){
+        if (JSON.stringify(friends[iFriends]._user1._id) != JSON.stringify(userId)) {
+          friendsArr.push(friends[iFriends]._user1)
+        }
+        if (JSON.stringify(friends[iFriends]._user2._id) != JSON.stringify(userId)) {
+          friendsArr.push(friends[iFriends]._user2)
+        }
+      }
+      res.render('friends/my-friends', { friendsArr, userId })
+    })
 })
- router.get('/find', (req, res, next) => {
-  const currentUser = req.user._id
+
+router.get('/find', (req, res, next) => {
   const user = req.user
-  User.find()
-  .then(users => {
-    res.render('friends/find-friends', {users, currentUser, user})
+  Promise.all([
+    User.find(),
+    Friend.find({ $or: [{ _user1: req.user._id },{ _user2:  req.user._id }]})
+  ])
+  .then(([users, friends]) => {
+    for (let iUsers = 0; iUsers < users.length; iUsers++) {
+      users[iUsers].isCurrentUser = false
+      if (users[iUsers]._id.equals(user._id)) {
+        users[iUsers].isCurrentUser = true
+      }
+      for (let iFriend = 0; iFriend < friends.length; iFriend++) {
+        if (friends[iFriend]._user1.equals(users[iUsers]._id) || friends[iFriend]._user2.equals(users[iUsers]._id)) {
+          if(friends[iFriend].status == "Friends") {
+            users[iFriend].isFriend = true;
+          } else if(friends[iFriend].status == "Pending") {
+            users[iFriend].isPending = true;
+          }
+        }
+      }
+    }
+    res.render('friends/find-friends', { users, user })
   })
 })
+
  router.post('/invite/:id', (req, res, next) => {
   const inviterId = req.user._id
   const inviteeId = req.params.id
-  const confirmationCode = randomstring.generate(30);
-   var email = ''
+  const friendConfirmCode = randomstring.generate(30);
+  var email = ''
   var inviteeUsername = ''
   
-  User.findOneAndUpdate({_id: inviteeId}, { $push: { invitersId: inviterId }})
-  .then(user => {
-    
+  // User.findOneAndUpdate({_id: inviteeId}, { $push: { _invitersId: inviterId }})
+  // .then(user => {
+  // })
+  // User.findOneAndUpdate({_id: inviterId}, { $push: { _inviteesId: inviteeId }})
+  // .then(user => {
+  //   res.redirect('/friends/find')
+  // })
+  Friend.create({
+    _user1: inviterId,
+    _user2: inviteeId,
+    friendConfirmCode: friendConfirmCode,
+    status: "Pending"
   })
-  User.findOneAndUpdate({_id: inviterId}, { $push: { inviteesId: inviteeId }})
   .then(user => {
-    res.redirect('/friends/find')
   })
    User.findById({ _id: inviteeId })
     .then(invitee => {
@@ -58,8 +94,20 @@ router.get('/', (req, res, next) => {
         from: '"The Veggiebook team"',
         to: email, // the email entered in the form 
         subject: 'Hey, friend me!', 
-        html: `Hi ${inviteeUsername}, please click <a href="http://localhost:5000/friends/find/${confirmationCode}">here</a> to accept this friend request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${confirmationCode}`
+        html: `Hi ${req.user.username}! please click <a href="http://localhost:5000/friends/confirm/${friendConfirmCode}">here</a> to accept ${inviteeUsername}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
       })
+      res.redirect('/friends/find')
     })
   })
+
+router.get('/confirm/:friendConfirmCode', (req, res, next) => {
+  const friendConfirmCode = req.params.friendConfirmCode
+  console.log('hey!!!!!')
+  Friend.findOneAndUpdate({ friendConfirmCode: friendConfirmCode }, { status: "Friends" })
+    .then(x => {
+      res.redirect('/friends/find')
+    })
+})
+
+
  module.exports = router

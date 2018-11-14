@@ -1,0 +1,15 @@
+<h1>My friends</h1>
+
+{{!-- Displays user's friends Displays 'send invite' button unless that user has already been invited --}}
+{{#each friendsArr}}
+  <div class="people-cards">
+      <img src={{this.imgPath}} alt="" height="100px">
+      <h3>{{this.username}}</h3>
+      <h4>Age: </h4><p>{{this.age}}</p>
+      
+        <form action="/friends/{{this._id}}" method="POST">
+          <button>See friend</button>
+        </form> 
+      <br>
+  </div>
+{{/each}}
