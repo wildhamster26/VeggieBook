@@ -27,11 +27,7 @@ router.post('/add', uploadCloud.single('photo'),(req, res, next) => {
     imgPath : req.file.url,
     _creator: req.user._id  //this ensures that the creator of the post is the user that is currently logged in
   })
-  // .then(User.findByIdAndUpdate(req.user._id,{
-  //    $push: {_userPosts : req.body._id} 
-  // }))
   .then(user => {
-    // console.log("ADDING THE POST WORKED!!!")
     res.redirect('/posts')
   })
 });
@@ -50,7 +46,6 @@ router.get('/', (req, res, next) => {
 
 //EDITING POSTS
 router.get("/:id/edit", (req, res, next) => {
-  // console.log("EDIT")
   Post.findById(req.params.id).then(post => {
     res.render("posts/edit-post", {post});
   });
@@ -81,11 +76,9 @@ router.get('/:id/delete',  (req, res, next) => {
  
 //ADDING COMMENTS
 router.post('/:postId/add-comment',  (req, res, next) => {
-  // console.log('DEBUG', req.params.postId)
   let postId = req.params.postId
   let _ownerId = req.user._id
   let creatorUsername = req.user.username
-  // console.log(req.user._id)
   let comment = {
       _creatorId: _ownerId,
       creatorUsername: creatorUsername,
@@ -103,8 +96,6 @@ router.post('/:postId/add-comment',  (req, res, next) => {
 router.get('/:postId/comment/:commId/delete', (req, res, next) => {
   let postId = req.params.postId
   let commId = req.params.commId
-  // res.redirect('/posts')
-  // Commnt.findByIdAndDelete(commId)
   Post.findById(postId)
     .then(post => {
       var updatedComments = post.comments.filter((el, i) => {
@@ -113,7 +104,6 @@ router.get('/:postId/comment/:commId/delete', (req, res, next) => {
       Post.findByIdAndUpdate({ _id: postId }, {comments: updatedComments} )
         .then(user => {
           res.redirect('/posts')
-          // console.log('comment deleted')
         })
       
     })

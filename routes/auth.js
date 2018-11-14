@@ -2,6 +2,7 @@
 
 const express = require("express");
 const passport = require('passport');
+// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 const router = express.Router();
@@ -103,44 +104,7 @@ router.post("/reset/:token", (req, res, next) => {
       return res.redirect("/auth/forgot", { "message": req.flash("error") })
     }
   });
-  // User.findOneAndUpdate({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
-  //   console.log("found a user:", user)
-  //   res.redirect("back");
-  // });
-  // async.waterfall([
-  //   User.findOneAndUpdate({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
-  //     console.log("token:", token)
-  //     if(!user) {
-  //       req.flash("error", "Password reset token is invalid or has expired.");
-  //       return res.redirect("/auth/forgot", { "message": req.flash("error") })
-  //     }
-  //     console.log("Before the comparison");
-  //     if(newPassword === confirmPassword){
-  //       console.log("Inside the comparison");
-  //       user.setPassword(newPassword, function(err){
-  //         console.log("Before Undefigning the token:",user.resetPasswordToken);
-  //         user.resetPasswordToken = undefined;
-  //         user.resetPasswordExpires = undefined;
-          
-  //         user.save()
-  //         console.log("And token after:", user.resetPasswordToken);
-          
-  //         return res.redirect("/auth/login");
-  //       })
-  //     }
-  //     else {
-  //       console.log("GOT TO THE ELSE STATEMENT");
-  //       req.flash("error", "Password and confirm password fields should match.");
-  //       return res.redirect("/auth/reset/"+token, { "message": req.flash("error") });
-  //     }
-  //   }),
-  //   ,{
-  //     catch(err) {
-  //       req.flash("error", "There is no account with that email address.");
-  //       return res.redirect("/auth/forgot", { "message": req.flash("error") });
-  //     }
-  //   }
-  // ])
+  
 });
 
 router.post("/login", passport.authenticate("local", {
@@ -149,6 +113,21 @@ router.post("/login", passport.authenticate("local", {
   failureFlash: true,
   passReqToCallback: true
 }));
+
+//GOOGLE SIGNUP --> Uncomment the code below to ENABLE GOOGLESIGN IN
+
+// router.get('/google',
+//   passport.authenticate('google', {scope: "email"}));
+
+
+// router.get('/google/callback', 
+//   passport.authenticate('google', { failureRedirect: 'auth/login' }),
+//   function(req, res) {
+//     res.redirect('/');
+//   });
+
+//END OF GOOGLE SIGNUP
+
 
 router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
@@ -217,7 +196,7 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
         from: '"The Veggiebook team"',
         to: email, // the email entered in the form 
         subject: 'Validate your account', 
-        html: `Hi ${username}, please click <a href="http://localhost:3000/auth/confirm/${confirmationCode}">here</a> to confirm your account.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${confirmationCode}`
+        html: `Hi ${username}, please click <a href="http://localhost:${process.env.PORT}/auth/confirm/${confirmationCode}">here</a> to confirm your account.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${confirmationCode}`
       })
 
       .then(info => console.log(info))
