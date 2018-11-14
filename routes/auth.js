@@ -11,7 +11,6 @@ const uploadCloud = require('../config/cloudinary.js');
 const cloudinary = require("cloudinary");
 const crypto = require("crypto");
 const async = require("async");
-const passportLocalMongoose = require("passport-local-mongoose");
 
 
 
@@ -24,88 +23,6 @@ router.get("/login", (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
 });
 
-router.get("/forgot", (req, res, next) => {
-  res.render("auth/forgot", { "message": req.flash("error") });
-});
-
-router.post("/forgot", (req, res, next) => {
-  async.waterfall([
-    function(done) {
-      crypto.randomBytes(20, function(err, buf){
-        let token = buf.toString("hex");
-        done(err, token);
-      });
-    },
-    function(token, done) {
-      User.findOne({email: req.body.email}, function(err, user){
-        if(!user){
-          req.flash("error", "There is no account with that email address.");
-          return res.redirect("/auth/forgot", { "message": req.flash("error") });
-        }
-        
-        user.resetPasswordToken = token;
-        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour to change password
-  
-        user.save();
-        done(err, token, user);
-      });
-    },
-    function(token, user, done){
-      let transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          user:  process.env.GMAIL_USER,
-          pass:  process.env.GMAIL_PASS
-        }
-      });
-      
-      transporter.sendMail({
-        from: '"The Veggiebook team"',
-        to: req.body.email, // the email entered in the form 
-        subject: 'Reset your password', 
-        html: `Hi ${user.username}, to reset your password please click <a href="http://localhost:3000/auth/reset/${token}">here</a>.`
-      })
-      
-      res.render("auth/goToMail");
-    },{
-      catch(err) {
-        req.flash("error", "There is no account with that email address.");
-        return res.redirect("/auth/forgot", { "message": req.flash("error") });
-      }
-    }
-  ])
-});
-
-router.get("/reset/:token", (req, res, next) => {
-  let token = req.params.token;
-  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
-    if(!user) {
-      req.flash("error", "Password reset token is invalid or has expired.");
-      return res.redirect("/auth/forgot", { "message": req.flash("error") })
-    }
-    res.render("auth/reset", {token});
-  })
-});
-
-router.post("/reset/:token", (req, res, next) => {
-  let token = req.params.token;
-  let newPassword = req.body.newPassword;
-  let confirmPassword = req.body.confirmPassword;
-  let salt = bcrypt.genSaltSync(bcryptSalt);
-  let newHashPass = bcrypt.hashSync(newPassword, salt);
-  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}})
-  .then(user => {
-    if(newPassword === confirmPassword){
-      user.password = newHashPass;
-      return res.redirect("/auth/login");
-    }
-    else {
-      req.flash("error", "Password reset token is invalid or has expired.");
-      return res.redirect("/auth/forgot", { "message": req.flash("error") })
-    }
-  });
-  
-});
 
 router.post("/login", passport.authenticate("local", {
   successRedirect: "/posts",
@@ -234,5 +151,88 @@ router.get('/confirm/:confirmationCode', (req,res,next)=> {
   })
 })
 
+
+router.get("/forgot", (req, res, next) => {
+  res.render("auth/forgot", { "message": req.flash("error") });
+});
+
+router.post("/forgot", (req, res, next) => {
+  async.waterfall([
+    function(done) {
+      crypto.randomBytes(20, function(err, buf){
+        let token = buf.toString("hex");
+        done(err, token);
+      });
+    },
+    function(token, done) {
+      User.findOne({email: req.body.email}, function(err, user){
+        if(!user){
+          req.flash("error", "There is no account with that email address.");
+          return res.redirect("/auth/forgot", { "message": req.flash("error") });
+        }
+        
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour to change password
+  
+        user.save();
+        done(err, token, user);
+      });
+    },
+    function(token, user, done){
+      let transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user:  process.env.GMAIL_USER,
+          pass:  process.env.GMAIL_PASS
+        }
+      });
+      
+      transporter.sendMail({
+        from: '"The Veggiebook team"',
+        to: req.body.email, // the email entered in the form 
+        subject: 'Reset your password', 
+        html: `Hi ${user.username}, to reset your password please click <a href="http://localhost:3000/auth/reset/${token}">here</a>.`
+      })
+      
+      res.render("auth/goToMail");
+    },{
+      catch(err) {
+        req.flash("error", "There is no account with that email address.");
+        return res.redirect("/auth/forgot", { "message": req.flash("error") });
+      }
+    }
+  ])
+});
+
+router.get("/reset/:token", (req, res, next) => {
+  let token = req.params.token;
+  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
+    if(!user) {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("/auth/forgot", { "message": req.flash("error") })
+    }
+    res.render("auth/reset", {token});
+  })
+});
+
+router.post("/reset/:token", (req, res, next) => {
+  let token = req.params.token;
+  let newPassword = req.body.newPassword;
+  let confirmPassword = req.body.confirmPassword;
+  let salt = bcrypt.genSaltSync(bcryptSalt);
+  let newHashPass = bcrypt.hashSync(newPassword, salt);
+  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}})
+  .then(user => {
+    if(newPassword === confirmPassword){
+      user.password = newHashPass;
+      return res.redirect("/auth/login");
+    }
+    else {
+      req.flash("error", "Password reset token is invalid or has expired.");
+      return res.redirect("/auth/forgot", { "message": req.flash("error") })
+    }
+  });
+  
+});
 
 module.exports = router;
