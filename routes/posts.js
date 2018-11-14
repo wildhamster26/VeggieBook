@@ -4,6 +4,7 @@ const express = require('express');
 const router  = express.Router();
 const Post = require('../models/Post')
 const User = require('../models/User')
+const uploadCloud = require("../config/cloudinary.js");
 
 /* Will include routes to posts and comments */
 
@@ -15,12 +16,14 @@ router.get('/add', (req, res, next) => {
 
 
 //CODE TO CREATE THE POST BASED ON THE THE INFORMATION ADDED IN THE "ADD-POST.HBS FORM"
-router.post('/add', (req, res, next) => {
+router.post('/add', uploadCloud.single('photo'),(req, res, next) => {
   Post.create({
     title:req.body.title,
     content: req.body.content,
     visibility:req.body.visibility,
     category: req.body.category,
+    imgName : req.file.originalname,
+    imgPath : req.file.url,
     _creator: req.user._id  //this ensures that the creator of the post is the user that is currently logged in
   })
   // .then(User.findByIdAndUpdate(req.user._id,{
@@ -34,13 +37,13 @@ router.post('/add', (req, res, next) => {
 
 //CODE TO DISPLAY THE LIST OF POSTS, INCLUDING THE CREATOR
 router.get('/', (req, res, next) => {
-  const user = req.user._id
-
+  const user = req.user._id;
   Post.find()
   .populate("_creator")
   .then(posts => {
-    res.render('private-homepage', {posts: posts, user})
-    // console.log('posts')
+    res.render('private-homepage', {
+      posts, user
+    });
   })
 })
 
@@ -52,6 +55,21 @@ router.get("/:id/edit", (req, res, next) => {
   });
 });
 
+<<<<<<< HEAD
+router.post("/:id/edit",  ensureLoggedIn(), (req, res, next) => {
+  if(!(req.user._id == req.params.id))
+      res.redirect('/posts');
+  else{
+    Post.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      content: req.body.content,
+      visibility: req.body.visibility,
+      category: req.body.category,
+    }).then(post => {
+      res.redirect("/posts");
+    });
+  }
+=======
 router.post("/:id/edit",  (req, res, next) => {
   Post.findByIdAndUpdate(req.params.id, {
     title: req.body.title,
@@ -61,6 +79,7 @@ router.post("/:id/edit",  (req, res, next) => {
   }).then(post => {
     res.redirect("/posts");
   });
+>>>>>>> c58f57561ba23fc048732ddfb917225d781d2eac
 });
 
 //DELETING POSTS
