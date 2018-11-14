@@ -10,13 +10,13 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const session    = require("express-session");
-const MongoStore = require('connect-mongo')(session);
-const flash      = require("connect-flash");
+const session      = require("express-session");
+const MongoStore   = require('connect-mongo')(session);
+const flash        = require("connect-flash");
 const {ensureLoggedIn} = require('connect-ensure-login');
+const Friend       = require('./models/Friend')
+var ObjectId = require('mongoose').Types.ObjectId; 
 
-
-    
 
 mongoose
 .connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
@@ -29,7 +29,6 @@ mongoose
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
-
 const app = express();
 
 // Middleware Setup
@@ -66,9 +65,10 @@ hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
    return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
 });
 
+//DEPRECATED
 hbs.registerHelper('ifIsInvitee', function(currentUser, otherUser, options) {
   let isInvitee = false
-  currentUser.inviteesId.forEach(invitee => {
+  currentUser._inviteesId.forEach(invitee => {
     if (JSON.stringify(invitee) === JSON.stringify(otherUser._id)) {
       isInvitee = true
     }
@@ -78,27 +78,26 @@ hbs.registerHelper('ifIsInvitee', function(currentUser, otherUser, options) {
   } else {
     return (false) ? options.fn(this) : options.inverse(this);
   }
-  
 })
 
+//THIS MAY BE VERY INEFFICIENT BUT IT WORKS
+//DEPRECATED
 hbs.registerHelper('ifIsFriend', function(currentUser, otherUser, options) {
-  let isFriend = false
-  currentUser.friendsId.forEach(friend => {
-    if (JSON.stringify(friend) === JSON.stringify(otherUser._id)) {
-      isFriend = true
-    }
-  })
-  if(isFriend) {
+  let _user1 = currentUser._id
+  let _user2 = otherUser._id
+  let query = { status: "Friends", $or: [{  $or: [{ _user1: _user1 },{ _user2: _user2 }], $or: [{ _user1: _user2 },{ _user2: _user1 }]}]}
+
+  Friend.findOne(query)
+  .then(x => {
     return (true) ? options.fn(this) : options.inverse(this);
-  } else {
+  })
+  .catch(y => {
     return (false) ? options.fn(this) : options.inverse(this);
-  }
-  
+  })
 })
 
 // default value for title local
 app.locals.title = 'Welcome to Veggiebook';
-
 
 // Enable authentication using session + passport
 app.use(session({
@@ -110,19 +109,14 @@ app.use(session({
 app.use(flash());
 require('./passport')(app);
 
-
-// This middleware gives variables "isConnected" and "isOwner" to the view
+// This middleware gives variables "isConnected" to the view
 app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
-  // console.log('isOwner', isOwner)
   if (req.user) {
     res.locals.currentUserId = req.user._id
-    // console.log(res.locals.currentUserId)
   }
-  // console.log('REQ.USER', req.user._id)
   next() 
 })
-
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));

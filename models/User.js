@@ -18,9 +18,9 @@ const userSchema = new Schema({
   favFoods: String,
   darkSecret: String,
   confirmationCode: String,
-  invitersId: [ String ],
-  inviteesId: [ String ],
-  friendsId: [ String ],
+  _invitersId: [ {type: Schema.Types.ObjectId, ref: "User"} ],
+  _inviteesId: [ {type: Schema.Types.ObjectId, ref: "User"} ],
+  _friendsId: [ {type: Schema.Types.ObjectId, ref: "User"} ],
   imgName: {type: String, required: true},
   imgPath: {type: String, required: true}
 }, {
