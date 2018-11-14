@@ -191,7 +191,7 @@ router.post("/forgot", (req, res, next) => {
         from: '"The Veggiebook team"',
         to: req.body.email, // the email entered in the form 
         subject: 'Reset your password', 
-        html: `Hi ${user.username}, to reset your password please click <a href="${process.env.BASE_URL}/auth/reset/${token}">here</a>.`
+        html: `Hello ${user.username}, to reset your password please click <a href="${process.env.BASE_URL}/auth/reset/${token}">here</a>.`
       })
       
       res.render("auth/goToMail");
