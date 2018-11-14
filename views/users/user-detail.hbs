@@ -36,6 +36,9 @@
 		{{#each this.comments}}
 			By {{this.creatorUsername}}: <br>
 			{{this.content}} <br>
+			<form action="/" method="POST">
+			<button>Delete comment</button>
+			</form>
 		{{/each}}
 		{{/if}}
 	{{/each}}
@@ -43,10 +46,10 @@
 
 
 {{#if profileOwner}}
-<p>			
-	<a href="/users/{{user._id}}/edit">Edit</a><br>		
-	<a href="/users/{{user._id}}/delete">Delete</a><br>		
-</p>			
+	<p>			
+		<a href="/users/{{user._id}}/edit">Edit</a><br>		
+		<a href="/users/{{user._id}}/delete">Delete</a><br>		
+	</p>			
 {{/if}}
 
 {{#if message}}

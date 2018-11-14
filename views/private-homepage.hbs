@@ -26,19 +26,22 @@
       <p>{{this.content}}</p>
       {{#ifEquals ../../user._id this._creatorId }}
         <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
-          <button>Delete comment</button> 
+          <button>Delete comment</button>
         </form>
       {{/ifEquals}}
     {{/each}}
     
-    {{!-- EDIT POST button --}}
-    <form action="/posts/{{this._id}}/edit" method:"get">
-      <button>Edit</button>
-    </form>
-    {{!-- DELETE POST button --}}
-     <form action="/posts/{{this._id}}/delete" method:"get">
-      <button>Delete</button>
-    </form>
+    {{#ifEquals ../user._id this._creator._id }}
+      {{!-- EDIT POST button --}}
+      <form action="/posts/{{this._id}}/edit" method:"get">
+        <button>Edit</button>
+      </form>
+      {{!-- DELETE POST button --}}
+      <form action="/posts/{{this._id}}/delete" method:"get">
+        <button>Delete</button>
+      </form>
+      {{/ifEquals}}
+
     {{!-- ADD COMMENT --}}
     <form action="/posts/{{this._id}}/add-comment" method="POST">
       <textarea name="content" cols="30" row="10"></textarea>

@@ -65,6 +65,8 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 
 
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+    console.log("arg1:", arg1);
+    console.log("arg2:", arg2);
    return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
 });
 

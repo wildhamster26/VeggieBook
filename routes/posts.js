@@ -35,13 +35,13 @@ router.post('/add', ensureLoggedIn(), (req, res, next) => {
 
 //CODE TO DISPLAY THE LIST OF POSTS, INCLUDING THE CREATOR
 router.get('/', (req, res, next) => {
-  const user = req.user._id
-
+  const user = req.user._id;
   Post.find()
   .populate("_creator")
   .then(posts => {
-    res.render('private-homepage', {posts: posts, user})
-    // console.log('posts')
+    res.render('private-homepage', {
+      posts, user
+    });
   })
 })
 
@@ -54,14 +54,18 @@ router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
 });
 
 router.post("/:id/edit",  ensureLoggedIn(), (req, res, next) => {
-  Post.findByIdAndUpdate(req.params.id, {
-    title: req.body.title,
-    content: req.body.content,
-    visibility: req.body.visibility,
-    category: req.body.category,
-  }).then(post => {
-    res.redirect("/posts");
-  });
+  if(!(req.user._id == req.params.id))
+      res.redirect('/posts');
+  else{
+    Post.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      content: req.body.content,
+      visibility: req.body.visibility,
+      category: req.body.category,
+    }).then(post => {
+      res.redirect("/posts");
+    });
+  }
 });
 
 //DELETING POSTS
