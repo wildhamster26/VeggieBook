@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: {type: String, unique: true, required: true},
-  password: {type: String, required: true, min: 3},
+  username: {type: String, unique: true, required:true},
+  password: String,
   email: {type: String, unique: true, required: true, match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/},
   //Kind of vegetable
   status: {type: String, enum: ["active", "inactive"], default: "inactive"},
@@ -18,11 +18,15 @@ const userSchema = new Schema({
   favFoods: String,
   darkSecret: String,
   confirmationCode: String,
-  // _invitersId: [ {type: Schema.Types.ObjectId, ref: "User"} ],
-  // _inviteesId: [ {type: Schema.Types.ObjectId, ref: "User"} ],
-  // _friendsId: [ {type: Schema.Types.ObjectId, ref: "User"} ],
-  imgName: {type: String, required: true},
-  imgPath: {type: String, required: true}
+  googleID: String,
+  invitersId: [ String ],
+  inviteesId: [ String ],
+  friendsId: [ String ],
+  imgName: {type: String, required: true, default:""},
+  imgPath: {type: String, required: true, default:""},
+  public_id: {type: String, required: true, default:""},
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 }, {
   timestamps: {
     createdAt: 'created_at',

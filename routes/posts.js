@@ -5,6 +5,7 @@ const router  = express.Router();
 const Post = require('../models/Post')
 const User = require('../models/User')
 const uploadCloud = require("../config/cloudinary.js");
+const {ensureLoggedIn} = require('connect-ensure-login');
 
 /* Will include routes to posts and comments */
 
@@ -50,15 +51,19 @@ router.get("/:id/edit", (req, res, next) => {
   });
 });
 
-router.post("/:id/edit",  (req, res, next) => {
-  Post.findByIdAndUpdate(req.params.id, {
-    title: req.body.title,
-    content: req.body.content,
-    visibility: req.body.visibility,
-    category: req.body.category,
-  }).then(post => {
-    res.redirect("/posts");
-  });
+router.post("/:id/edit",  ensureLoggedIn(), (req, res, next) => {
+  if(!(req.user._id == req.params.id))
+      res.redirect('/posts');
+  else{
+    Post.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      content: req.body.content,
+      visibility: req.body.visibility,
+      category: req.body.category,
+    }).then(post => {
+      res.redirect("/posts");
+    });
+  }
 });
 
 //DELETING POSTS

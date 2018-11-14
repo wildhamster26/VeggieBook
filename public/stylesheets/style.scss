@@ -1,3 +1,9 @@
+// OVERRIDE THE DEFAULT VALUES OF BOOTSTRAP BY DEFINING THEM ABOVE THE IMPORT
+$primary: rgb(114, 172, 56);
+
+// IMPORT BOOTSTRAP FROM NODE MUDULES
+@import "node_modules/bootstrap/scss/bootstrap";
+
 body {
   padding: 0px;
   margin: 0 auto;
@@ -10,19 +16,19 @@ a {
 }
 
 
-button { 
-  padding: 5px 20px; 
-  background-color: rgb(0, 155, 0);
-  color: white;
-  border: none;
-}
+// button { 
+//   padding: 5px 20px; 
+//   background-color: rgb(0, 155, 0);
+//   color: white;
+//   border: none;
+// }
 
-.users-container {
-  
-}
-.user-card {
-  width: 90%;
-  margin: 10px 0;
-  border: none; 
-  box-shadow: 0 0 10px rgb(100, 100, 100);
-}
+// .users-container {
+
+// }
+// .user-card {
+//   width: 90%;
+//   margin: 10px 0;
+//   border: none; 
+//   box-shadow: 0 0 10px rgb(100, 100, 100);
+// }
