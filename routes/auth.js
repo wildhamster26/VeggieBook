@@ -221,10 +221,11 @@ router.post("/reset/:token", (req, res, next) => {
   let confirmPassword = req.body.confirmPassword;
   let salt = bcrypt.genSaltSync(bcryptSalt);
   let newHashPass = bcrypt.hashSync(newPassword, salt);
-  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}})
+  User.findOneAndUpdate({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}})
   .then(user => {
     if(newPassword === confirmPassword){
       user.password = newHashPass;
+
       return res.redirect("/auth/login");
     }
     else {
