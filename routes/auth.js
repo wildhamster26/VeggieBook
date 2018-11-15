@@ -53,11 +53,16 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   const {username,password, email, kind, age, phoneNumber, hobbies, fears, 
   favFoods,darkSecret} = req.body;
+  const imgPath = "",
+        imgName = "",
+        public_id = "";
+  if (!!req.file){
+    imgPath = req.file.imgPath;
+    public_id = req.file.public_id
+    imgName = req.file.originalname;
+  }
   const resetPasswordToken = "";
   const resetPasswordExpires = "";
-  const imgPath = req.file.url;
-  const imgName = req.file.originalname;
-  const public_id = req.file.public_id;
   const confirmationCode = randomstring.generate(30);
   
   if (username === "" || password === "" || email === "") {
@@ -167,8 +172,7 @@ router.post("/forgot", (req, res, next) => {
     function(token, done) {
       User.findOne({email: req.body.email}, function(err, user){
         if(!user){
-          req.flash("error", "There is no account with that email address.");
-          return res.redirect({ "message": req.flash("error") }, "/auth/forgot");
+          return res.render("auth/forgot", { "message":  "There is no account with that email address." });
         }
         
         user.resetPasswordToken = token;
@@ -198,7 +202,7 @@ router.post("/forgot", (req, res, next) => {
     },{
       catch(err) {
         req.flash("error", "There is no account with that email address.");
-        return res.redirect("/auth/forgot", { "message": req.flash("error") });
+        return res.render("auth/forgot", { "message": req.flash("error") });
       }
     }
   ])
@@ -209,9 +213,9 @@ router.get("/reset/:token", (req, res, next) => {
   User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}, (err, user) => {
     if(!user) {
       req.flash("error", "Password reset token is invalid or has expired.");
-      return res.redirect("/auth/forgot", { "message": req.flash("error") })
+      return res.render("auth/forgot", { "message": req.flash("error") })
     }
-    res.render("auth/reset", {token});
+    res.render("auth/reset", {token, "message": req.flash("error") });
   })
 });
 
@@ -222,7 +226,6 @@ router.post("/reset/:token", (req, res, next) => {
   let salt = bcrypt.genSaltSync(bcryptSalt);
   let newHashPass = bcrypt.hashSync(newPassword, salt);
   let query = {resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}
-  console.log(typeof Date.now());
   if(newPassword === confirmPassword){
     User.findOneAndUpdate(query, {
       password: newHashPass
@@ -231,8 +234,8 @@ router.post("/reset/:token", (req, res, next) => {
       return res.redirect("/auth/login");
     })
   } else {
-      req.flash("error", "Password reset token is invalid or has expired.");
-      return res.redirect("/auth/forgot");
+      req.flash("error", "Password and confirm passwords must match.");
+      return res.redirect(`/auth/reset/${token}`);
     }
   });
 

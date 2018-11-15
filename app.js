@@ -125,6 +125,7 @@ app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
   if (req.user) {
     res.locals.currentUserId = req.user._id
+    res.locals.username = req.user.username
   }
   next() 
 })

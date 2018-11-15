@@ -9,9 +9,7 @@
   <meta name="google-signin-client_id" content="Your_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-
-<link href='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
-
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
@@ -25,7 +23,7 @@
     <ul class="navbar-nav mr-auto">
       {{#if isConnected }}
        <li class="nav-item">
-          <a class="nav-link" href="/users/{{currentUserId}}">My profile</a>
+          <a class="nav-link" href="/users/{{currentUserId}}">{{username}}'s profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/friends">My friends</a>
