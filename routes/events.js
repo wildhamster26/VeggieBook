@@ -5,6 +5,8 @@ const router = express.Router();
 const Event = require("../models/Event");
 const Participant = require("../models/Participant")
 const uploadCloud = require("../config/cloudinary.js");
+var ObjectId = require('mongoose').Types.ObjectId; 
+
 
 router.get("/add", (req, res, next) => {
   res.render("events/add-event");
@@ -32,19 +34,31 @@ router.get("/add", (req, res, next) => {
 
 // JOINing THE EVENT
 router.post('/:id/join', (req, res, next) => {
+let _eventId = req.params.id
+let _userId = req.user._id
 
-  let _eventId = req.params.id
-  let _userId = req.user._id
+Participant.findOne({_event: _eventId, _user: _userId})
+.then(participant => {
+  if (participant) {
+    console.log("Nothing happened, already joined")
+    return null; // Go to the next then
+  }
+  else {
+    return Participant.create({
+      _event: _eventId,
+      _user: _userId
+    })
+  }
+  })
+  .then(participantCreated => {
+    res.redirect("/events/" + _eventId + "/detail") 
+  })
+  .catch(err => next(err))
+ 
+})
 
-  Participant.create ({
-  _event: _eventId,
-  _user: _userId
-  })
-  .then (participant => {
-    res.redirect ("/events/"+_eventId+"/detail")
-  })
-  })
-
+  
+  
 //DISPlAYING THE LIST OF EVENTS
 router.get("/", (req, res, next) => {
   Event.find()
