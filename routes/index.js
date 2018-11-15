@@ -39,7 +39,6 @@ router.get('/users/:id', (req, res, next) => {
   }
   Post.find({_creator : id}).then(posts => {userPosts = posts});
   Event.find({_creator : id}).then(events => {userEvents = events});
-  // Friend.find({_user2 : id}).then(Friends => {userFriends = Friends});
   User.findById(id)
     .then(user => {	
     res.render('users/user-detail', {	
@@ -96,22 +95,45 @@ router.get('/users/:id/edit', (req, res, next) => {
 });
 
 router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => {
-  cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
+  // console.log("body before if:", req.body);
+  // if (!!req.file){
+  //   console.log("body inside if:", req.body);
+  //   cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
+  //   User.findByIdAndUpdate(req.params.id, {
+  //     username: req.body.username,
+  //     email: req.body.email,
+  //     kind: req.body.kind,
+  //     age: req.body.age,
+  //     phoneNumber: req.body.phoneNumber,
+  //     hobbies: req.body.hobbies,
+  //     fears: req.body.fears,
+  //     favFoods: req.body.favFoods,
+  //     darkSecret: req.body.darkSecret,
+  //     imgPath: req.file.url,
+  //     imgName: req.file.originalname,
+  //     public_id: req.file.public_id
+  //   })
+  //   .then(user => {	
+  //     return res.redirect('/users');	
+  //   })
+  // }
+  console.log("req.body after the if before the imageless update:", req.body)
   User.findByIdAndUpdate(req.params.id, {
-  username: req.body.username,
-  email: req.body.email,
-  kind: req.body.kind,
-  age: req.body.age,
-  phoneNumber: req.body.phoneNumber,
-  hobbies: req.body.hobbies,
-  fears: req.body.fears,
-  favFoods: req.body.favFoods,
-  darkSecret: req.body.darkSecret,
-  imgPath: req.file.url,
-  imgName: req.file.originalname,
-  public_id: req.file.public_id
+    username: req.body.username,
+    email: req.body.email,
+    kind: req.body.kind,
+    age: req.body.age,
+    phoneNumber: req.body.phoneNumber,
+    hobbies: req.body.hobbies,
+    fears: req.body.fears,
+    favFoods: req.body.favFoods,
+    darkSecret: req.body.darkSecret,
+    imgPath: req.file.url,
+    imgName: req.file.originalname,
+    public_id: req.file.public_id
   })
 	.then(user => {	
+    console.log("req.body after the imageless update before redirecting:", req.body)
     res.redirect('/users');	
 	})		
 });

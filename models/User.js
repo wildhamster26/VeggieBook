@@ -19,9 +19,9 @@ const userSchema = new Schema({
   darkSecret: String,
   confirmationCode: String,
   googleID: String,
-  imgName: {type: String, required: true, default:""},
-  imgPath: {type: String, required: true, default:""},
-  public_id: {type: String, required: true, default:""},
+  imgName: {type: String, default:""},
+  imgPath: {type: String, default:""},
+  public_id: {type: String, default:""},
   resetPasswordToken: String,
   resetPasswordExpires: Date
 }, {
