@@ -13,7 +13,6 @@ const bcryptSalt = 10;
 
  //LIST OF FRIENDS
 router.get('/', (req, res, next) => {
-  console.log('Delete this, this is just a try to get rid of an error')
   const userId = req.user._id
     Friend.find({ status: "Friends", $or: [{ _user1: userId },{ _user2: userId }]})
     .populate("_user1")
@@ -108,11 +107,16 @@ router.get('/find', (req, res, next) => {
 
 router.get('/confirm/:friendConfirmCode', (req, res, next) => {
   const friendConfirmCode = req.params.friendConfirmCode
-  console.log('hey!!!!!')
   Friend.findOneAndUpdate({ friendConfirmCode: friendConfirmCode }, { status: "Friends" })
     .then(x => {
       res.redirect('/friends/find')
     })
+  console.log('Delete this, this is just a try to get rid of an error on github')
+  for (let i = 0; i < 10; i++){
+    //DELETE THIS FOR
+  }
+
+
 })
 
 
