@@ -1,3 +1,7 @@
+* {
+  list-style: none;
+}
+
 body {
   padding: 0px;
   margin: 0 auto;
@@ -15,9 +19,10 @@ button {
   box-shadow: 0 0 10px lightgray;
   border-radius: 5px;
   padding: 3px 7px;
-
 }
-.find-friends-title {
+
+// Find friends styles
+.page-title {
   display: flex;
   padding: 20px 0;
   width: 100%;
@@ -35,7 +40,6 @@ button {
   position: relative;
   max-width: 400px;
   margin: 0 auto;
-
   #user-card {
     display: flex;
     width: 95%;
@@ -43,12 +47,11 @@ button {
     box-shadow: 0 0 10px lightgray;
     margin: 10px auto;
     border-radius: 5px;
-
     #user-card-img {
       display: flex;
       width: 30%;
       align-items: center;
-      margin-left: 5px;
+      margin: 5px;
       img {
         box-shadow: 0 0 15px lightgray;
         // display: block;
@@ -60,7 +63,6 @@ button {
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
         border-radius: 50%;
-        
       }
     }
     #user-card-right-wrapper {
@@ -94,11 +96,9 @@ button {
       font-size: 0.9em;
       top: 115px;
       right: 5px;
-
       button {
         border-radius: 3px;
       }
-
     }
     h3 {
       font-size: 1em;
@@ -109,6 +109,96 @@ button {
   }
 }
 
+// Private homepage styles
+.user-prof-pic {
+  box-shadow: 0 0 15px lightgray;
+  // display: block;
+  // margin: 0 auto;
+  height: 100px;
+  width: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+#post-gen-container {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  max-width: 700px;
+  width: 95%;
+  // height: 150px;
+  box-shadow: 0 0 10px lightgray;
+  margin: 10px auto;
+  border-radius: 5px;
+  #post-header {
+    display: flex;
+  
+    #user-prof-pic-div {
+      display: flex;
+      width: 30%;
+      justify-items: flex-start;
+      align-items: flex-start;
+      margin: 5px;
+    }
+    #post-header-text {
+      display: flex;
+      flex-flow: column;
+      position: absolute;
+      width: 70%;
+      right: 15px;
+      text-align: right;
+      align-items: flex-end;
+      h3 {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        align-self: center;
+        font-size: 1em;
+      }
+      p {
+        position: absolute;
+        align-self: center;
+        margin: auto;
+        right: 8px;
+        top: 60px;
+        color: grey;
+        font-size: 0.8em;
+        width: 200px;
+      }
+    }
+  }
+  #post-content {
+    margin: 12px; 
+    h3 {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+#post-img-div {
+  display: flex;
+  width: 100%;
+  // height: auto;
+  margin: 10px auto;
+  // height: auto;
+  img {
+    margin: 0 auto;
+    max-width: 95%;
+    max-height: auto;;
+    object-fit: cover;
+    // height: 400px;
+  }
+}
+//Comments styles
+#post-comments-div {
+  #comment-user-prof-pic-div img {
+    width: 65px;
+    height: 65px;
+  }
+
+}
 
 
 
