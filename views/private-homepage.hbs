@@ -1,17 +1,15 @@
 
 {{!-- This is to display the posts that users create --}}
-{{!-- <div id="newsfeed"> --}}
+
 <div class="page-title">
   <h2>Newsfeed</h2>
 </div>
-     
+<div id="newsfeed-subheader">
  <form action="/posts/add" method:"get">
-    <button>Create a new post</button>
-    </form>
-
-{{!-- <ul> --}}
+    <button class="button">Create a new post</button>
+  </form>
+</div>
   {{#each posts}}
-  {{!-- <li> --}}
     <div id="post-gen-container">
       <div id="post-header">
         <div id="user-prof-pic-div">
@@ -22,7 +20,7 @@
           <p>{{this.created_at}}</p>
         </div>
       </div>
-
+      <div class="separator"></div>
       <div id="post-content">
         <h3>{{this.title}}</h3>
         <p>{{this.content}}</p>
@@ -30,6 +28,7 @@
       <div id="post-img-div">
         <img src="{{this.imgPath}}" alt="Post's image" height="150px">
       </div>
+      <div class="separator"></div>
 
       {{!-- DISPLAY ALL POST COMMENTS --}}
       <hr>
@@ -44,37 +43,40 @@
             </div>
             <div>
               <p>{{this.content}}</p>
-              {{#ifEquals ../../currentUserId this._creatorId }}
-                <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
-                  <button>Delete comment</button>
-                </form>
-              {{/ifEquals}}
             </div>
           </div>
+          {{#ifEquals ../currentUserId this._creatorId }}
+            <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
+              <button id="delete-comment-button"  class="small-delete-button">X</button>
+            </form>
+          {{/ifEquals}}
       </div>
         {{/each}}
+      <div id="comment-input-box">
+        <form action="/posts/{{this._id}}/add-comment" method="POST">
+        <div>
+          <input name="content" placeholder="Your comment here"></input>
+        </div>
+        <div>
+          <button class="button">Comment</button>
+        </div>
+        </form>
+      </div>
       
+      <div id="edit-delete-post-buttons">
+        {{#ifEquals ../currentUserId this._creator._id}}
+        {{!-- EDIT POST button --}}
+        <form action="/posts/{{this._id}}/edit" method:"get">
+          <button class="button">Edit post</button>
+        </form>
+        {{!-- DELETE POST button --}}
+        <form action="/posts/{{this._id}}/delete" method:"get">
+          <button class="button delete">Delete post</button>
+        </form>
+        {{/ifEquals}}
+      </div>
 
-      {{#ifEquals ../currentUserId this._creator._id}}
-      {{!-- EDIT POST button --}}
-      <form action="/posts/{{this._id}}/edit" method:"get">
-        <button>Edit</button>
-      </form>
-      {{!-- DELETE POST button --}}
-      <form action="/posts/{{this._id}}/delete" method:"get">
-        <button>Delete</button>
-      </form>
-      {{/ifEquals}}
-
-      {{!-- ADD COMMENT --}}
-      <form action="/posts/{{this._id}}/add-comment" method="POST">
-        <textarea name="content" cols="30" row="10"></textarea>
-        <button>Comment</button>
-      </form>
     </div>
-
-
-  {{!-- </li> --}}
   {{/each}}
-{{!-- </ul> --}}
-{{!-- </div> --}}
+
+

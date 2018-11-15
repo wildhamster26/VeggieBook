@@ -39,7 +39,6 @@ router.get('/users/:id', (req, res, next) => {
   }
   Post.find({_creator : id}).then(posts => {userPosts = posts});
   Event.find({_creator : id}).then(events => {userEvents = events});
-  // Friend.find({_user2 : id}).then(Friends => {userFriends = Friends});
   User.findById(id)
     .then(user => {	
     res.render('users/user-detail', {	
@@ -98,9 +97,6 @@ router.get('/users/:id/edit', (req, res, next) => {
 router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => {
   if (req.file){ 
   cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) }); 
-  console.log("DEBUG REQ FILE", req.file)
-  console.log("DEBUG REQ BODY", req.body)
-
   User.findByIdAndUpdate(req.params.id, {
   username: req.body.username,
   email: req.body.email,
@@ -116,6 +112,7 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
   public_id: req.file.public_id
   })
 	.then(user => {	
+    console.log("req.body after the imageless update before redirecting:", req.body)
     res.redirect('/users');	
   })}
   else {

@@ -8,9 +8,11 @@
 					
 			
 
-<form action="/users/{{user._id}}/edit" method="post" enctype="multipart/form-data">					
-  <img src="{{user.imgPath}}" alt="user's picture" height="150px">
-  <br>
+<form action="/users/{{user._id}}/edit" method="post" enctype="multipart/form-data">	
+  {{#if user.imgPath}}
+    <img src="{{user.imgPath}}" alt="user's picture" height="150px">
+    <br>
+  {{/if}}
   <label>Profile picture</label>
   <input type="file" name="photo">
   <br><br>
