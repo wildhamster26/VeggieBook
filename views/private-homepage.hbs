@@ -44,33 +44,35 @@
             </div>
             <div>
               <p>{{this.content}}</p>
-              {{#ifEquals ../../currentUserId this._creatorId }}
-                <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
-                  <button>Delete comment</button>
-                </form>
-              {{/ifEquals}}
             </div>
           </div>
+          {{#ifEquals ../../../currentUserId ../this._creatorId }}
+                <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
+                  <button id="delete-comment-button"  class="small-delete-button">X</button>
+                </form>
+              {{/ifEquals}}
+
+
       </div>
         {{/each}}
+      <form action="/posts/{{this._id}}/add-comment" method="POST">
+        <textarea name="content" cols="30" row="10"></textarea>
+        <button>Comment</button>
+      </form>
       
 
       {{#ifEquals ../currentUserId this._creator._id}}
       {{!-- EDIT POST button --}}
       <form action="/posts/{{this._id}}/edit" method:"get">
-        <button>Edit</button>
+        <button>Edit post</button>
       </form>
       {{!-- DELETE POST button --}}
       <form action="/posts/{{this._id}}/delete" method:"get">
-        <button>Delete</button>
+        <button>Delete post</button>
       </form>
       {{/ifEquals}}
 
       {{!-- ADD COMMENT --}}
-      <form action="/posts/{{this._id}}/add-comment" method="POST">
-        <textarea name="content" cols="30" row="10"></textarea>
-        <button>Comment</button>
-      </form>
     </div>
 
 

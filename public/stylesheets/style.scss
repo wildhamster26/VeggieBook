@@ -20,6 +20,13 @@ button {
   border-radius: 5px;
   padding: 3px 7px;
 }
+.small-delete-button {
+  display: inline-block;
+  background-color: lightcoral;
+  border-radius: 50%;
+  justify-content: center;
+  font-size: 0.5em; 
+}
 
 // Find friends styles
 .page-title {
@@ -130,7 +137,7 @@ button {
   width: 95%;
   // height: 150px;
   box-shadow: 0 0 10px lightgray;
-  margin: 10px auto;
+  margin: 20px auto;
   border-radius: 5px;
   #post-header {
     display: flex;
@@ -140,7 +147,7 @@ button {
       width: 30%;
       justify-items: flex-start;
       align-items: flex-start;
-      margin: 5px;
+      margin: 10px;
     }
     #post-header-text {
       display: flex;
@@ -153,9 +160,9 @@ button {
       h3 {
         position: absolute;
         right: 8px;
-        top: 8px;
+        top: 10px;
         align-self: center;
-        font-size: 1em;
+        font-size: 1.3em;
       }
       p {
         position: absolute;
@@ -173,6 +180,10 @@ button {
     margin: 12px; 
     h3 {
       margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+    p {
+      font-size: 1em;
     }
   }
 }
@@ -193,11 +204,32 @@ button {
 }
 //Comments styles
 #post-comments-div {
-  #comment-user-prof-pic-div img {
+  display: flex;
+  #comment-user-prof-pic-div {
     width: 65px;
-    height: 65px;
+    height: 100%;
+    margin: 10px;
+    img {
+      width: 65px;
+      height: 65px;
+    }
   }
-
+}
+.comm-content {
+  margin-top: 13px;
+  background-color: rgb(241, 241, 241);
+  border-radius: 10px;
+  h6 {
+    margin: 10px; 
+  }
+  p {
+    margin: 0 8px 8px 10px;
+  };
+}
+#delete-comment-button {
+  position: relative;
+  top: 10px;
+  left: 10px;
 }
 
 
