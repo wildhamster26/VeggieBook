@@ -32,7 +32,7 @@ button {
 .separator {
   height: 1px;
   width: 80%;
-  margin: 10px auto;
+  margin: 5px auto;
   background-color: #f0f0f0; }
 
 .small-delete-button {
@@ -117,8 +117,8 @@ button {
 
 .user-prof-pic {
   box-shadow: 0 0 15px grey;
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -139,12 +139,14 @@ button {
   box-shadow: 0 0 10px lightgray;
   margin: 30px auto;
   border-radius: 5px;
-  padding: 20px 0; }
+  padding: 0px 0 10px; }
   #post-gen-container #post-header {
-    display: flex; }
+    display: flex;
+    align-items: center;
+    height: 80px; }
     #post-gen-container #post-header #user-prof-pic-div {
       display: flex;
-      width: 30%;
+      width: 20%;
       justify-items: flex-start;
       align-items: flex-start;
       margin: 10px; }
@@ -155,12 +157,11 @@ button {
       width: 70%;
       right: 15px;
       text-align: right;
-      align-items: flex-end; }
+      align-items: flex-end;
+      justify-content: center; }
       #post-gen-container #post-header #post-header-text h3 {
         position: absolute;
         right: 8px;
-        top: 10px;
-        align-self: center;
         font-size: 1.3em;
         font-weight: bold; }
       #post-gen-container #post-header #post-header-text p {
@@ -168,12 +169,12 @@ button {
         align-self: center;
         margin: auto;
         right: 8px;
-        top: 60px;
+        top: 40px;
         color: grey;
         font-size: 0.8em;
         width: 200px; }
   #post-gen-container #post-content {
-    margin: 12px; }
+    margin: 0 20px; }
     #post-gen-container #post-content h3 {
       margin-bottom: 10px;
       font-size: 1.3em; }
@@ -181,16 +182,25 @@ button {
       font-size: 1em; }
 
 #post-img-div {
-  display: block;
-  margin: 0 auto; }
+  display: inline-block;
+  margin: 0 auto 15px; }
   #post-img-div img {
     margin: 0 auto;
     object-fit: contain;
     max-width: 100%;
-    width: auto;
     height: auto;
-    box-shadow: 0 0 10px grey;
-    border-radius: 5px; }
+    box-shadow: 0 0 10px grey; }
+
+#post-date {
+  align-self: center;
+  margin: auto 10px 10px 10px;
+  right: 8px;
+  top: 40px;
+  color: grey;
+  font-size: 0.8em;
+  font-weight: lighter;
+  text-align: center;
+  width: 100%; }
 
 #post-comments-div {
   display: flex;
