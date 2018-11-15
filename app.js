@@ -21,9 +21,12 @@ var Post          = require('./models/Post');
 
 mongoose
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> bb1df38fef880eb2a7f0ae018f1f70ae56944684
+=======
+>>>>>>> 08e5ec9363075f9953eefa5d955e83079a2e6d25
 .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 .then(x => {
   console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
