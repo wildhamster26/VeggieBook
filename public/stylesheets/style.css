@@ -10,7 +10,7 @@ button {
   background-color: #4f8d4f;
   color: white;
   border: none;
-  box-shadow: 0 0 10px rgba(100, 100, 100, 0.8);
+  box-shadow: 0 0 10px lightgray;
   border-radius: 30px; }
 
 .find-friends-title {
@@ -63,9 +63,12 @@ button {
       #user-card-general-wrapper #user-card #user-card-text h3 {
         position: absolute;
         right: 8px;
-        top: 8px; }
+        top: 8px;
+        align-self: center; }
       #user-card-general-wrapper #user-card #user-card-text p {
         position: absolute;
+        align-self: center;
+        margin: auto;
         right: 8px;
         top: 40px; }
     #user-card-general-wrapper #user-card #user-card-button {

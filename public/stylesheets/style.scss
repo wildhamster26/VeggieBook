@@ -12,7 +12,7 @@ button {
   background-color: rgb(79, 141, 79);
   color: white;
   border: none;
-  box-shadow: 0 0 10px rgba(100, 100, 100, 0.8);
+  box-shadow: 0 0 10px lightgray;
   border-radius: 30px;
 
 }
@@ -75,9 +75,13 @@ button {
         position: absolute;
         right: 8px;
         top: 8px;
+        align-self: center;
       }
       p {
         position: absolute;
+        align-self: center;
+        margin: auto;
+
         right: 8px;
         top: 40px;
       }
