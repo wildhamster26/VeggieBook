@@ -35,6 +35,7 @@ router.post('/add', uploadCloud.single('photo'),(req, res, next) => {
 
 //CODE TO DISPLAY THE LIST OF POSTS, INCLUDING THE CREATOR AND CONSIDERING WHETHER OR NOT THE POST IS PUBLIC/PRIVATE
 router.get('/', (req, res, next) => {
+  let user = res.user
   User.findFriends(req.user._id)
   .then(userIds => {
     return Post.find({ $or:[
@@ -45,7 +46,7 @@ router.get('/', (req, res, next) => {
     .populate("comments._creatorId")
   })
   .then(posts => {
-    res.render('private-homepage', {posts})
+    res.render('private-homepage', {posts, user})
   })
   .catch(err => next(err))
 })

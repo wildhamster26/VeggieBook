@@ -1,17 +1,15 @@
 
 {{!-- This is to display the posts that users create --}}
-{{!-- <div id="newsfeed"> --}}
+
 <div class="page-title">
   <h2>Newsfeed</h2>
 </div>
-     
+<div id="newsfeed-subheader">
  <form action="/posts/add" method:"get">
-    <button>Create a new post</button>
-    </form>
-
-{{!-- <ul> --}}
+    <button class="button">Create a new post</button>
+  </form>
+</div>
   {{#each posts}}
-  {{!-- <li> --}}
     <div id="post-gen-container">
       <div id="post-header">
         <div id="user-prof-pic-div">
@@ -46,37 +44,32 @@
               <p>{{this.content}}</p>
             </div>
           </div>
-          {{#ifEquals ../../../currentUserId ../this._creatorId }}
-                <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
-                  <button id="delete-comment-button"  class="small-delete-button">X</button>
-                </form>
-              {{/ifEquals}}
-
-
+          {{#ifEquals ../currentUserId this._creatorId }}
+            <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
+              <button id="delete-comment-button"  class="small-delete-button">X</button>
+            </form>
+          {{/ifEquals}}
       </div>
         {{/each}}
       <form action="/posts/{{this._id}}/add-comment" method="POST">
-        <textarea name="content" cols="30" row="10"></textarea>
-        <button>Comment</button>
+        {{!-- <input name="content" cols="30" row="10"></input> --}}
+        <input name="content" ></input>
+        <button class="button">Comment</button>
       </form>
       
 
       {{#ifEquals ../currentUserId this._creator._id}}
       {{!-- EDIT POST button --}}
       <form action="/posts/{{this._id}}/edit" method:"get">
-        <button>Edit post</button>
+        <button class="button">Edit post</button>
       </form>
       {{!-- DELETE POST button --}}
       <form action="/posts/{{this._id}}/delete" method:"get">
-        <button>Delete post</button>
+        <button class="button">Delete post</button>
       </form>
       {{/ifEquals}}
 
-      {{!-- ADD COMMENT --}}
     </div>
-
-
-  {{!-- </li> --}}
   {{/each}}
-{{!-- </ul> --}}
-{{!-- </div> --}}
+
+
