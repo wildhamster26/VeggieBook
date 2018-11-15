@@ -4,7 +4,8 @@
 body {
   padding: 0px;
   margin: 0 auto;
-  font: 11px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font: 11px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: lightgreen; }
 
 a {
   color: #00B7FF; }
@@ -25,6 +26,14 @@ button {
   border-radius: 5px;
   padding: 3px 7px;
   margin: 5px; }
+  .button .delete {
+    background-color: lightcoral; }
+
+.separator {
+  height: 1px;
+  width: 80%;
+  margin: 10px auto;
+  background-color: #f0f0f0; }
 
 .small-delete-button {
   display: inline-block;
@@ -46,6 +55,7 @@ button {
     text-justify: center; }
 
 #user-card-general-wrapper {
+  background-color: #fff;
   position: relative;
   max-width: 400px;
   margin: 0 auto; }
@@ -106,7 +116,7 @@ button {
       font-size: 0.8em; }
 
 .user-prof-pic {
-  box-shadow: 0 0 15px lightgray;
+  box-shadow: 0 0 15px grey;
   height: 100px;
   width: 100px;
   -webkit-border-radius: 50%;
@@ -120,14 +130,16 @@ button {
   margin: 0 auto; }
 
 #post-gen-container {
+  background-color: #fff;
   position: relative;
   display: flex;
   flex-flow: column;
   max-width: 700px;
   width: 95%;
   box-shadow: 0 0 10px lightgray;
-  margin: 20px auto;
-  border-radius: 5px; }
+  margin: 30px auto;
+  border-radius: 5px;
+  padding: 20px 0; }
   #post-gen-container #post-header {
     display: flex; }
     #post-gen-container #post-header #user-prof-pic-div {
@@ -149,7 +161,8 @@ button {
         right: 8px;
         top: 10px;
         align-self: center;
-        font-size: 1.3em; }
+        font-size: 1.3em;
+        font-weight: bold; }
       #post-gen-container #post-header #post-header-text p {
         position: absolute;
         align-self: center;
@@ -168,17 +181,22 @@ button {
       font-size: 1em; }
 
 #post-img-div {
-  display: flex;
-  width: 100%;
-  margin: 10px auto; }
+  display: block;
+  margin: 0 auto; }
   #post-img-div img {
     margin: 0 auto;
-    max-width: 95%;
-    max-height: auto;
-    object-fit: cover; }
+    object-fit: contain;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    box-shadow: 0 0 10px grey;
+    border-radius: 5px; }
 
 #post-comments-div {
-  display: flex; }
+  display: flex;
+  margin: 0 10px 0 20px;
+  position: relative;
+  top: -30px; }
   #post-comments-div #comment-user-prof-pic-div {
     width: 65px;
     height: 100%;
@@ -186,24 +204,53 @@ button {
     #post-comments-div #comment-user-prof-pic-div img {
       width: 65px;
       height: 65px; }
-  #post-comments-div input {
-    border: none;
-    border-radius: 5px;
-    margin: 5px; }
 
 .comm-content {
   margin-top: 13px;
-  background-color: #f1f1f1;
+  background-color: #f0f0f0;
   border-radius: 10px; }
   .comm-content h6 {
-    margin: 10px; }
+    margin: 10px;
+    font-size: 0.8em;
+    font-weight: bold; }
   .comm-content p {
-    margin: 0 8px 8px 10px; }
+    margin: 0 8px 0px 10px;
+    font-size: 0.8em; }
 
 #delete-comment-button {
   position: relative;
   top: 10px;
-  left: 10px; }
+  left: 10px;
+  box-shadow: 0 0 10px grey; }
+
+#comment-input-box {
+  display: flex;
+  width: 100%;
+  margin: 0 10px 10px 10px; }
+  #comment-input-box input {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px; }
+  #comment-input-box form {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto; }
+    #comment-input-box form button {
+      position: relative;
+      top: 3px;
+      box-shadow: 0 0 10px grey;
+      margin: 0 10px; }
+
+#edit-delete-post-buttons {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  margin: 0 10px; }
+  #edit-delete-post-buttons button {
+    box-shadow: 0 0 10px grey; }
+  #edit-delete-post-buttons .delete {
+    background-color: lightcoral; }
 
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
