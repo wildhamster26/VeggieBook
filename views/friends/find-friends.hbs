@@ -1,16 +1,23 @@
-<h1>Find friends</h1>
+
+<div class="find-friends-title">
+  <h2>Find friends</h2>
+</div>
 
 {{!-- Displays each user in the database except the own user. Displays 'send invite' button unless that user has already been invited --}}
-<div class="users-container">
   {{#each users}}
-    <div class="user-card">
       {{#unless this.isCurrentUser}}
+      {{#if this.isActive}}
+  <div id="user-card-general-wrapper">
+    <div id="user-card">
+      <div id="user-card-img">
         <img src={{this.imgPath}} alt="" height="100px">
-        <div>
+      </div>
+      <div id="user-card-right-wrapper">
+        <div id="user-card-text">
           <h3>{{this.username}}</h3>
-          <h4>Age: </h4><p>{{this.age}}</p>
+          <p>Age: {{this.age}}</p>
         </div>
-        <div>
+        <div id="user-card-button" >
           {{#if this.isFriend}}
           {{!-- Frienship status below --}}
             <form action="/users/{{this._id}}" method="GET">
@@ -18,15 +25,18 @@
             </form> 
           {{else}}
           {{#if isPending}}
-            <h4>A friend request has been sent to {{this.username}}</h4>
+            <p>A friend request has been sent to {{this.username}}</p>
           {{else}}
             <form action="/friends/invite/{{this._id}}" method="POST">
               <button>Send invite</button>
             </form> 
           {{/if}}
           {{/if}}
-          {{/unless}}
         </div>
+      </div>
     </div>
+  </div>
+
+      {{/if}}
+      {{/unless}}
   {{/each}}
-</div>

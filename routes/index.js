@@ -33,7 +33,6 @@ router.get('/users/:id', (req, res, next) => {
   let userPosts;
   let userEvents;
   let id = req.params.id
-  console.log('hallo')
   if(req.user._id == req.params.id){
     profileOwner = true;
   }
