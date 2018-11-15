@@ -1,11 +1,11 @@
 "use strict";
 
 const passport = require('passport');
-// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 require('./serializers');
 require('./localStrategy');
-// require('./googleStrategy');
+require('./googleStrategy');
 
 
 

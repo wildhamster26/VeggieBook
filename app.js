@@ -28,6 +28,7 @@ mongoose
   console.error('Error connecting to mongo', err)
 });
 
+
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 const app = express();
@@ -94,7 +95,7 @@ hbs.registerHelper('ifIsFriend', function(currentUser, otherUser, options) {
   let _user1 = currentUser._id
   let _user2 = otherUser._id
   let query = { status: "Friends", $or: [{  $or: [{ _user1: _user1 },{ _user2: _user2 }], $or: [{ _user1: _user2 },{ _user2: _user1 }]}]}
-
+  
   Friend.findOne(query)
   .then(x => {
     return (true) ? options.fn(this) : options.inverse(this);
@@ -119,6 +120,9 @@ require('./passport')(app);
 
 // This middleware gives the variable "isConnected" to the view
 app.use((req,res, next) => {
+  console.log("MIDDLEWARE", req.url);
+  
+
   res.locals.isConnected = !!req.user
   if (req.user) {
     res.locals.currentUserId = req.user._id
@@ -127,7 +131,7 @@ app.use((req,res, next) => {
   next() 
 })
 
-
+app.locals.key = process.env.GOOGLE_CLIENT_ID
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
@@ -135,6 +139,6 @@ app.use('/posts', ensureLoggedIn(), require('./routes/posts'));
 app.use('/friends', ensureLoggedIn(), require('./routes/friends'));
 app.use('/events', ensureLoggedIn() , require('./routes/events'));
 
-      
+
 
 module.exports = app;

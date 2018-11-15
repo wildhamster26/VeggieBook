@@ -6,7 +6,7 @@ const Schema   = mongoose.Schema;
 const userSchema = new Schema({
   username: {type: String, unique: true, required:true},
   password: String,
-  email: {type: String, unique: true, required: true, match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/},
+  email: {type: String, unique: true, match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/},
   //Kind of vegetable
   status: {type: String, enum: ["active", "inactive"], default: "inactive"},
   kind: String,
@@ -20,7 +20,7 @@ const userSchema = new Schema({
   confirmationCode: String,
   googleID: String,
   imgName: {type: String, default:""},
-  imgPath: {type: String, default:""},
+  imgPath: {type: String,  default:""},
   public_id: {type: String, default:""},
   resetPasswordToken: String,
   resetPasswordExpires: Date

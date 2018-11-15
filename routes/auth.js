@@ -2,7 +2,7 @@
 
 const express = require("express");
 const passport = require('passport');
-// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const randomstring = require("randomstring");
 const nodemailer = require("nodemailer");
 const router = express.Router();
@@ -33,15 +33,15 @@ router.post("/login", passport.authenticate("local", {
 
 //GOOGLE SIGNUP --> Uncomment the code below to ENABLE GOOGLESIGN IN
 
-// router.get('/google',
-//   passport.authenticate('google', {scope: "email"}));
+router.get('/google',
+  passport.authenticate('google', {scope: "email"}));
 
 
-// router.get('/google/callback', 
-//   passport.authenticate('google', { failureRedirect: 'auth/login' }),
-  // function(req, res) {
-  //   res.redirect('/');
-  // });
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'auth/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
 
 //END OF GOOGLE SIGNUP
 
