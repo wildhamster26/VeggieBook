@@ -53,8 +53,8 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   const {username,password, email, kind, age, phoneNumber, hobbies, fears, 
   favFoods,darkSecret} = req.body;
-  const resetPasswordToken = undefined;
-  const resetPasswordExpires = undefined;
+  const resetPasswordToken = "";
+  const resetPasswordExpires = "";
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
   const public_id = req.file.public_id;
@@ -142,7 +142,7 @@ router.get('/confirm/:confirmationCode', (req,res,next)=> {
       // req.login makes the user login automatically
       req.login(user, () => {
         console.log("EMAIL SENT SUCCESSFULLY");
-        res.redirect('/posts') // Redirect to http://localhost:3000/profile
+        res.redirect('/posts') // Redirect to BASE_URL/profile
       })
     }
     else {
@@ -168,7 +168,7 @@ router.post("/forgot", (req, res, next) => {
       User.findOne({email: req.body.email}, function(err, user){
         if(!user){
           req.flash("error", "There is no account with that email address.");
-          return res.redirect("/auth/forgot", { "message": req.flash("error") });
+          return res.redirect({ "message": req.flash("error") }, "/auth/forgot");
         }
         
         user.resetPasswordToken = token;
@@ -191,7 +191,7 @@ router.post("/forgot", (req, res, next) => {
         from: '"The Veggiebook team"',
         to: req.body.email, // the email entered in the form 
         subject: 'Reset your password', 
-        html: `Hi ${user.username}, to reset your password please click <a href="http://localhost:3000/auth/reset/${token}">here</a>.`
+        html: `Hello ${user.username}, to reset your password please click <a href="${process.env.BASE_URL}/auth/reset/${token}">here</a>.`
       })
       
       res.render("auth/goToMail");
@@ -221,18 +221,19 @@ router.post("/reset/:token", (req, res, next) => {
   let confirmPassword = req.body.confirmPassword;
   let salt = bcrypt.genSaltSync(bcryptSalt);
   let newHashPass = bcrypt.hashSync(newPassword, salt);
-  User.findOne({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}})
-  .then(user => {
-    if(newPassword === confirmPassword){
-      user.password = newHashPass;
+  let query = {resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}
+  console.log(typeof Date.now());
+  if(newPassword === confirmPassword){
+    User.findOneAndUpdate(query, {
+      password: newHashPass
+    })
+    .then(user => {
       return res.redirect("/auth/login");
-    }
-    else {
+    })
+  } else {
       req.flash("error", "Password reset token is invalid or has expired.");
-      return res.redirect("/auth/forgot", { "message": req.flash("error") })
+      return res.redirect("/auth/forgot");
     }
   });
-  
-});
 
 module.exports = router;

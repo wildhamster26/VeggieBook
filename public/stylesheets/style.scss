@@ -1,34 +1,65 @@
-// OVERRIDE THE DEFAULT VALUES OF BOOTSTRAP BY DEFINING THEM ABOVE THE IMPORT
-$primary: rgb(114, 172, 56);
-
-// IMPORT BOOTSTRAP FROM NODE MUDULES
-@import "node_modules/bootstrap/scss/bootstrap";
-
 body {
   padding: 0px;
   margin: 0 auto;
-
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 11px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
 
+button { 
+  background-color: rgb(79, 141, 79);
+  color: white;
+  border: none;
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.8);
+  border-radius: 30px;
 
-// button { 
-//   padding: 5px 20px; 
-//   background-color: rgb(0, 155, 0);
-//   color: white;
-//   border: none;
-// }
+}
+.find-friends-title {
+  display: flex;
+  padding: 20px 0;
+  width: 100%;
+  text-justify: center;
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+  margin: 10px auto;
+  h2 {
+    text-justify: center;
+  }
+}
 
-// .users-container {
+#user-card-general-wrapper {
+  position: relative;
+  width: auto;
+  #user-card {
+    display: flex;
+    width: 95%;
+    height: 110px;
+    box-shadow: 0 0 10px grey;
+    margin: 10px auto;
+    #user-card-img {
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+      img {
+        box-shadow: 0 0 10px grey;
+      }
+    }
+    #user-card-right-wrapper {
+      position: absolute;
+      right: 15px;
+      text-align: right;
+    }
+  }
+}
 
-// }
-// .user-card {
-//   width: 90%;
-//   margin: 10px 0;
-//   border: none; 
-//   box-shadow: 0 0 10px rgb(100, 100, 100);
-// }
+
+
+
+// OVERRIDE THE DEFAULT VALUES OF BOOTSTRAP BY DEFINING THEM ABOVE THE IMPORT
+$primary: rgb(114, 172, 56);
+
+// IMPORT BOOTSTRAP FROM NODE MUDULES
+@import "node_modules/bootstrap/scss/bootstrap";

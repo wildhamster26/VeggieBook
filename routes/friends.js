@@ -44,6 +44,10 @@ router.get('/find', (req, res, next) => {
         users[iUsers].isCurrentUser = true
       }
 
+      if (users[iUsers].status == "active") {
+        users[iUsers].isActive = true
+      }
+
       for (let iFriend = 0; iFriend < friends.length; iFriend++) {
         if (friends[iFriend]._user1.equals(users[iUsers]._id) || friends[iFriend]._user2.equals(users[iUsers]._id)) {
           if(friends[iFriend].status == "Friends") {
@@ -53,8 +57,6 @@ router.get('/find', (req, res, next) => {
           }
         }
       }
-    }
-    for (let i = 0; i < users.length; i++){
     }
     res.render('friends/find-friends', { users, user })
   })
@@ -97,7 +99,7 @@ router.get('/find', (req, res, next) => {
         from: '"The Veggiebook team"',
         to: email, // the email entered in the form 
         subject: 'Hey, friend me!', 
-        html: `Hi ${inviteeUsername}! please click <a href="http://localhost:5000/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
+        html: `Hi ${inviteeUsername}! please click <a href="${BASE_URL}/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
       })
       res.redirect('/friends/find')
     })
@@ -105,11 +107,16 @@ router.get('/find', (req, res, next) => {
 
 router.get('/confirm/:friendConfirmCode', (req, res, next) => {
   const friendConfirmCode = req.params.friendConfirmCode
-  console.log('hey!!!!!')
   Friend.findOneAndUpdate({ friendConfirmCode: friendConfirmCode }, { status: "Friends" })
     .then(x => {
       res.redirect('/friends/find')
     })
+  console.log('Delete this, this is just a try to get rid of an error on github')
+  for (let i = 0; i < 10; i++){
+    //DELETE THIS FOR
+  }
+
+
 })
 
 

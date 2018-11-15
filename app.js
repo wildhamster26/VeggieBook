@@ -19,7 +19,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 
 mongoose
-.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
+.connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
 .then(x => {
   console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
 })
@@ -61,10 +61,20 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 });
 
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+  console.log('Delete this, this is just a try to get rid of an error')
+
     console.log("arg1:", arg1);
     console.log("arg2:", arg2);
+
+    console.log('Delete this, this is just a try to get rid of an error on github')
+    for (let i = 0; i < 10; i++){
+      //DELETE THIS FOR LOOP
+    }
    return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
+   
 });
+
+
 
 //DEPRECATED
 hbs.registerHelper('ifIsInvitee', function(currentUser, otherUser, options) {
@@ -110,7 +120,7 @@ app.use(session({
 app.use(flash());
 require('./passport')(app);
 
-// This middleware gives variables "isConnected" to the view
+// This middleware gives the variable "isConnected" to the view
 app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
   if (req.user) {
