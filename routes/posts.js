@@ -42,6 +42,7 @@ router.get('/', (req, res, next) => {
       {_creator: {$in: userIds}}
     ] })
     .populate("_creator")
+    .populate("comments._creatorId")
   })
   .then(posts => {
     res.render('private-homepage', {posts})
