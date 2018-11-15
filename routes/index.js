@@ -5,6 +5,7 @@ const router  = express.Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Event = require("../models/Event");
+// const Friend = require("../models/Friend");
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require('../config/cloudinary.js');
 const cloudinary = require('cloudinary');
@@ -38,6 +39,7 @@ router.get('/users/:id', (req, res, next) => {
   }
   Post.find({_creator : id}).then(posts => {userPosts = posts});
   Event.find({_creator : id}).then(events => {userEvents = events});
+  // Friend.find({_user2 : id}).then(Friends => {userFriends = Friends});
   User.findById(id)
     .then(user => {	
     res.render('users/user-detail', {	

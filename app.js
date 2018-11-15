@@ -110,7 +110,7 @@ app.use(session({
 app.use(flash());
 require('./passport')(app);
 
-// This middleware gives variables "isConnected" to the view
+// This middleware gives the variable "isConnected" to the view
 app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
   if (req.user) {
