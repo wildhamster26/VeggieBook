@@ -1,6 +1,6 @@
 <h2>Edit event </h2>
 
-<form method="POST" action="/events/{{event._id}}/edit">
+<form method="POST" action="/events/{{event._id}}/edit" enctype="multipart/form-data">
 
 <label for="title">Title</label> 
 <input value="{{event.title}}" type="text" name="title"> <br> <br>
@@ -9,7 +9,7 @@
 <input value="{{event.description}} " type="text" name="description">
 
 <label for="date">Date</label> 
-<input  value="{{event.date}}" type="date" name="date"><br><br>
+<input type="date" name="date"><br><br>
 
 <label for="address">Address</label> 
 <input  value="{{event.street}}" type="text" name="street"> 
@@ -20,9 +20,9 @@
   <input value= "{{event.longitude}}" type="text" name="longitude" >
   <br><br>
 
-{{!-- <label for="photo">Show your attendees what the event looks like</label> 
+<label for="photo">Change image</label> 
   <input type="file" name="photo">
-  <br><br> --}}
+  <br><br>
   
   <input type="submit" name="">
 </form>

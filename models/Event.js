@@ -19,6 +19,7 @@ const eventSchema = new Schema({
   } ],
   imgName: String,
   imgPath: String,
+  public_id: {type: String, default:""},
   address: {
     street: String,
     city: String   

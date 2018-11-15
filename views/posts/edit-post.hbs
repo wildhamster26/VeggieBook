@@ -1,6 +1,6 @@
 <h2>Edit posts details</h2>
 
-<form action="/posts/{{post._id}}/edit" method="post">
+<form method="POST" action="/posts/{{post._id}}/edit"  enctype="multipart/form-data" >
 
 <label for="title">Title</label> <br>
 <input value= "{{post.title}}" type="text" name="title"> <br><br>
@@ -20,6 +20,11 @@
   <option value="Story">Story</option>
   <option value="Question">Question</option>
 </select> <br><br>
+
+
+  <label for="photo">Change image</label> 
+  <input type="file" name="photo">
+  <br><br>
 
 <button type="submit"> Confirm changes </button>
 </form>

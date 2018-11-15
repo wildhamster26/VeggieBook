@@ -7,6 +7,7 @@ const User = require('../models/User')
 const uploadCloud = require("../config/cloudinary.js");
 const {ensureLoggedIn} = require('connect-ensure-login');
 const Friend = require('../models/Friend');
+const cloudinary = require('cloudinary')
 /* Will include routes to posts and comments */
 
 //POSTS CODE
@@ -56,20 +57,27 @@ router.get("/:id/edit", (req, res, next) => {
   });
 });
 
-router.post("/:id/edit",  ensureLoggedIn(), (req, res, next) => {
-  if(!(req.user._id == req.params.id))
-      res.redirect('/posts');
-  else{
+
+router.post("/:id/edit", uploadCloud.single('photo'), (req, res, next) => {
+  let _post = req.params.id
+  console.log("HELLO", req.params)
+  
+  cloudinary.v2.uploader.destroy(_post.public_id, function(result) { console.log("LALALAL",result) });
+  console.log("REQ FILE EHHHHHHHHHHHHH", req.file)
     Post.findByIdAndUpdate(req.params.id, {
       title: req.body.title,
       content: req.body.content,
       visibility: req.body.visibility,
       category: req.body.category,
+      imgName : req.file.originalname,
+      imgPath : req.file.url,
+      public_id: req.file.public_id
     }).then(post => {
+      console.log("i am in post")
       res.redirect("/posts");
     });
-  }
-});
+  })
+// });
 
 //DELETING POSTS
 router.get('/:id/delete',  (req, res, next) => {

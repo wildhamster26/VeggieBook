@@ -5,6 +5,7 @@ const router = express.Router();
 const Event = require("../models/Event");
 const Participant = require("../models/Participant")
 const uploadCloud = require("../config/cloudinary.js");
+const cloudinary = require('cloudinary');
 var ObjectId = require('mongoose').Types.ObjectId; 
 
 
@@ -91,10 +92,13 @@ router.get("/:id/edit", (req, res, next) => {
 });
 
 router.post("/:id/edit", uploadCloud.single('photo'), (req, res, next) => {
+  
   let location = {
     type: "Point",
     coordinates: [req.body.longitude, req.body.latitude]
   };
+  let _event = req.params.id
+  cloudinary.v2.uploader.destroy(_event.public_id, function(result) { console.log(result) });
   Event.findByIdAndUpdate(req.params.id, {
       title:req.body.title,
       description: req.body.description,
@@ -102,7 +106,8 @@ router.post("/:id/edit", uploadCloud.single('photo'), (req, res, next) => {
       city: req.body.city,
       location:location,
       imgName : req.file.originalname,
-      imgPath : req.file.url
+      imgPath : req.file.url,
+      public_id: req.file.public_id
   }).then(event => {
     res.redirect("/events");
   });
