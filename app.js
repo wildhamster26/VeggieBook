@@ -62,12 +62,8 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 });
 
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
-  console.log('Delete this, this is just a try to get rid of an error')
-
     console.log("arg1:", arg1);
     console.log("arg2:", arg2);
-
-    console.log('Delete this, this is just a try to get rid of an error on github')
     for (let i = 0; i < 10; i++){
       //DELETE THIS FOR LOOP
     }
@@ -109,7 +105,7 @@ hbs.registerHelper('ifIsFriend', function(currentUser, otherUser, options) {
 })
 
 // default value for title local
-app.locals.title = 'Welcome to Veggiebook';
+app.locals.title = 'Welcome to FreshBook';
 
 // Enable authentication using session + passport
 app.use(session({

@@ -46,13 +46,11 @@
               <p>{{this.content}}</p>
             </div>
           </div>
-          {{#ifEquals ../../../currentUserId ../this._creatorId }}
-                <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
-                  <button id="delete-comment-button"  class="small-delete-button">X</button>
-                </form>
-              {{/ifEquals}}
-
-
+          {{#ifEquals ../currentUserId this._creatorId }}
+            <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
+              <button id="delete-comment-button"  class="small-delete-button">X</button>
+            </form>
+          {{/ifEquals}}
       </div>
         {{/each}}
       <form action="/posts/{{this._id}}/add-comment" method="POST">
