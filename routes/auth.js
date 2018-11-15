@@ -53,8 +53,8 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   const {username,password, email, kind, age, phoneNumber, hobbies, fears, 
   favFoods,darkSecret} = req.body;
-  const resetPasswordToken = undefined;
-  const resetPasswordExpires = undefined;
+  const resetPasswordToken = "";
+  const resetPasswordExpires = "";
   const imgPath = req.file.url;
   const imgName = req.file.originalname;
   const public_id = req.file.public_id;
@@ -168,7 +168,7 @@ router.post("/forgot", (req, res, next) => {
       User.findOne({email: req.body.email}, function(err, user){
         if(!user){
           req.flash("error", "There is no account with that email address.");
-          return res.redirect("/auth/forgot", { "message": req.flash("error") });
+          return res.redirect({ "message": req.flash("error") }, "/auth/forgot");
         }
         
         user.resetPasswordToken = token;
@@ -221,19 +221,19 @@ router.post("/reset/:token", (req, res, next) => {
   let confirmPassword = req.body.confirmPassword;
   let salt = bcrypt.genSaltSync(bcryptSalt);
   let newHashPass = bcrypt.hashSync(newPassword, salt);
-  User.findOneAndUpdate({resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}})
-  .then(user => {
-    if(newPassword === confirmPassword){
-      user.password = newHashPass;
-
+  let query = {resetPasswordToken: token, resetPasswordExpires:{$gt:Date.now()}}
+  console.log(typeof Date.now());
+  if(newPassword === confirmPassword){
+    User.findOneAndUpdate(query, {
+      password: newHashPass
+    })
+    .then(user => {
       return res.redirect("/auth/login");
-    }
-    else {
+    })
+  } else {
       req.flash("error", "Password reset token is invalid or has expired.");
-      return res.redirect("/auth/forgot", { "message": req.flash("error") })
+      return res.redirect("/auth/forgot");
     }
   });
-  
-});
 
 module.exports = router;
