@@ -39,9 +39,9 @@ router.post("/login", passport.authenticate("local", {
 
 // router.get('/google/callback', 
 //   passport.authenticate('google', { failureRedirect: 'auth/login' }),
-//   function(req, res) {
-//     res.redirect('/');
-//   });
+  // function(req, res) {
+  //   res.redirect('/');
+  // });
 
 //END OF GOOGLE SIGNUP
 

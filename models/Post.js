@@ -20,7 +20,9 @@ const postSchema = new Schema({
     createdAt: { type: Date, default: Date.now() }
   } ],
   imgName: String,
-  imgPath: String
+  imgPath: String,
+  public_id: {type: String, default:""},
+
 }, {
   timestamps: {
     createdAt: 'created_at',

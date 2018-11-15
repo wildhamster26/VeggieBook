@@ -95,7 +95,6 @@ router.get('/users/:id/edit', (req, res, next) => {
 });
 
 router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => {
-  console.log("user's public id:", req.user.public_id);
   cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
   User.findByIdAndUpdate(req.params.id, {
   username: req.body.username,

@@ -5,6 +5,9 @@ const router = express.Router();
 const Event = require("../models/Event");
 const Participant = require("../models/Participant")
 const uploadCloud = require("../config/cloudinary.js");
+const cloudinary = require('cloudinary');
+var ObjectId = require('mongoose').Types.ObjectId; 
+
 
 router.get("/add", (req, res, next) => {
   res.render("events/add-event");
@@ -32,19 +35,31 @@ router.get("/add", (req, res, next) => {
 
 // JOINing THE EVENT
 router.post('/:id/join', (req, res, next) => {
+let _eventId = req.params.id
+let _userId = req.user._id
 
-  let _eventId = req.params.id
-  let _userId = req.user._id
+Participant.findOne({_event: _eventId, _user: _userId})
+.then(participant => {
+  if (participant) {
+    console.log("Nothing happened, already joined")
+    return null; // Go to the next then
+  }
+  else {
+    return Participant.create({
+      _event: _eventId,
+      _user: _userId
+    })
+  }
+  })
+  .then(participantCreated => {
+    res.redirect("/events/" + _eventId + "/detail") 
+  })
+  .catch(err => next(err))
+ 
+})
 
-  Participant.create ({
-  _event: _eventId,
-  _user: _userId
-  })
-  .then (participant => {
-    res.redirect ("/events/"+_eventId+"/detail")
-  })
-  })
-
+  
+  
 //DISPlAYING THE LIST OF EVENTS
 router.get("/", (req, res, next) => {
   Event.find()
@@ -58,14 +73,6 @@ router.get("/", (req, res, next) => {
 //DISPLAYING DETAILS OF THE EVENT 
 router.get("/:id/detail", (req, res, next) => {
   let id = req.params.id; 
-  // Participant.find({_event:id})
-  // .populate("_user")
-  // .then (participants => {
-  //   Event.findById(id).then(event => {
-  //     res.render("events/detail", { event, participants});
-  //   });
-  //   // res.render("events/detail", {participant})
-  // })
 
   Promise.all([
     Event.findById(id),
@@ -74,12 +81,6 @@ router.get("/:id/detail", (req, res, next) => {
   .then(([event, participants]) => {
     res.render("events/detail", { event, participants});
   })
-
-
-  // Participant.find({_event:id}).populate("_user")
-  // Event.findById(id).then(event => {
-  //   res.render("events/detail", { event});
-  // });
 });
 
 //EDITING EVENTS
@@ -91,10 +92,13 @@ router.get("/:id/edit", (req, res, next) => {
 });
 
 router.post("/:id/edit", uploadCloud.single('photo'), (req, res, next) => {
+  
   let location = {
     type: "Point",
     coordinates: [req.body.longitude, req.body.latitude]
   };
+  let _event = req.params.id
+  cloudinary.v2.uploader.destroy(_event.public_id, function(result) { console.log(result) });
   Event.findByIdAndUpdate(req.params.id, {
       title:req.body.title,
       description: req.body.description,
@@ -102,7 +106,8 @@ router.post("/:id/edit", uploadCloud.single('photo'), (req, res, next) => {
       city: req.body.city,
       location:location,
       imgName : req.file.originalname,
-      imgPath : req.file.url
+      imgPath : req.file.url,
+      public_id: req.file.public_id
   }).then(event => {
     res.redirect("/events");
   });

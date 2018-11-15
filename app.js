@@ -14,12 +14,13 @@ const session      = require("express-session");
 const MongoStore   = require('connect-mongo')(session);
 const flash        = require("connect-flash");
 const {ensureLoggedIn} = require('connect-ensure-login');
-const Friend       = require('./models/Friend')
+const Friend       = require('./models/Friend');
 var ObjectId = require('mongoose').Types.ObjectId; 
+var Post          = require('./models/Post');
 
 
 mongoose
-.connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
+.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 .then(x => {
   console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
 })
@@ -129,6 +130,8 @@ app.use((req,res, next) => {
   }
   next() 
 })
+
+
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));

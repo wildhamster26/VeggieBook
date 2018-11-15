@@ -1,5 +1,5 @@
 
-<div class="find-friends-title">
+<div class="page-title">
   <h2>Find friends</h2>
 </div>
 
@@ -13,10 +13,13 @@
         <img src={{this.imgPath}} alt="" height="100px">
       </div>
       <div id="user-card-right-wrapper">
+
         <div id="user-card-text">
           <h3>{{this.username}}</h3>
-          <p>Age: {{this.age}}</p>
+          {{!-- <p>Age: {{this.age}}</p> --}}
+          <p>{{this.hobbies}}</p>
         </div>
+        
         <div id="user-card-button" >
           {{#if this.isFriend}}
           {{!-- Frienship status below --}}
