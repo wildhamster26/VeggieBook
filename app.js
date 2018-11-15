@@ -14,8 +14,9 @@ const session      = require("express-session");
 const MongoStore   = require('connect-mongo')(session);
 const flash        = require("connect-flash");
 const {ensureLoggedIn} = require('connect-ensure-login');
-const Friend       = require('./models/Friend')
+const Friend       = require('./models/Friend');
 var ObjectId = require('mongoose').Types.ObjectId; 
+var Post          = require('./models/Post');
 
 
 mongoose
@@ -125,9 +126,11 @@ app.use((req,res, next) => {
   res.locals.isConnected = !!req.user
   if (req.user) {
     res.locals.currentUserId = req.user._id
-  }
+    }
   next() 
 })
+
+
 
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));

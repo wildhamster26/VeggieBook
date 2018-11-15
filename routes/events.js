@@ -72,14 +72,6 @@ router.get("/", (req, res, next) => {
 //DISPLAYING DETAILS OF THE EVENT 
 router.get("/:id/detail", (req, res, next) => {
   let id = req.params.id; 
-  // Participant.find({_event:id})
-  // .populate("_user")
-  // .then (participants => {
-  //   Event.findById(id).then(event => {
-  //     res.render("events/detail", { event, participants});
-  //   });
-  //   // res.render("events/detail", {participant})
-  // })
 
   Promise.all([
     Event.findById(id),
@@ -88,12 +80,6 @@ router.get("/:id/detail", (req, res, next) => {
   .then(([event, participants]) => {
     res.render("events/detail", { event, participants});
   })
-
-
-  // Participant.find({_event:id}).populate("_user")
-  // Event.findById(id).then(event => {
-  //   res.render("events/detail", { event});
-  // });
 });
 
 //EDITING EVENTS
