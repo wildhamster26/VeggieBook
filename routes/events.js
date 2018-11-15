@@ -37,22 +37,25 @@ router.post('/:id/join', (req, res, next) => {
 let _eventId = req.params.id
 let _userId = req.user._id
 
-Participant.find({$and: [{_user: { $exists: true,  $in: [ObjectId(req.user._id)] } } , {_event: { $exists: true,  $in: [ObjectId(_eventId)] } }]})
-.then((participant => {
-  console.log(participant)
-  console.log("AHHHHHHHHHHHHHHH")
-  res.redirect("/events/" + _eventId + "/detail") 
-  })) 
-  .catch (participant => {
-    console.log(participants)
-    Participant.create({
+Participant.findOne({_event: _eventId, _user: _userId})
+.then(participant => {
+  if (participant) {
+    console.log("Nothing happened, already joined")
+    return null; // Go to the next then
+  }
+  else {
+    return Participant.create({
       _event: _eventId,
       _user: _userId
     })
-  res.redirect("/events/" + _eventId + "/detail") 
+  }
   })
+  .then(participantCreated => {
+    res.redirect("/events/" + _eventId + "/detail") 
+  })
+  .catch(err => next(err))
  
-  })
+})
 
   
   
