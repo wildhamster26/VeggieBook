@@ -11,7 +11,8 @@ button {
   color: white;
   border: none;
   box-shadow: 0 0 10px lightgray;
-  border-radius: 30px; }
+  border-radius: 5px;
+  padding: 3px 7px; }
 
 .find-friends-title {
   display: flex;
@@ -27,13 +28,15 @@ button {
 
 #user-card-general-wrapper {
   position: relative;
-  max-width: 400px; }
+  max-width: 400px;
+  margin: 0 auto; }
   #user-card-general-wrapper #user-card {
     display: flex;
     width: 95%;
-    height: 110px;
+    height: 150px;
     box-shadow: 0 0 10px lightgray;
-    margin: 10px auto; }
+    margin: 10px auto;
+    border-radius: 5px; }
     #user-card-general-wrapper #user-card #user-card-img {
       display: flex;
       width: 30%;
@@ -74,7 +77,10 @@ button {
     #user-card-general-wrapper #user-card #user-card-button {
       position: absolute;
       font-size: 0.9em;
-      top: 80px; }
+      top: 115px;
+      right: 5px; }
+      #user-card-general-wrapper #user-card #user-card-button button {
+        border-radius: 3px; }
     #user-card-general-wrapper #user-card h3 {
       font-size: 1em; }
     #user-card-general-wrapper #user-card p {
