@@ -5,7 +5,7 @@ const router  = express.Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Event = require("../models/Event");
-// const Friend = require("../models/Friend");
+const Friend = require("../models/Friend");
 const ensureLogin = require("connect-ensure-login");
 const uploadCloud = require('../config/cloudinary.js');
 const cloudinary = require('cloudinary');
@@ -51,7 +51,39 @@ router.get('/users/:id', (req, res, next) => {
   })	
 });		
 
-// Post.find({ _creator :{$eq : 'ObjectId("' + id + '")'}})
+router.get("/users/:id/friends", (req,res,next) => {
+  let id = req.params.id;
+  let currentUserFriends = [];
+  Promise.all([
+    User.find(),
+    Friend.find({ $or: [{ _user1: id },{ _user2:  id }]})
+  ])
+  .then(([users, friends]) => {
+    for (let iUsers = 0; iUsers < users.length; iUsers++) {
+      users[iUsers].isCurrentUser = false
+      if (users[iUsers]._id.equals(id)) {
+        users[iUsers].isCurrentUser = true
+      }
+
+      if (users[iUsers].status == "active") {
+        users[iUsers].isActive = true
+      }
+
+      for (let iFriend = 0; iFriend < friends.length; iFriend++) {
+        if (friends[iFriend]._user1.equals(users[iUsers]._id) || friends[iFriend]._user2.equals(users[iUsers]._id)) {
+          if(friends[iFriend].status == "Friends") {
+            currentUserFriends.push(users[iUsers]);
+            console.log(currentUserFriends)
+          }
+        }
+      }
+    }
+    User.findById(id)
+    .then(viewedUser => {
+      res.render('users/viewed-user-friends', {currentUserFriends, viewedUser})
+    })
+  })
+});
 
 router.get('/users/:id/edit', (req, res, next) => {
   User.findById(req.params.id)		

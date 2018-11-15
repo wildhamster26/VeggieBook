@@ -99,11 +99,7 @@ router.get('/find', (req, res, next) => {
         from: '"The Veggiebook team"',
         to: email, // the email entered in the form 
         subject: 'Hey, friend me!', 
-<<<<<<< HEAD
-        html: `Hi ${inviteeUsername}! please click <a href="https://freshbook.herokuapp.com/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
-=======
-        html: `Hi ${inviteeUsername}! please click <a href="${BASE_URL}/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
->>>>>>> 41543b9075bb2d50063611b4bcc0eccf608f4632
+        html: `Hi ${inviteeUsername}! please click <a href="${process.env.BASE_URL}/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
       })
       res.redirect('/friends/find')
     })

@@ -1,0 +1,38 @@
+<h1>Welcome to the viewed user's friends page!</h1>
+
+  {{#each currentUserFriends}}
+      {{#unless this.isCurrentUser}}
+      {{#if this.isActive}}
+  <div id="user-card-general-wrapper">
+    <div id="user-card">
+      <div id="user-card-img">
+        <img src={{this.imgPath}} alt="" height="100px">
+      </div>
+      <div id="user-card-right-wrapper">
+        <div id="user-card-text">
+          <h3>{{this.username}}</h3>
+          <p>Age: {{this.age}}</p>
+        </div>
+        <div id="user-card-button" >
+          {{#if this.isFriend}}
+          {{!-- Frienship status below --}}
+            <form action="/users/{{this._id}}" method="GET">
+              <button>See friend</button>
+            </form> 
+          {{else}}
+          {{#if isPending}}
+            <p>A friend request has been sent to {{this.username}}</p>
+          {{else}}
+            <form action="/friends/invite/{{this._id}}" method="POST">
+              <button>Send invite</button>
+            </form> 
+          {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+      {{/if}}
+      {{/unless}}
+  {{/each}}
