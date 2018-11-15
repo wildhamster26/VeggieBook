@@ -99,7 +99,11 @@ router.get('/find', (req, res, next) => {
         from: '"The Veggiebook team"',
         to: email, // the email entered in the form 
         subject: 'Hey, friend me!', 
+<<<<<<< HEAD
         html: `Hi ${inviteeUsername}! please click <a href="${process.env.BASE_URL}/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
+=======
+        html: `Hi ${inviteeUsername}! please click <a href="${BASE_URL}/friends/confirm/${friendConfirmCode}">here</a> to accept ${req.user.username}'s request.` //Additional alternative text: If the link doesn't work, you can go here: ${process.env.BASE_URL}auth/confirm/${friendConfirmCode}`
+>>>>>>> 7ac5ead7599ec4f9928b28fb68c89565a0da8481
       })
       res.redirect('/friends/find')
     })
@@ -107,11 +111,16 @@ router.get('/find', (req, res, next) => {
 
 router.get('/confirm/:friendConfirmCode', (req, res, next) => {
   const friendConfirmCode = req.params.friendConfirmCode
-  console.log('hey!!!!!')
   Friend.findOneAndUpdate({ friendConfirmCode: friendConfirmCode }, { status: "Friends" })
     .then(x => {
       res.redirect('/friends/find')
     })
+  console.log('Delete this, this is just a try to get rid of an error on github')
+  for (let i = 0; i < 10; i++){
+    //DELETE THIS FOR
+  }
+
+
 })
 
 

@@ -61,10 +61,20 @@ hbs.registerHelper('ifUndefined', (value, options) => {
 });
 
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+  console.log('Delete this, this is just a try to get rid of an error')
+
     console.log("arg1:", arg1);
     console.log("arg2:", arg2);
+
+    console.log('Delete this, this is just a try to get rid of an error on github')
+    for (let i = 0; i < 10; i++){
+      //DELETE THIS FOR LOOP
+    }
    return (JSON.stringify(arg1) === JSON.stringify(arg2)) ? options.fn(this) : options.inverse(this);
+   
 });
+
+
 
 //DEPRECATED
 hbs.registerHelper('ifIsInvitee', function(currentUser, otherUser, options) {
