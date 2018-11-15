@@ -53,11 +53,11 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
   const {username,password, email, kind, age, phoneNumber, hobbies, fears, 
   favFoods,darkSecret} = req.body;
-  const imgPath = "",
+  let imgPath = "",
         imgName = "",
         public_id = "";
-  if (!!req.file){
-    imgPath = req.file.imgPath;
+    if (!!req.file){
+    imgPath = req.file.url;
     public_id = req.file.public_id
     imgName = req.file.originalname;
   }
@@ -69,25 +69,25 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
     res.render("auth/signup", { message: "Indicate username, password and email" });
     return;
   }
-
+  
   User.findOne({ email }, "email", (err, user) => {
     if (user !== null) {
       res.render("auth/signup", { message: "That email address is already in use." });
       return;
     }});
-
-  User.findOne({ username }, "username", (err, user) => {
-    if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists." });
-      return;
-    }
-
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
-
-    const newUser = new User({
-      username,
-      password: hashPass,
+    
+    User.findOne({ username }, "username", (err, user) => {
+      if (user !== null) {
+        res.render("auth/signup", { message: "The username already exists." });
+        return;
+      }
+      
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+      
+      const newUser = new User({
+        username,
+        password: hashPass,
       email,
       kind,
       age,
@@ -103,7 +103,7 @@ router.post("/signup", uploadCloud.single('photo'), (req, res, next) => {
       resetPasswordToken, 
       public_id
     });
-
+    
     newUser.save()
     .then(() => {
       let transporter = nodemailer.createTransport({
