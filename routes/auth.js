@@ -142,7 +142,7 @@ router.get('/confirm/:confirmationCode', (req,res,next)=> {
       // req.login makes the user login automatically
       req.login(user, () => {
         console.log("EMAIL SENT SUCCESSFULLY");
-        res.redirect('/posts') // Redirect to http://localhost:3000/profile
+        res.redirect('/posts') // Redirect to BASE_URL/profile
       })
     }
     else {
