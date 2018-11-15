@@ -6,7 +6,7 @@ const Post = require('../models/Post')
 const User = require('../models/User')
 const uploadCloud = require("../config/cloudinary.js");
 const {ensureLoggedIn} = require('connect-ensure-login');
-
+const Friend = require('../models/Friend');
 /* Will include routes to posts and comments */
 
 //POSTS CODE
@@ -32,17 +32,22 @@ router.post('/add', uploadCloud.single('photo'),(req, res, next) => {
   })
 });
 
-//CODE TO DISPLAY THE LIST OF POSTS, INCLUDING THE CREATOR
+//CODE TO DISPLAY THE LIST OF POSTS, INCLUDING THE CREATOR AND CONSIDERING WHETHER OR NOT THE POST IS PUBLIC/PRIVATE
 router.get('/', (req, res, next) => {
-  const user = req.user._id;
-  Post.find()
-  .populate("_creator")
-  .then(posts => {
-    res.render('private-homepage', {
-      posts, user
-    });
+  User.findFriends(req.user._id)
+  .then(userIds => {
+    return Post.find({ $or:[
+      {visibility: "Public"},
+      {_creator: {$in: userIds}}
+    ] })
+    .populate("_creator")
   })
+  .then(posts => {
+    res.render('private-homepage', {posts})
+  })
+  .catch(err => next(err))
 })
+     
 
 //EDITING POSTS
 router.get("/:id/edit", (req, res, next) => {

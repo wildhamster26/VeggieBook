@@ -31,5 +31,17 @@ const userSchema = new Schema({
   }
 });
 
+//CREATED A METHOD FOR FINDING FRIENDS
+// Define a User.findFriends that is a Promise where the resolved value is an array of ids (friend ids) 
+userSchema.statics.findFriends = function (userId) {
+  return this.model("Friend").find({ $or: [{ _user1: userId },{ _user2:  userId }]})
+  .then(friends => {
+    return friends.map(friend => {
+      if (friend._user1.equals(userId)) return friend._user2
+      else return friend._user1
+    })
+  })
+}
+
 const User = mongoose.model('User', userSchema);
 module.exports = User;
