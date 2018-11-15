@@ -19,7 +19,8 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 
 mongoose
-.connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
+
+.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
 .then(x => {
   console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
 })

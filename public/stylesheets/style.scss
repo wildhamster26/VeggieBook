@@ -32,25 +32,67 @@ button {
 
 #user-card-general-wrapper {
   position: relative;
-  width: auto;
+  max-width: 400px;
   #user-card {
     display: flex;
     width: 95%;
     height: 110px;
-    box-shadow: 0 0 10px grey;
+    box-shadow: 0 0 10px lightgray;
     margin: 10px auto;
     #user-card-img {
       display: flex;
+      width: 30%;
       align-items: center;
       margin-left: 5px;
       img {
-        box-shadow: 0 0 10px grey;
+        box-shadow: 0 0 15px lightgray;
+        
+        // display: block;
+        margin: 0 auto;
+        height: 100px;
+        width: 100px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+        
       }
     }
     #user-card-right-wrapper {
+      display: flex;
+      flex-flow: column;
       position: absolute;
+      width: 70%;
       right: 15px;
       text-align: right;
+      align-items: flex-end;
+    }
+    #user-card-text {
+      display: flex;
+      flex-flow: column;
+      h3 {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+      }
+      p {
+        position: absolute;
+        right: 8px;
+        top: 40px;
+      }
+    }
+    #user-card-button {
+      position: absolute;
+      font-size: 0.9em;
+      top: 80px;
+
+    }
+    h3 {
+      font-size: 1em;
+    }
+    p {
+      font-size: 0.8em;
     }
   }
 }

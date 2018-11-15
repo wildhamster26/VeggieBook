@@ -27,23 +27,55 @@ button {
 
 #user-card-general-wrapper {
   position: relative;
-  width: auto; }
+  max-width: 400px; }
   #user-card-general-wrapper #user-card {
     display: flex;
     width: 95%;
     height: 110px;
-    box-shadow: 0 0 10px grey;
+    box-shadow: 0 0 10px lightgray;
     margin: 10px auto; }
     #user-card-general-wrapper #user-card #user-card-img {
       display: flex;
+      width: 30%;
       align-items: center;
       margin-left: 5px; }
       #user-card-general-wrapper #user-card #user-card-img img {
-        box-shadow: 0 0 10px grey; }
+        box-shadow: 0 0 15px lightgray;
+        margin: 0 auto;
+        height: 100px;
+        width: 100px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%; }
     #user-card-general-wrapper #user-card #user-card-right-wrapper {
+      display: flex;
+      flex-flow: column;
       position: absolute;
+      width: 70%;
       right: 15px;
-      text-align: right; }
+      text-align: right;
+      align-items: flex-end; }
+    #user-card-general-wrapper #user-card #user-card-text {
+      display: flex;
+      flex-flow: column; }
+      #user-card-general-wrapper #user-card #user-card-text h3 {
+        position: absolute;
+        right: 8px;
+        top: 8px; }
+      #user-card-general-wrapper #user-card #user-card-text p {
+        position: absolute;
+        right: 8px;
+        top: 40px; }
+    #user-card-general-wrapper #user-card #user-card-button {
+      position: absolute;
+      font-size: 0.9em;
+      top: 80px; }
+    #user-card-general-wrapper #user-card h3 {
+      font-size: 1em; }
+    #user-card-general-wrapper #user-card p {
+      font-size: 0.8em; }
 
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
