@@ -96,7 +96,11 @@ router.get('/users/:id/edit', (req, res, next) => {
 });
 
 router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => {
-  cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) });
+  if (req.file){ 
+  cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) }); 
+  console.log("DEBUG REQ FILE", req.file)
+  console.log("DEBUG REQ BODY", req.body)
+
   User.findByIdAndUpdate(req.params.id, {
   username: req.body.username,
   email: req.body.email,
@@ -108,12 +112,28 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
   favFoods: req.body.favFoods,
   darkSecret: req.body.darkSecret,
   imgPath: req.file.url,
-  imgName: req.file.originalname,
+  imgName: req.file.originalname, 
   public_id: req.file.public_id
   })
 	.then(user => {	
     res.redirect('/users');	
-	})		
+  })}
+  else {
+    User.findByIdAndUpdate(req.params.id, {
+      username: req.body.username,
+      email: req.body.email,
+      kind: req.body.kind,
+      age: req.body.age,
+      phoneNumber: req.body.phoneNumber,
+      hobbies: req.body.hobbies,
+      fears: req.body.fears,
+      favFoods: req.body.favFoods,
+      darkSecret: req.body.darkSecret,
+      })
+      .then(user => {	
+        res.redirect('/users');	
+      })
+  }		
 });
 
 router.get('/users/:id/delete', (req, res, next) => {
