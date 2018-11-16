@@ -31,29 +31,39 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div> --}}
-<div class="container">
-  <h2>Login</h2>
+
+<div class ="form-add text-success">
+<a class="google-btn btn btn-success rounded text-white" href="/auth/google">Log in with Google</a>
+</div>
+
+<div class="separator text-success"></div>
+
+<div class="form-add-title text-success">
+  <h3>Login</h3>
+</div>
+
+<div class ="form-add text-success">
 
   <form action="/auth/login" method="POST" id="form-container">
-    <div class="row">
-      <div class="col-sm-4">
+    {{!-- <div class="row"> --}}
+      {{!-- <div class="col-sm-4"> --}}
         <label for="username">Username</label>
-      </div>
-      <div class="col-sm-8">
-        <input id="username" class="form-control" type="text" name="username" placeholder="JonSnow">
-      </div>
-    </div>
-    <div class="row">
-      <label for="password" class="col-sm-4 col-form-label">Password</label>
-      <div class="col-sm-8">
-        <input id="password" class="form-control" type="password" name="password" placeholder="Your password">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-8 offset-sm-4">
-        <button class="btn btn-primary">Login</button>
-      </div>
-    </div>
+      {{!-- </div> --}}
+      {{!-- <div class="col-sm-8"> --}}
+        <input id="username" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded"  type="text" name="username" placeholder="JonSnow">
+      {{!-- </div>
+    </div> --}}
+    {{!-- <div class="row"> --}}
+      <label for="password">Password</label>
+      {{!-- <div class="col-sm-8"> --}}
+        <input id="password" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" type="password" name="password" placeholder="Your password">
+      {{!-- </div> --}}
+    {{!-- </div> --}}
+    {{!-- <div class="row"> --}}
+      {{!-- <div class="col-sm-8 offset-sm-4"> --}}
+        <button class="rounded bg-success text-white">Login</button>
+      {{!-- </div> --}}
+    {{!-- </div> --}}
 
     <br><br>
 
@@ -76,4 +86,5 @@
     </p>
   </form>
 
+{{!-- </div> --}}
 </div>

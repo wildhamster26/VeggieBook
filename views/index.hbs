@@ -1,8 +1,9 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-
-<a href="" class="btn btn-primary">Test bootstrap</a>
-
-{{#if message}}
-    <div class="error-message">{{ message }}</div>
-{{/if}}
+<div class="welcome-page">
+    <div class="welcome-message">
+        <h1 class="welcome-h1">FreshBook</h1>
+        <p class="welcome-p">Because all other social platforms already exist.</p>
+        {{#if message}}
+            <div class="error-message">{{ message }}</div>
+        {{/if}}
+    </div>
+</div>

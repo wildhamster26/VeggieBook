@@ -26,8 +26,10 @@ function(accessToken, refreshToken, profile, done) {
       username:profile.emails[0].value,
       imgName: "google_image",
       imgPath: profile.photos[0].value,
+      public_id:"google_id",
       email: profile.emails[0].value,
       status:"active"
+
     });
 
     newUser.save()

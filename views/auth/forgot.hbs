@@ -1,10 +1,16 @@
 
+<div class="form-add-title text-success">
+<h3>Reset My Password</h3>
+</div>
+
+<div class ="form-add text-success">
+
 <form action="/auth/forgot" method=POST>
-  <legend>Reset My Password</legend>
   <label for="email">Email</label>
-  <input type="email" name="email" placeholder="Your email">
-  <button>Submit</button>
+  <input type="email" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="email" placeholder="Your email">
+  <button class="rounded bg-success text-white">Submit</button>
 </form>
+</div>
 
 {{#if message}}
   <div class="error-message">{{ message }}</div>
