@@ -1,31 +1,36 @@
-<h2>Edit event </h2>
+<div class="form-add-title text-success">
+<h3>Edit your event </h3>
+</div>
 
+<div class ="form-add text-success">
 <form method="POST" action="/events/{{event._id}}/edit" enctype="multipart/form-data">
 
-<label for="title">Title</label> 
-<input value="{{event.title}}" type="text" name="title"> <br> <br>
+<label for="title">What's the title of your event?</label> 
+<input value="{{event.title}}" type="text" name="title" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded"> <br> <br>
 
-<label for="description">Description</label> 
-<input value="{{event.description}} " type="text" name="description">
+<label for="description">What is your event about?</label> 
+<textarea  value={{event.description}} class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded"  name="description" cols="30" rows="3"></textarea> 
+{{!-- <input value="{{event.description}} " type="text" name="description"> --}}
 
 <label for="date">Date</label> 
-<input type="date" name="date"><br><br>
+<input type="date" class="border border-success shadow p-3 mb-5 bg-white rounded" name="date"><br><br>
 
 <label for="address">Address</label> 
-<input  value="{{event.street}}" type="text" name="street"> 
-<input  value="{{event.city}}" type="text" name="city"> <br><br>
+<input  value="{{event.street}}" type="text" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="street"> 
+<input  value="{{event.city}}" type="text" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="city"> <br><br>
 
 <label for="location">Map Coordinates</label> 
-  <input value="{{event.latitude}}" type="text" name="latitude" required>
-  <input value= "{{event.longitude}}" type="text" name="longitude" required>
+  <input value="{{event.latitude}}" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" type="text" name="latitude" required>
+  <input value= "{{event.longitude}}" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded"  type="text" name="longitude" required>
   <br><br>
 
 <label for="photo">Change image</label> 
   <input type="file" name="photo" required>
   <br><br>
   
-  <input type="submit" name="">
+  <button class="rounded bg-success text-white" type="submit" name="">Confirm</button>
 </form>
+</div>
 
 {{#if message }}
     <div class="error-message">{{ message }}</div>

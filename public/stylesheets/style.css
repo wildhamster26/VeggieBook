@@ -262,6 +262,20 @@ button {
   #edit-delete-post-buttons .delete {
     background-color: lightcoral; }
 
+.form-add {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center; }
+
+.form-add-title h3 {
+  font-size: 2em;
+  text-align: center;
+  margin: 20px auto; }
+
+.google-btn {
+  margin: 30px auto; }
+
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
