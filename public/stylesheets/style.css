@@ -154,7 +154,7 @@ button {
 
 #newsfeed-subheader {
   max-width: 700px;
-  margin: 0 auto; }
+  margin: 20px auto 0 10px; }
   #newsfeed-subheader form {
     margin: 0; }
   #newsfeed-subheader button {
@@ -221,7 +221,7 @@ button {
     max-width: 100%;
     height: auto; }
 
-#post-date {
+.post-date {
   align-self: center;
   margin: auto 10px 10px 10px;
   right: 8px;
@@ -240,7 +240,9 @@ button {
   #post-comments-div #comment-user-prof-pic-div {
     width: 65px;
     height: 100%;
-    margin: 10px; }
+    margin: 10px;
+    position: relative;
+    top: 5px; }
     #post-comments-div #comment-user-prof-pic-div img {
       width: 65px;
       height: 65px; }
@@ -259,9 +261,9 @@ button {
 
 #delete-comment-button {
   position: relative;
-  top: 10px;
-  left: 10px;
-  box-shadow: 0 0 10px grey; }
+  top: 44px;
+  left: 3px;
+  margin-right: 10px; }
 
 #comment-input-box {
   display: flex;
@@ -292,6 +294,50 @@ button {
   #edit-delete-post-buttons .delete {
     background-color: lightcoral; }
 
+#events-subheader {
+  max-width: 700px;
+  margin: 20px auto 0; }
+  #events-subheader button {
+    margin-left: 10px; }
+
+#event-gen-wrapper {
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  max-width: 700px;
+  width: 95%;
+  box-shadow: 0 0 10px lightgray;
+  margin: 30px auto;
+  border-radius: 5px;
+  padding: 0px 0 10px; }
+  #event-gen-wrapper #event-header {
+    display: flex;
+    align-self: center;
+    height: 60px; }
+    #event-gen-wrapper #event-header h3 {
+      text-justify: center;
+      text-align: center;
+      align-self: center;
+      justify-content: center; }
+  #event-gen-wrapper #event-img {
+    display: inline-block;
+    margin: 0 auto 10px;
+    object-fit: contain;
+    max-width: 100%;
+    width: 100%;
+    height: auto; }
+  #event-gen-wrapper #event-mid-div {
+    margin: 0 10px; }
+  #event-gen-wrapper #event-map {
+    background-color: lightgray;
+    height: 200px; }
+  #event-gen-wrapper #post-comments-div {
+    position: relative;
+    top: 0px; }
+  #event-gen-wrapper #comment-input-box {
+    margin: 10px 0; }
+
 .form-add {
   display: flex;
   justify-content: center;
@@ -305,6 +351,28 @@ button {
 
 .google-btn {
   margin: 30px auto; }
+
+.create-event {
+  margin: 10px;
+  color: white; }
+
+.event-cards {
+  display: flex;
+  flex-direction: row; }
+
+.event-list {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  margin: 10px;
+  box-shadow: 0 0 10px lightgray; }
+
+.event-img {
+  width: 100px;
+  height: 100px;
+  justify-content: center;
+  align-content: center; }
 
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)

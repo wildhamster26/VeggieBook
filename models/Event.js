@@ -15,7 +15,8 @@ const eventSchema = new Schema({
     content: String, 
     likes: Number,
     edited: { type: Boolean, default: true},
-    createdAt: { type: Date, default: Date.now() }
+    createdAt: { type: Date, default: Date.now()},
+    imgPath: String 
   } ],
   imgName: String,
   imgPath: String,

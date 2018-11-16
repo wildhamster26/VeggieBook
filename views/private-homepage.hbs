@@ -29,7 +29,7 @@
         <img src="{{this.imgPath}}" alt="Post's image" height="150px">
       </div>
       <div>
-        <h6 id="post-date">{{this.created_at}}</h6>
+        <h6 class="post-date">{{this.created_at}}</h6>
       </div>
 
       <div class="separator"></div>
@@ -52,8 +52,6 @@
           {{#ifEquals ../../currentUserId this._creatorId._id }}
             <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
               <button id="delete-comment-button"  class="small-delete-button">X</button>
-
-
             </form>
           {{/ifEquals}}
       </div>

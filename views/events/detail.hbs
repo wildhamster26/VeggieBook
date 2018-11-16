@@ -1,90 +1,115 @@
-<h1>Detail</h1>
-
+{{!-- <div class="page-title">
+  <h2>Detail</h2>
+</div> --}}
 
 {{!-- BUTTON TO JOIN THE EVENT --}}
- <form action="/events/{{event._id}}/join" method="POST">
-      <button>Join Event</button>
-    </form>
-<br><br>
+<div id="events-subheader">
+  <form action="/events/{{event._id}}/join" method="POST">
+      <button class="button">Join Event</button>
+  </form>
+</div>
 
 {{!-- SEE DETAILS OF THE EVENT --}}
-<img src="{{event.imgPath}}" alt="Event's image" height="150px">
-{{event.title}} <br>
-{{event.date}} <br>
-{{event.description}} <br>
-{{event.city}} <br>
+<div id="event-gen-wrapper">
+  <div id="event-header">
+    <h3>{{event.title}}</h3>
+  </div>
+  <div id="event-img-div">
+    <img id="event-img" src="{{event.imgPath}}" alt="Event's image">
+  </div>
+  <div id="event-mid-div">
+    <p><b>When: </b><br>{{event.date}}</p>
+    <p><b>Description: </b><br>{{event.description}}</p>
+    <p><b>Where: </b><br>{{event.address.street}}<br>{{event.address.city}}</p>
+  {{!-- SEE MAP ON THE EVENT PAGE --}}
+  <div id="event-map">
+    <div id="map">
+      <script>
+        var coordinates = [{{event.location.coordinates}}]
 
-{{!-- SEE MAP ON THE EVENT PAGE --}}
-Location in map:
+        // Add your own token
+        mapboxgl.accessToken = process.env.MAPBOX_KEY//this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
 
-<div id="map" style="height: 200px"></div>
+        let map = new mapboxgl.Map({
+          container: 'map', // Select the div with the id 'map'
+          style: 'mapbox://styles/mapbox/streets-v10',
+          center: coordinates, // starting position [longitude,latitude]
+          zoom: 13 // starting zoom
+        })
 
-<script>
-var coordinates = [{{event.location.coordinates}}]
-
-// Add your own token
-mapboxgl.accessToken = process.env.MAPBOX_KEY//this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
-
-let map = new mapboxgl.Map({
-  container: 'map', // Select the div with the id 'map'
-  style: 'mapbox://styles/mapbox/streets-v10',
-  center: coordinates, // starting position [longitude,latitude]
-  zoom: 13 // starting zoom
-})
-
-map.addControl(new mapboxgl.NavigationControl())
+        map.addControl(new mapboxgl.NavigationControl())
 
 
-let eventMarker = new mapboxgl.Marker({
-  color: '#222222' // Black
-})
-  .setLngLat(coordinates)
-  .addTo(map)
+        let eventMarker = new mapboxgl.Marker({
+          color: '#222222' // Black
+        })
+          .setLngLat(coordinates)
+          .addTo(map)
 
-</script>
+      </script>
 
- {{#ifEquals currentUserId event._creator}}
-{{!-- EDIT EVENTS --}}
- <form action="/events/{{event._id}}/edit" method ="get">
-      <button>Edit</button>
- <i class="fas fa-pencil-alt"></i>
-    </form>
+    </div>
+  </div>
 
-{{!-- DELETE EVENTS --}}
- <form action="/events/{{event._id}}/delete" method ="get">
-      <button>Delete</button>
-      <i class="fas fa-trash-alt"></i>
-    </form>
- {{/ifEquals}}
+  {{!-- DISPLAY ALL EVENT COMMENTS --}}
+  
+      {{#each event.comments}}
+        <div id="event-comments-div">
+          <div id="post-comments-div">
+            <div id="comment-user-prof-pic-div">
+              <img class="user-prof-pic" src="{{this.imgPath}}" alt="Profile pic">
+            </div>
+            <div class="comm-content">
+              <div>
+                <h6>{{this.creatorUsername}}</h6>
+              </div>
+              <div>
+                <p>{{this.content}}</p>
+              </div>
+            </div>
+            {{#ifEquals ../currentUserId this._creatorId }}
+              <form action="/events/{{../event._id}}/comment/{{this._id}}/delete" method="post">
+                <button id="delete-comment-button"  class="small-delete-button">X</button>
+              </form>
+            {{/ifEquals}}
+          </div>
 
-{{!-- DISPLAY ALL EVENT COMMENTS --}}
-    <h5>Comments:</h5>
-    {{#each event.comments}}
-      <p>{{this.content}}</p>
-      <h6>{{this.creatorUsername}}</h6>
-
-     {{!--ONLY ALLOW LOGGEDIN USER TO DELETE HIS OWN COMMENTS   --}}
-      {{#ifEquals ../currentUserId this._creatorId }}
-      <form action="/events/{{../event._id}}/comment/{{this._id}}/delete" method="POST">
-          <button>Delete comment</button> 
-          <i class="fas fa-trash-alt"></i>
-
+        </div>
+        {{/each}}
+        <div id="comment-input-box">
+          <form action="/events/{{event._id}}/add-comment" method="POST">
+          <div>
+            <input name="content" placeholder="Your comment here"></input>
+          </div>
+          <div>
+            <button class="button">Comment</button>
+          </div>
         </form>
-      {{/ifEquals}}
-      {{/each}}
+      </div>
 
-        {{!-- ADD COMMENT --}}
-    <form action="/events/{{event._id}}/add-comment" method="POST">
-      <textarea name="content" cols="30" row="10"></textarea>
-      <button>Add Comment</button>
+
+
+      {{!-- DISPLAY PARTICIPANTS --}}
+  <h2>List of participants</h2>
+  <ul>
+  {{#each participants}}
+  <li>
+    {{this._user.username}}
+  </li>
+  {{/each}}
+  </ul>
+  </div>
+  <div id="edit-delete-post-buttons"></div>
+  {{#ifEquals currentUserId event._creator}}
+  {{!-- EDIT EVENTS --}}
+
+    <form action="/events/{{event._id}}/edit" method ="get">
+      <button class="button"><i class="fas fa-pencil-alt"></i></button>
     </form>
-
-    {{!-- DISPLAY PARTICIPANTS --}}
-<h2>List of participants</h2>
-<ul>
-{{#each participants}}
-<li>
-  {{this._user.username}}
-</li>
-{{/each}}
-</ul>
+  {{!-- DELETE EVENTS --}}
+    <form action="/events/{{event._id}}/delete" method ="get">
+      <button id="deleting"  class="button delete"><i class="fas fa-trash-alt"></i></button>
+    </form>
+  {{/ifEquals}}
+</div>
+</div>
