@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
-  
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <meta name="google-signin-client_id" content={{key}}>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-
   <script src='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:700|Work+Sans:700" rel="stylesheet">
  <link href='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
-  <a class="navbar-brand" href="/"> <img src="/images/food.png" alt="" height="40"> </a>
+  <nav class="navbar navbar-expand-md bg-success text-white">
+  <a class="navbar-brand" href="/"> <img src="/images/red-pepper.png" alt="" height="40"> </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -26,43 +26,46 @@
     <ul class="navbar-nav mr-auto">
       {{#if isConnected }}
        <li class="nav-item">
-          <i class="fas fa-user"></i>
-          <a class="nav-link" href="/users/{{currentUserId}}">{{username}}'s profile</a>
+          <a class="nav-link" href="/users/{{currentUserId}}"><i class="fas fa-user"></i> My profile</a>
         </li>
         <li class="nav-item">
-          <i class="fas fa-book-open"></i>
-          <a class="nav-link" href="/posts">Newsfeed</a>
-        </li>
-        {{!-- <li class="nav-item">
-          <a class="nav-link" href="/friends">My friends</a>
-        </li> --}}
-        <li class="nav-item">
-          <i class="fas fa-search"></i>
-          <a class="nav-link" href="/friends/find">Find friends</a>
+          <a class="nav-link" href="/posts"><i class="fas fa-book-open"></i> Newsfeed</a>
         </li>
         <li class="nav-item">
-          <i class="far fa-calendar-alt"></i>
-          <a class="nav-link" href="/events">Events</a>
+          <a class="nav-link" href="/friends/find"><i class="fas fa-search"></i> Find friends</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/events"><i class="far fa-calendar-alt"></i> Events</a>
+        </li>
+      {{/if}}
+        
         {{!-- <li class="nav-item">
           <a class="nav-link" href="/users">See all Users</a>
         </li> --}}
-        <li class="nav-item">
-          <i class="fas fa-sign-out-alt"></i>
-          <a class="nav-link" href="/auth/logout">Logout</a>
-        </li>
-        {{else}}
+      {{#unless isConnected }}
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/auth/login">Login</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/auth/signup">Signup</a>
-        </li>
+      {{/unless}}
+    </ul>
+    <ul class="navbar-nav">
+      {{#if isConnected }}
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </li>
       {{/if}}
-      </ul>
+       {{#unless isConnected }}
+        <li class="nav-item">
+            <a class="nav-link" href="/auth/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/auth/signup"><i class="fas fa-user-plus"></i> Signup</a>
+        </li>
+      {{/unless}}
+    </ul>
+      
+      
+
     {{!-- <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

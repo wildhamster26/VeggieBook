@@ -11,10 +11,29 @@ body {
   // background-size: cover;
 }
 
+nav {
+font-family: 'Quicksand', sans-serif;
+}
+
+.navbar-brand {
+  padding:0 0 100px;
+}
+
+.nav-item a{
+  color: #eee;
+}
+
+.nav-item a:hover{
+  color: #fff;
+}
+
+i {
+  color: #E1342B;
+}
+
 a {
   color: #00B7FF;
 }
-
 
 
 button { 
