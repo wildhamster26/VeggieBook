@@ -28,7 +28,7 @@
         var coordinates = [{{event.location.coordinates}}]
 
         // Add your own token
-        mapboxgl.accessToken = process.env.MAPBOX_KEY//this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
+        mapboxgl.accessToken = "pk.eyJ1Ijoic2FtNDZoIiwiYSI6ImNqb2sxam9jejAyY20za3RvbXVlMmNwaTQifQ.pePFjpJz6lMlXZKEeOy4xA"//this is where you add your mapbox key - please note that adding it in the .env file is not sufficient, you'll need to add the key here.
 
         let map = new mapboxgl.Map({
           container: 'map', // Select the div with the id 'map'
