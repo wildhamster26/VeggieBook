@@ -140,7 +140,10 @@ button {
   }
 }
 
-// Private homepage styles
+// Private homepage styles//
+////////////////////////////
+////////////////////////////
+////////////////////////////
 .user-prof-pic {
   box-shadow: 0 0 15px grey;
   // display: block;
@@ -155,7 +158,7 @@ button {
 }
 #newsfeed-subheader {
   max-width: 700px;
-  margin: 0 auto; 
+  margin: 20px auto 0 10px; 
   form {
     margin: 0;
   }
@@ -177,7 +180,7 @@ button {
   #post-header {
     display: flex;
     align-items: center;
-    height: 80px;;
+    height: 80px;
     #user-prof-pic-div {
       display: flex;
       width: 20%;
@@ -234,14 +237,10 @@ button {
     margin: 0 auto;
     object-fit: contain;
     max-width: 100%;
-    // width: 100%;
     height: auto;
-    // box-shadow: 0 0 10px grey;
-    // border-radius: 5px;
-    // height: 400px;
   }
 }
-#post-date {
+.post-date {
   // position: absolute;
   align-self: center;
   margin: auto 10px 10px 10px;
@@ -263,6 +262,8 @@ button {
     width: 65px;
     height: 100%;
     margin: 10px;
+    position: relative;
+    top: 5px;
     img {
       width: 65px;
       height: 65px;
@@ -286,9 +287,10 @@ button {
 
 #delete-comment-button {
   position: relative;
-  top: 10px;
-  left: 10px;
-  box-shadow: 0 0 10px grey;
+  top: 44px;
+  left: 3px;
+  margin-right: 10px;
+  // box-shadow: 0 0 10px grey;
 
 }
 #comment-input-box {
@@ -324,13 +326,72 @@ button {
   margin: 0 10px;
   button {
     box-shadow: 0 0 10px grey;
-
   }
   .delete {
     background-color: lightcoral;
-
   }
 }
+
+//Events styles
+#events-subheader {
+  max-width: 700px;
+  margin: 20px auto 0; 
+  form {
+    // margin: 0;
+  }
+  button {
+    margin-left: 10px;
+  }
+}
+#event-gen-wrapper {
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  max-width: 700px;
+  width: 95%;
+  box-shadow: 0 0 10px lightgray;
+  margin: 30px auto;
+  border-radius: 5px;
+  padding: 0px 0 10px;
+  #event-header {
+    display: flex;
+    align-self: center;
+    height: 60px;
+    h3 {
+      text-justify: center;
+      text-align: center;
+      align-self: center;
+      justify-content: center;
+    }
+  }
+  #event-img {
+    display: inline-block;
+    margin: 0 auto 10px;
+    object-fit: contain;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+  }
+  #event-mid-div {
+    margin: 0 10px;
+  }
+  #event-map {
+    background-color: lightgray;
+    height: 200px;
+  }
+  #post-comments-div {
+    position: relative;
+    top: 0px;
+    // margin: 0 0 10px;
+  }
+  #comment-input-box {
+    margin: 10px 0 
+  }
+}
+
+
+
 
 
 

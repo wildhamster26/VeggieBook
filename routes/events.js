@@ -22,7 +22,10 @@ router.get("/add", (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       date: req.body.date,
-      city: req.body.city,
+      address: {
+        street: req.body.street,
+        city: req.body.city
+      },
       location: location,
       imgName : req.file.originalname,
       imgPath : req.file.url,
@@ -129,20 +132,23 @@ router.post("/:eventId/add-comment", (req, res, next) => {
   let _eventId = req.params.eventId;
   let _ownerId = req.user._id;
   let creatorUsername1 = req.user.username;
+  let imgPath = req.user.imgPath;
+  console.log('REQ.USER', req.user.imgPath)
   console.log(_eventId);
   let comment = {
     _creatorId: _ownerId,
     creatorUsername: creatorUsername1,
     _event: _eventId,
-    content: req.body.content
+    content: req.body.content,
+    imgPath: imgPath
     // likes: 0
   };
   Event.findByIdAndUpdate(
     { _id: _eventId },
     { $push: { comments: comment } }
   ).then(event => {
-    console.log("AHHHH COMMENTS");
-    console.log(event);
+    // console.log("AHHHH COMMENTS");
+    // console.log(event);
     res.redirect("/events/" + _eventId + "/detail");
   });
 });
