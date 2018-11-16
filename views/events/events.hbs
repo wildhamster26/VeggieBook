@@ -1,28 +1,17 @@
-<div class="btn rounded bg-success text-white">
-  <a href="/events/add">Create an event</a>
-  <i class="fas fa-plus"></i>
-</div>
 
 <div class="form-add-title text-success">
   <h3>Find your event</h3>
 </div>
 
-
-<div class="event-cards">
-
-<div class="form-add-title text-success">
-  <h3>Find your event</h3>
-</div>
+<br>
 
 <div id="event-subheader">
- <form action="/posts/add" method:"get">
+ <form action="/events/add" method:"get">
     <button class="button bg-success text-white">Create an event <i class="fas fa-plus"></i></button>
-  </form>
 </div>
+<br>
 
-
-
-<ul>
+<div class="event-cards">
 {{#each events }}
   <div class="card event-list" style="width: 18rem;">
     <img class="event-img" src={{this.imgPath}} alt="" height="100px">
