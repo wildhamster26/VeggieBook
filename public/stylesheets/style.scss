@@ -12,11 +12,8 @@ body {
 }
 
 nav {
-font-family: 'Quicksand', sans-serif;
-}
-
-.navbar-brand {
-  padding:0 0 100px;
+  font-family: 'Quicksand', sans-serif;
+  height: 40px;
 }
 
 .nav-item a{
@@ -27,12 +24,32 @@ font-family: 'Quicksand', sans-serif;
   color: #fff;
 }
 
-i {
-  color: #E1342B;
-}
-
 a {
   color: #00B7FF;
+}
+
+.welcome-page{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:98vh;
+  // background-image: url("/images/Veg orgy 1-opac.png");
+  // background-image: url("/images/veg orgy 2 - opac.png");
+  background-image: url("/images/vegetables-opacity.png");
+}
+
+.welcome-message{
+  text-align: center;
+  margin-top: -5%; 
+}
+
+.welcome-h1{
+  font-size: 4em;
+
+}
+
+.welcome-p{
+  font-size: 1.5em;
 }
 
 
