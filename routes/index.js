@@ -95,6 +95,7 @@ router.get('/users/:id/edit', (req, res, next) => {
 });
 
 router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => {
+  let id = req.params.id
   if (req.file){ 
   cloudinary.v2.uploader.destroy(req.user.public_id, function(result) { console.log(result) }); 
   User.findByIdAndUpdate(req.params.id, {
@@ -113,7 +114,7 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
   })
 	.then(user => {	
     console.log("req.body after the imageless update before redirecting:", req.body)
-    res.redirect('/users');	
+    res.redirect('/users/+');	
   })}
   else {
     User.findByIdAndUpdate(req.params.id, {
@@ -128,7 +129,7 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
       darkSecret: req.body.darkSecret,
       })
       .then(user => {	
-        res.redirect('/users');	
+        res.redirect('/users/'+ id);	
       })
   }		
 });

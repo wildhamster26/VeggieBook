@@ -327,9 +327,6 @@ button {
     height: auto; }
   #event-gen-wrapper #event-mid-div {
     margin: 0 10px; }
-  #event-gen-wrapper #event-map {
-    background-color: lightgray;
-    height: 200px; }
   #event-gen-wrapper #post-comments-div {
     position: relative;
     top: 0px; }
