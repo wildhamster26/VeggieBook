@@ -368,7 +368,22 @@ button {
   }
 }
 
+.form-add {
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
 
+.form-add-title h3 {
+  font-size: 2em;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.google-btn {
+  margin: 30px auto;
+}
 
 // OVERRIDE THE DEFAULT VALUES OF BOOTSTRAP BY DEFINING THEM ABOVE THE IMPORT
 $primary: rgb(114, 172, 56);

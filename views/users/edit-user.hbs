@@ -1,63 +1,60 @@
-<h1>Edit user</h1>					
+
+<div class="form-add-title text-success">
+<h3>Edit user</h3>	
+</div>				
 					
 {{#if error}}					
 	<div class="alert-red">				
 		{{error}}			
 	</div>				
 {{/if}}					
-					
 			
-
+<div class ="form-add text-success">
 <form action="/users/{{user._id}}/edit" method="post" enctype="multipart/form-data">	
   {{#if user.imgPath}}
     <img src="{{user.imgPath}}" alt="user's picture" height="150px">
-    <br>
+    <br> <br>
   {{/if}}
+
+  <input type="file" name="photo">
   <label>Profile picture</label>
-  <input type="file" name="photo" required>
   <br><br>
-  
   <label for="username">Username</label>
-  <input id="username" value="{{user.username}}" type="text" name="username" placeholder="JonSnow" required>
+  <input id="username" value="{{user.username}}" type="text" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="username" placeholder="JonSnow">
 
-  <br><br>
+  <label for="email">Email</label>   <br>
 
-  <a href="/auth/forgot">Change my password through email confirmation</a>  
-  <br><br>
-
-  <label for="email">Email</label>
-  <input id="email" value="{{user.email}}" type="email" name="email" placeholder="Your email" required>
-  <br><br>
+  <input id="email" value="{{user.email}}" type="email" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="email" placeholder="Your email">
 
 
   <label for="kind">What kind of vegetable are you?</label>
-  <input id="kind" value="{{user.kind}}" type="kind" name="kind" placeholder="Your kind">
-  <br><br>
+  <input id="kind" value="{{user.kind}}" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" type="kind" name="kind" placeholder="Your kind">
 
   <label for="age">How old are you? (In pickle years)</label>
-  <input id="age" value="{{user.age}}" type="age" name="age" placeholder="Your age">
-  <br><br>
+  <input id="age" value="{{user.age}}" type="age" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="age" placeholder="Your age">
 
   <label for="phoneNumber">What is your phone number?</label>
-  <input id="phoneNumber" value="{{user.phoneNumber}}" type="phoneNumber" name="phoneNumber" placeholder="Your phone number">
-  <br><br>
+  <input id="phoneNumber" value="{{user.phoneNumber}}" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" type="phoneNumber" name="phoneNumber" placeholder="Your phone number">
 
   <label for="hobbies">What are your hobbies?</label>
-  <input id="hobbies" value="{{user.hobbies}}" type="hobbies" name="hobbies" placeholder="Your hobbies">
-  <br><br>
+  <input id="hobbies" value="{{user.hobbies}}" type="hobbies" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="hobbies" placeholder="Your hobbies">
 
   <label for="fears">What are your fears?</label>
-  <input id="fears" value="{{user.fears}}" type="fears" name="fears" placeholder="Your fears">
-  <br><br>
+  <input id="fears" value="{{user.fears}}" type="fears" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="fears" placeholder="Your fears">
 
   <label for="darkSecret">What is your darkest, vegetabliest secret?</label>
-  <input id="darkSecret" value="{{user.darkSecret}}" type="darkSecret" name="darkSecret" placeholder="Your darkSecret">
+  <input id="darkSecret" value="{{user.darkSecret}}" type="darkSecret"  class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" name="darkSecret" placeholder="Your darkSecret">
+
+
+<button class="rounded bg-success text-white" >Accept changes</button>
+  <br><br><br>
+
+
+<a  class="btn rounded bg-success text-white" href="/auth/forgot">Change my password through email confirmation</a>  
+
+
+</form>
   <br><br>
-
-
-  <button>Accept changes</button>
   {{#if message }}
     <div class="error-message">{{ message }}</div>
   {{/if}}
-
-  <br><br>

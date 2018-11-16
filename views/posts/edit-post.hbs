@@ -1,32 +1,35 @@
-<h2>Edit posts details</h2>
+<div class="form-add-title text-success">
+<h3>Edit posts details</h3>
+</div>
 
+<div class ="form-add text-success">
 <form method="POST" action="/posts/{{post._id}}/edit"  enctype="multipart/form-data" >
 
-<label for="title">Title</label> <br>
-<input value= "{{post.title}}" type="text" name="title"> <br><br>
+<label for="title">What's the title of your post</label>
+<input value= "{{post.title}}" class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded" type="text" name="title"> 
 
-<label for="content">You post</label> <br>
-<input value= "{{post.content}}" type="text" name="content"> <br><br>
+<label for="content">You post content</label>
+<textarea  value= {{post.content}} class="form-control col-12 border border-success shadow p-3 mb-5 bg-white rounded"  name="content" cols="30" rows="3"></textarea> 
 
-<label for="visibility">Choose who can see your post</label> <br>
-<select name="visibility">
+<label for="visibility">Choose who can see your post</label>
+<select name="visibility" class="border border-success shadow p-3 mb-5 bg-white rounded">
   <option value="Public">Public</option>
   <option value="Private">Private</option>
-</select> <br><br>
-
-<label for="category">Help other veggies find the kind of post it is by selecting a category</label> <br>
-<select name="category">
+</select> 
+<br>
+<label for="category">Help other veggies find the kind of post it is by selecting a category</label>
+<select name="category" class="border border-success shadow p-3 mb-5 bg-white rounded">
   <option value="Recommendation">Recommendation</option>
   <option value="Story">Story</option>
   <option value="Question">Question</option>
-</select> <br><br>
+</select> 
 
-
-  <label for="photo">Change image</label> 
-  <input type="file" name="photo" required>
   <br><br>
 
-<button type="submit"> Confirm changes </button>
-</form>
+  <input type="file" name="photo" required>
+  <label for="photo">Change image</label> 
 
+<button  class="rounded bg-success text-white" type="submit"> Confirm changes </button>
+</form>
+</div>
 
