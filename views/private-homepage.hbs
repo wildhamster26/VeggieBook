@@ -1,12 +1,12 @@
 
 {{!-- This is to display the posts that users create --}}
 
-<div class="page-title">
+<div class="page-title text-success">
   <h2>Newsfeed</h2>
 </div>
 <div id="newsfeed-subheader">
  <form action="/posts/add" method:"get">
-    <button class="button">Create a new post</button>
+    <button class="button bg-success text-white">Create a new post</button>
   </form>
 </div>
   {{#each posts}}
@@ -29,7 +29,7 @@
         <img src="{{this.imgPath}}" alt="Post's image" height="150px">
       </div>
       <div>
-        <h6 id="post-date">{{this.created_at}}</h6>
+        <h6 class="post-date">{{this.created_at}}</h6>
       </div>
 
       <div class="separator"></div>
@@ -52,8 +52,6 @@
           {{#ifEquals ../../currentUserId this._creatorId._id }}
             <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
               <button id="delete-comment-button"  class="small-delete-button">X</button>
-
-
             </form>
           {{/ifEquals}}
       </div>
@@ -64,7 +62,7 @@
           <input name="content" placeholder="Your comment here"></input>
         </div>
         <div>
-          <button class="button">Comment</button>
+          <button class="button bg-success text-white">Comment</button>
         </div>
         </form>
       </div>
@@ -73,7 +71,7 @@
         {{#ifEquals ../currentUserId this._creator._id}}
         {{!-- EDIT POST button --}}
         <form action="/posts/{{this._id}}/edit" method:"get">
-          <button class="button"><i class="fas fa-pencil-alt"></i></button>
+          <button class="button bg-success text-white"><i class="fas fa-pencil-alt"></i></button>
           
 
         </form>
