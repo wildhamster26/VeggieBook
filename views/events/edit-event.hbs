@@ -16,13 +16,17 @@
 <input  value="{{event.city}}" type="text" name="city"> <br><br>
 
 <label for="location">Map Coordinates</label> 
-  <input value="{{event.latitude}}" type="text" name="latitude">
-  <input value= "{{event.longitude}}" type="text" name="longitude" >
+  <input value="{{event.latitude}}" type="text" name="latitude" required>
+  <input value= "{{event.longitude}}" type="text" name="longitude" required>
   <br><br>
 
 <label for="photo">Change image</label> 
-  <input type="file" name="photo">
+  <input type="file" name="photo" required>
   <br><br>
   
   <input type="submit" name="">
 </form>
+
+{{#if message }}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
