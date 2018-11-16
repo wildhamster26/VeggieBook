@@ -47,11 +47,13 @@ let eventMarker = new mapboxgl.Marker({
 {{!-- EDIT EVENTS --}}
  <form action="/events/{{event._id}}/edit" method ="get">
       <button>Edit</button>
+ <i class="fas fa-pencil-alt"></i>
     </form>
 
 {{!-- DELETE EVENTS --}}
  <form action="/events/{{event._id}}/delete" method ="get">
       <button>Delete</button>
+      <i class="fas fa-trash-alt"></i>
     </form>
  {{/ifEquals}}
 
@@ -65,6 +67,8 @@ let eventMarker = new mapboxgl.Marker({
       {{#ifEquals ../currentUserId this._creatorId }}
       <form action="/events/{{../event._id}}/comment/{{this._id}}/delete" method="POST">
           <button>Delete comment</button> 
+          <i class="fas fa-trash-alt"></i>
+
         </form>
       {{/ifEquals}}
       {{/each}}
