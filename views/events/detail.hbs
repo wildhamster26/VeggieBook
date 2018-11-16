@@ -5,7 +5,7 @@
 {{!-- BUTTON TO JOIN THE EVENT --}}
 <div id="events-subheader">
   <form action="/events/{{event._id}}/join" method="POST">
-      <button class="button">Join Event</button>
+      <button class="button bg-success text-white">Join Event</button>
   </form>
 </div>
 
@@ -104,7 +104,7 @@
   {{!-- EDIT EVENTS --}}
 
     <form action="/events/{{event._id}}/edit" method ="get">
-      <button class="button"><i class="fas fa-pencil-alt"></i></button>
+      <button class="button bg-success text-white"><i class="fas fa-pencil-alt"></i></button>
     </form>
   {{!-- DELETE EVENTS --}}
     <form action="/events/{{event._id}}/delete" method ="get">
