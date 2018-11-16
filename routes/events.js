@@ -87,17 +87,20 @@ router.get("/:id/detail", (req, res, next) => {
 router.get("/:id/edit", (req, res, next) => {
   let id = req.params.id;
   Event.findById(id).then(event => {
-    res.render("events/edit-event", { event });
+    res.render("events/edit-event", { event, "message": req.flash("error") });
   });
 });
 
 router.post("/:id/edit", uploadCloud.single('photo'), (req, res, next) => {
-  
+  let _event = req.params.id
+  if(!req.file){
+    req.flash("error", "Please Choose a file to upload.");
+    return res.redirect(`/events/${_event}/edit`);
+  }
   let location = {
     type: "Point",
     coordinates: [req.body.longitude, req.body.latitude]
   };
-  let _event = req.params.id
   cloudinary.v2.uploader.destroy(_event.public_id, function(result) { console.log(result) });
   Event.findByIdAndUpdate(req.params.id, {
       title:req.body.title,
