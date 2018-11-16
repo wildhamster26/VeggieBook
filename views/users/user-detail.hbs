@@ -48,9 +48,15 @@
 
 {{#if profileOwner}}
 	<p>			
-		<a href="/users/{{user._id}}/edit">Edit</a><br>		
-		<a href="/users/{{user._id}}/delete">Delete</a><br>		
+		<a href="/users/{{user._id}}/edit">
+		<i class="fas fa-pencil-alt"></i>
+		Edit</a><br>		
+		<a href="/users/{{user._id}}/delete">
+		<i class="fas fa-trash-alt"></i>
+		Delete</a><br>		
 	</p>			
+	 <a href="/friends">My friends
+	 <i class="fas fa-user-friends"></i></a>
 {{/if}}
 
 {{#if message}}
