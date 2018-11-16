@@ -120,6 +120,7 @@ button {
       display: flex;
       flex-flow: column; }
       #user-card-general-wrapper #user-card #user-card-text h3 {
+        font-weight: bold;
         position: absolute;
         right: 8px;
         top: 8px;
@@ -154,11 +155,9 @@ button {
 
 #newsfeed-subheader {
   max-width: 700px;
-  margin: 20px auto 0 10px; }
-  #newsfeed-subheader form {
-    margin: 0; }
+  margin: 20px auto 0; }
   #newsfeed-subheader button {
-    margin: 0; }
+    margin-left: 10px; }
 
 #post-gen-container {
   background-color: #fff;
