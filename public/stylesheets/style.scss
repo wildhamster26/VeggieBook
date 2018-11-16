@@ -348,6 +348,33 @@ button {
 .google-btn {
   margin: 30px auto;
 }
+.create-event {
+  margin: 10px;
+  color:white;
+}
+
+.event-cards {
+  display:flex;
+  flex-direction:row;
+}
+
+.event-list {
+  display:flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  margin: 10px;
+  box-shadow: 0 0 10px lightgray;
+}
+.event-img {
+  width:100px;
+  height:100px;
+  justify-content:center;
+  align-content: center;
+}
+
+
+
 
 // OVERRIDE THE DEFAULT VALUES OF BOOTSTRAP BY DEFINING THEM ABOVE THE IMPORT
 $primary: rgb(114, 172, 56);
