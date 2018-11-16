@@ -129,7 +129,7 @@ router.post('/users/:id/edit', uploadCloud.single('photo'), (req, res, next) => 
     favFoods: req.body.favFoods,
     darkSecret: req.body.darkSecret,
     imgPath: req.file.url,
-    imgName: req.file.originalname,
+    imgName: req.file.original,
     public_id: req.file.public_id
   })
 	.then(user => {	
