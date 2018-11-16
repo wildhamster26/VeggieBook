@@ -156,6 +156,12 @@ button {
 #newsfeed-subheader {
   max-width: 700px;
   margin: 0 auto; 
+  form {
+    margin: 0;
+  }
+  button {
+    margin: 0;
+  }
 }
 #post-gen-container {
   background-color: #fff;
@@ -230,7 +236,7 @@ button {
     max-width: 100%;
     // width: 100%;
     height: auto;
-    box-shadow: 0 0 10px grey;
+    // box-shadow: 0 0 10px grey;
     // border-radius: 5px;
     // height: 400px;
   }
@@ -242,7 +248,7 @@ button {
   right: 8px;
   top: 40px;
   color: grey;
-  font-size: 0.8em;
+  font-size: 0.65em;
   font-weight: lighter;
   text-align: center;
   width: 100%;
