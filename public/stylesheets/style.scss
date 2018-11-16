@@ -1,3 +1,4 @@
+
 * {
   list-style: none;
 }
@@ -13,7 +14,7 @@ body {
 
 nav {
   font-family: 'Quicksand', sans-serif;
-  height: 40px;
+  // height: 40px;
 }
 
 .nav-item a{
@@ -57,7 +58,7 @@ button {
   background-color: rgb(79, 141, 79);
   color: white;
   border: none;
-  box-shadow: 0 0 10px lightgray;
+  box-shadow: 0 0 10px #def9de;
   border-radius: 5px;
   padding: 3px 7px;
 }
@@ -65,7 +66,7 @@ button {
   background-color: rgb(79, 141, 79);
   color: white;
   border: none;
-  box-shadow: 0 0 10px lightgray;
+  box-shadow: 0 0 10px #def9de;
   border-radius: 5px;
   padding: 3px 7px;
   margin: 5px;
@@ -111,7 +112,7 @@ button {
     display: flex;
     width: 95%;
     height: 150px;
-    box-shadow: 0 0 10px lightgray;
+    box-shadow: 0 0 10px #def9de;
     margin: 10px auto;
     border-radius: 5px;
     #user-card-img {
@@ -120,7 +121,7 @@ button {
       align-items: center;
       margin: 5px;
       img {
-        box-shadow: 0 0 15px lightgray;
+        box-shadow: 0 0 15px #def9de;
         // display: block;
         margin: 0 auto;
         height: 100px;
@@ -178,7 +179,7 @@ button {
 
 // Private homepage styles
 .user-prof-pic {
-  box-shadow: 0 0 15px grey;
+  box-shadow: 0 0 15px #def9de;
   // display: block;
   // margin: 0 auto;
   height: 75px;
@@ -206,7 +207,7 @@ button {
   flex-flow: column;
   max-width: 700px;
   width: 95%;
-  box-shadow: 0 0 10px lightgray;
+  box-shadow: 0 0 10px #def9de;
   margin: 30px auto;
   border-radius: 5px;
   padding: 0px 0 10px;
@@ -392,6 +393,8 @@ button {
 .event-cards {
   display:flex;
   flex-direction:row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .event-list {
@@ -400,15 +403,55 @@ button {
     align-content: center;
     text-align: center;
   margin: 10px;
-  box-shadow: 0 0 10px lightgray;
+  box-shadow: 0 0 10px #def9de;
 }
 .event-img {
   width:100px;
   height:100px;
   justify-content:center;
   align-content: center;
+  margin: auto;
 }
 
+
+.user-prof-pic-big {
+  box-shadow: 0 0 15px grey;
+  height: 150px;
+  width: 150px;
+  display:flex;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+
+
+.usr-img {
+  margin: 0 auto;
+  object-fit: contain;
+  max-width: 100%;
+  height: auto;
+  align-content:center;
+  display:flex;
+justify-content: center;
+text-align: center;
+}
+}
+.profile-body {
+display:flex;
+flex-direction:column;
+justify-content: center;
+align-content: center;
+text-align: center;
+}
+
+.user-activity {
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  }
 
 
 
@@ -417,3 +460,4 @@ $primary: rgb(114, 172, 56);
 
 // IMPORT BOOTSTRAP FROM NODE MUDULES
 @import "node_modules/bootstrap/scss/bootstrap";
+

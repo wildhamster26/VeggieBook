@@ -1,4 +1,9 @@
-<img src="{{user.imgPath}}" alt="{{user.username}}'s image" height="150px">
+<div class="user-prof-pic-big">
+<img class="usr-img" src="{{user.imgPath}}" alt="{{user.username}}'s image" height="150px">
+</div>
+
+
+<div class="profile-body">
 <h1>{{user.username}}</h1>	
 <strong>Email</strong>: {{user.email}} <br>			
 <strong>Kind</strong>: {{user.kind}} <br>			
@@ -10,6 +15,10 @@
 <strong>Dark secret</strong>: {{user.darkSecret}} <br><br>
 <a href="/users/{{user._id}}/friends">My friends</a><br><br>
 
+</div>
+
+<div class="user-activity">
+<div class="activity-events">	
 {{#if userEvents}}
 	<strong>Events</strong>:<br> 
 
@@ -25,7 +34,8 @@
 		{{/if}}
 	{{/each}}
 {{/if}}
-
+</div>
+<div
 {{#if userPosts}}
 	<strong>Posts</strong>:<br> 
 
@@ -44,7 +54,7 @@
 		{{/if}}
 	{{/each}}
 {{/if}}
-
+</div>
 
 {{#if profileOwner}}
 	<p>			

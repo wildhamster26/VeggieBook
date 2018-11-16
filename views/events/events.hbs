@@ -1,30 +1,28 @@
 <div class="btn rounded bg-success text-white">
-<a href="/events/add">Create an event</a>
-<i class="fas fa-plus"></i>
+  <a href="/events/add">Create an event</a>
+  <i class="fas fa-plus"></i>
 </div>
 
 <div class="form-add-title text-success">
-<h3>Find your event</h3>
+  <h3>Find your event</h3>
 </div>
 
 
-<ul>
+<div class="event-cards">
 {{#each events }}
-<div class"event-cards">
-<li>
   <div class="card event-list" style="width: 18rem;">
-  <img class="event-img" src={{this.imgPath}} alt="" height="100px">
-  <div class="card-body">
-    <h5 class= "text-success">{{this.title}}</h5>
-     <a class="card-title" href="/events/{{this._id}}/detail">
-   See details
-  </a>
-   <p class="card-text">Date: {{this.date}} <br>
-  Location: {{this.city}} </p>
+    <img class="event-img" src={{this.imgPath}} alt="" height="100px">
+    <div class="card-body">
+      <h5 class= "text-success">{{this.title}}</h5>
+      <a class="card-title" href="/events/{{this._id}}/detail">
+      See details
+      </a>
+      <p class="card-text">
+        Date: {{this.date}} <br>
+        Location: {{this.city}} 
+      </p>
+    </div>
   </div>
-  </div>
-</li>
-</div>
 {{/each}}
-</ul>
+</div>
 
