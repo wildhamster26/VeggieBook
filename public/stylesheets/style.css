@@ -128,6 +128,10 @@ button {
 #newsfeed-subheader {
   max-width: 700px;
   margin: 0 auto; }
+  #newsfeed-subheader form {
+    margin: 0; }
+  #newsfeed-subheader button {
+    margin: 0; }
 
 #post-gen-container {
   background-color: #fff;
@@ -188,8 +192,7 @@ button {
     margin: 0 auto;
     object-fit: contain;
     max-width: 100%;
-    height: auto;
-    box-shadow: 0 0 10px grey; }
+    height: auto; }
 
 #post-date {
   align-self: center;
@@ -197,7 +200,7 @@ button {
   right: 8px;
   top: 40px;
   color: grey;
-  font-size: 0.8em;
+  font-size: 0.65em;
   font-weight: lighter;
   text-align: center;
   width: 100%; }

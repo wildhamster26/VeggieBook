@@ -49,10 +49,10 @@
               <p>{{this.content}}</p>
             </div>
           </div>
-          {{#ifEquals ../currentUserId this._creatorId }}
+          {{#ifEquals ../../currentUserId this._creatorId._id }}
             <form action="/posts/{{../this._id}}/comment/{{this._id}}/delete" method:"post">
               <button id="delete-comment-button"  class="small-delete-button">X</button>
-            <i class="fas fa-trash-alt"></i>
+
 
             </form>
           {{/ifEquals}}
@@ -73,14 +73,13 @@
         {{#ifEquals ../currentUserId this._creator._id}}
         {{!-- EDIT POST button --}}
         <form action="/posts/{{this._id}}/edit" method:"get">
-          <button class="button">Edit post</button>
-          <i class="fas fa-pencil-alt"></i>
+          <button class="button"><i class="fas fa-pencil-alt"></i></button>
+          
 
         </form>
         {{!-- DELETE POST button --}}
         <form action="/posts/{{this._id}}/delete" method:"get">
-          <button class="button delete">Delete post</button>
-           <i class="fas fa-trash-alt"></i>
+          <button class="button delete"><i class="fas fa-trash-alt"></i></button>
 
         </form>
         {{/ifEquals}}
