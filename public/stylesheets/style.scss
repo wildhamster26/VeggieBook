@@ -467,6 +467,7 @@ button {
 }
 
 
+
 .user-prof-pic-big {
   box-shadow: 0 0 15px grey;
   height: 150px;
@@ -486,8 +487,8 @@ button {
   height: auto;
   align-content:center;
   display:flex;
-justify-content: center;
-text-align: center;
+  justify-content: center;
+  text-align: center;
 }
 }
 .profile-body {
@@ -504,9 +505,45 @@ text-align: center;
   justify-content: center;
   align-content: center;
   text-align: center;
+}
+
+#prof-gen {
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  max-width: 700px;
+  width: 95%;
+  box-shadow: 0 0 10px lightgray;
+  margin: 30px auto;
+  border-radius: 5px;
+  padding: 0px 0 10px;
+
+}
+
+#prof-header {
+  display: flex;
+  justify-content: center;
+  // width: 100%;
+  #comment-user-prof-pic-div {
+    justify-content: center;
+    align-items: center;
+
+    img {
+      justify-content: center;
+      align-items: center;
+    }
   }
+  h1 {
+    margin-bottom: 20px;
+  }
+}
 
-
+#prof-gen-wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
 
 
 

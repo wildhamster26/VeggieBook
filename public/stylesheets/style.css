@@ -406,6 +406,35 @@ button {
   align-content: center;
   text-align: center; }
 
+#prof-gen {
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  max-width: 700px;
+  width: 95%;
+  box-shadow: 0 0 10px lightgray;
+  margin: 30px auto;
+  border-radius: 5px;
+  padding: 0px 0 10px; }
+
+#prof-header {
+  display: flex;
+  justify-content: center; }
+  #prof-header #comment-user-prof-pic-div {
+    justify-content: center;
+    align-items: center; }
+    #prof-header #comment-user-prof-pic-div img {
+      justify-content: center;
+      align-items: center; }
+  #prof-header h1 {
+    margin-bottom: 20px; }
+
+#prof-gen-wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center; }
+
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
