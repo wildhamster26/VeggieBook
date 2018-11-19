@@ -3,6 +3,7 @@
 // To execute this seed, run from the root of the project
 // $ node bin/seeds.js
 "use strict";
+require('dotenv').config();
 
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -11,7 +12,7 @@ const User = require("../models/User");
 const bcryptSalt = 10;
 
 mongoose
-  .connect('mongodb://localhost/veggiebook', {useNewUrlParser: true})
+  .connect('mongodb://heroku_zlz85q84:s4b33qpkogbrbn355vv89rpcf7@ds039351.mlab.com:39351/heroku_zlz85q84', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
