@@ -1,64 +1,81 @@
-<img src="{{user.imgPath}}" alt="{{user.username}}'s image" height="150px">
-<h1>{{user.username}}</h1>	
-<strong>Email</strong>: {{user.email}} <br>			
-<strong>Kind</strong>: {{user.kind}} <br>			
-<strong>Age</strong>: {{user.age}} <br>		
-<strong>Phone number</strong>: {{user.phoneNumber}} <br>		
-<strong>Hobbies</strong>: {{user.hobbies}} <br>		
-<strong>Fears</strong>: {{user.fears}} <br>		
-<strong>Favorite foods to be in</strong>: {{user.favFoods}} <br>		
-<strong>Dark secret</strong>: {{user.darkSecret}} <br><br>
-<a href="/users/{{user._id}}/friends">My friends</a><br><br>
+<div id="prof-gen">
 
-{{#if userEvents}}
-	<strong>Events</strong>:<br> 
+	<div id="prof-header">
+		<div id="comment-user-prof-pic-div">
+			<img class="user-prof-pic" src="{{user.imgPath}}" alt="Profile pic">
+			<h1>{{user.username}}</h1>	
+		</div>
+	</div>
 
-	{{#each userEvents}}
-	<a href="/events/{{this._id}}/detail">{{this.title}}</a><br>
-		{{this.description}} <br><br>
-		{{#if this.comments}}
-		Comments:<br>
-		{{#each this.comments}}
-			By {{this._creator}}: <br>
-			{{this.content}} <br>
-		{{/each}}
+
+	<div id="prof-gen-wrapper">
+
+		<div class="profile-body">
+			<strong>Email</strong> {{user.email}} <br><br>			
+			<strong>Kind</strong> {{user.kind}} <br><br>			
+			<strong>Age</strong> {{user.age}} <br><br>		
+			<strong>Phone number</strong> {{user.phoneNumber}} <br><br>		
+			<strong>Hobbies</strong> {{user.hobbies}} <br><br>		
+			<strong>Fears</strong> {{user.fears}} <br><br>		
+			<strong>Favorite foods to be in</strong> {{user.favFoods}} <br><br>		
+			<strong>Dark secret</strong>: {{user.darkSecret}} <br><br>
+			<a href="/users/{{user._id}}/friends">My friends</a><br><br>
+		</div>
+
+		<div class="user-activity">
+		<div class="activity-events">	
+		{{#if userEvents}}
+			<strong>Events</strong>:<br> 
+
+			{{#each userEvents}}
+			<a href="/events/{{this._id}}/detail">{{this.title}}</a><br>
+				{{this.description}} <br><br>
+				{{#if this.comments}}
+				Comments:<br>
+				{{#each this.comments}}
+					By {{this._creator}}: <br>
+					{{this.content}} <br>
+				{{/each}}
+				{{/if}}
+			{{/each}}
 		{{/if}}
-	{{/each}}
-{{/if}}
+		</div>
+		<div
+		{{#if userPosts}}
+			<strong>Posts</strong>:<br> 
 
-{{#if userPosts}}
-	<strong>Posts</strong>:<br> 
-
-	{{#each userPosts}}
-		{{this.title}} <br>
-		{{this.content}} <br><br>
-		{{#if this.comments}}
-		Comments:<br>
-		{{#each this.comments}}
-			By {{this.creatorUsername}}: <br>
-			{{this.content}} <br>
-			<form action="/" method="POST">
-			<button>Delete comment</button>
-			</form>
-		{{/each}}
+			{{#each userPosts}}
+				{{this.title}} <br>
+				{{this.content}} <br><br>
+				{{#if this.comments}}
+				Comments:<br>
+				{{#each this.comments}}
+					By {{this.creatorUsername}}: <br>
+					{{this.content}} <br>
+					<form action="/" method="POST">
+					<button>Delete comment</button>
+					</form>
+				{{/each}}
+				{{/if}}
+			{{/each}}
 		{{/if}}
-	{{/each}}
-{{/if}}
+		</div>
 
+		{{#if profileOwner}}
+			<p>			
+				<a href="/users/{{user._id}}/edit">
+				<i class="fas fa-pencil-alt"></i>
+				Edit</a><br>		
+				<a href="/users/{{user._id}}/delete">
+				<i class="fas fa-trash-alt"></i>
+				Delete</a><br>		
+			</p>			
+			<a href="/friends">My friends
+			<i class="fas fa-user-friends"></i></a>
+		{{/if}}
 
-{{#if profileOwner}}
-	<p>			
-		<a href="/users/{{user._id}}/edit">
-		<i class="fas fa-pencil-alt"></i>
-		Edit</a><br>		
-		<a href="/users/{{user._id}}/delete">
-		<i class="fas fa-trash-alt"></i>
-		Delete</a><br>		
-	</p>			
-	 <a href="/friends">My friends
-	 <i class="fas fa-user-friends"></i></a>
-{{/if}}
-
-{{#if message}}
-    <div class="error-message">{{ message }}</div>
-{{/if}}
+		{{#if message}}
+				<div class="error-message">{{ message }}</div>
+		{{/if}}
+	</div>
+</div>
