@@ -1,8 +1,8 @@
 # Freshbook
-
+https://freshbook.herokuapp.com/
 ## Description
 
-A social network for fruit & vegetables.
+A social network for fruit & vegetables. :)
 
 
 ## Technologies used
